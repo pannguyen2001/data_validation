@@ -64,7 +64,7 @@ def mark_result(
     if error_amount == 0:
         logger.success(f"[{column}] [{validation_type}] All records are valid.")
         return
-    
+
     shape: int = mask.shape[0]
     sample_index_errors: List = (mask.where(mask).dropna().index + 2).values.tolist()[:5]
     logger.error(f"{error_message}. {error_amount}/{shape} records are invalid. Excel index example: {sample_index_errors}.")

@@ -48,9 +48,3 @@ class TestReadFileStrategy(unittest.TestCase):
         incorrect_file_path: str = os.path.join(BASE_PATH, "data", "test_data", "API learner profile template.xlsx")
         result = ReadExcelFileStrategy(incorrect_file_path)
         assert result is None, "Result is empty."
-
-
-    
-
-
-    

@@ -3,40 +3,19 @@ import pandas as pd
 import numpy as np
 from loguru import logger
 from typing import Dict
-from helpers.factory import (
-    ValidationStrategyFactory,
-    ReadFileStrategyFactory,
-    PreprocessingStrategyFactory
-    )
-from helpers.strategy.read_file import (
-    ReadExcelFileStrategy,
-    ReadJsonFileStrategy,
-    ReadYAMLFileStrategy
-)
-from helpers.strategy.validation import (
-    MandatoryValidation,
-    UniqueValidation,
-    DatetimeFormatValidation,
-    InRangeDateTimeValidation,
-    ValueListValidation
-    )
-from helpers.strategy.preprocessing import (
-    RemoveWhiteSpaceProcessing,
-    StringCaseProcessing,
-    SplitStringProcessing,
-    EnumMappingProcessing,
-    FillDefaultValueProcessing
-    )
-from helpers.strategy.validation.inner_reference import InnerReferenceValidation
+from pipeline.setup import read_file_strategy_factory
 from utils import process_config, process_result
+from pipeline.validate import validate_data
+from pipeline.processing import process_data
+from pipeline.setup import write_data_strategy_factory
 
 
 # ========== Constants ==========
-data_file_path = "/home/user/datavalidation/data/test_data/API learner profile template Dev.xlsx"
+data_file_path = r"data\test_data\API learner profile template Dev.xlsx"
 sheet_name: str = "Edit learner profile result"
 
-validation_config_file_path: str = "/home/user/datavalidation/configs/learner_account_validation_config.yaml"
-preprocessing_congfig_file_path: str = "/home/user/datavalidation/configs/learner_account_preprocessing_config.yaml"
+validation_config_file_path: str = r"configs\validation\learner_account_validation_config.yaml"
+preprocessing_congfig_file_path: str = r"configs\processing\learner_account_processing_config.yaml"
 
 common_kwargs = {
     "${SHEET_NAME}": sheet_name,
@@ -46,28 +25,17 @@ common_kwargs = {
 }
 # logger.info(common_kwargs)
 
-# ========== ReadFileStrategy ==========
-read_file_strategy_factory = ReadFileStrategyFactory()
-read_file_strategy_factory.register("excel", ReadExcelFileStrategy)
-read_file_strategy_factory.register("json", ReadJsonFileStrategy)
-read_file_strategy_factory.register("yaml", ReadYAMLFileStrategy)
 
-read_json_file_strategy = read_file_strategy_factory.get_strategy("json")
-reaf_yaml_file_strategy = read_file_strategy_factory.get_strategy("yaml")
 read_excel_file_strategy = read_file_strategy_factory.get_strategy("excel")
-
+read_json_file_strategy = read_file_strategy_factory.get_strategy("json")
+read_yaml_file_strategy = read_file_strategy_factory.get_strategy("yaml")
 
 # ========== Load Enum data ==========
-learner_config_data_file_path: str = "/home/user/datavalidation/configs/learner_enum_data.json"
+learner_config_data_file_path: str = r"configs\constants\learner_enum_data.json"
 learner_config_data: Dict = read_json_file_strategy(learner_config_data_file_path).load()
 # logger.info(learner_config_data)
 
-learner_enum_data: Dict = (
-    learner_config_data
-    .get("predata", {})
-    .get("learner_account", {})
-    .get("enum", {})
-)
+learner_enum_data: Dict = learner_config_data
 # logger.info(learner_enum_data)
 
 # in this case, enum is post processing, meaning string data will be mapped before send to be
@@ -99,15 +67,14 @@ value_list_kwargs: Dict = {
 
 # ========== Load pre processing config ==========
 # Load validation config
-preprocessing_config_data = reaf_yaml_file_strategy(preprocessing_congfig_file_path).load()
+preprocessing_config_data = read_yaml_file_strategy(preprocessing_congfig_file_path).load()
 
 df_preprocessing_config = pd.DataFrame(preprocessing_config_data["files"])
 df_preprocessing_config = process_config(df_preprocessing_config, {**common_kwargs, **enum_mapping_kwargs})
 
 
-
 # ========== Load validation config ==========
-validation_config = reaf_yaml_file_strategy(validation_config_file_path).load()
+validation_config = read_yaml_file_strategy(validation_config_file_path).load()
 
 df = pd.DataFrame(validation_config["files"])
 df = process_config(df, {**common_kwargs, **value_list_kwargs})
@@ -120,14 +87,44 @@ df_learner_account: pd.DataFrame = read_excel_file_strategy(data_file_path).load
 
 
 # ========== Pre Processing data ==========
-
-from pipeline.processing import process_data
 df_preprocessing = df_preprocessing_config.loc[df_preprocessing_config["processing_type"] == "preprocessing"]
 logger.info(df_preprocessing)
 df_learner_account = process_data(df_learner_account, df_preprocessing)
 df_preprocessing.to_excel("df_learner_account_preprocessing_config.xlsx", index=False)
 
-# # remove white space
+
+# ========== Test validation: mandatory vs inner ref ==========
+df_learner_account = validate_data(df_learner_account, df)
+
+
+# ========== Process result and write to error report ==========
+df_learner_account = process_result(df_learner_account, file_path="test_learner_account_validation.xlsx")
+
+
+# # ========== Post prcoessing: Enum for send request ==========
+
+df_postprocessing = df_preprocessing_config.loc[df_preprocessing_config["processing_type"] == "postprocessing"]
+# logger.info(df_postprocessing)
+
+df_learner_account = process_data(df_learner_account, df_postprocessing)
+logger.info(df_learner_account)
+write_data_strategy_factory.get_strategy("excel")().run(df=df_postprocessing, file_path="df_learner_account_postrocessing_config.xlsx")
+
+
+
+
+# # process config file ok
+# # pre processing ok
+# # and run validation -> which can in validation_config.yaml -> common config
+# Which special -> write special validation -> inherit ValidationStrategy
+# # need do: Outer reference and special logic -> pipeline
+#  data_type -> check integer type, numeric type, boolean type
+
+
+
+# ===========================
+
+# remove white space
 # remove_white_space_columns = df_preprocessing_config.loc[df_preprocessing_config["type"] == "remove_white_space"]
 # remove_white_space_processing = preprocessing_strategy_factory.get_strategy("remove_white_space")
 # for index, config in remove_white_space_columns.iterrows():
@@ -152,10 +149,6 @@ df_preprocessing.to_excel("df_learner_account_preprocessing_config.xlsx", index=
 
 # Split string (Don't have)
 
-
-# ========== Test validation: mandatory vs inner ref ==========
-from pipeline.validate import validate_data
-df_learner_account = validate_data(df_learner_account, df)
 
 # mandatory_validation_strategy = validation_strategy_factory.get_strategy("mandatory") # can add more , validation_type="Check mandatory", message="This field is required." here if want
 
@@ -220,23 +213,3 @@ df_learner_account = validate_data(df_learner_account, df)
 #     ).run()
 
 # logger.info(df_learner_account["validation_result"])
-
-# ========== Process result and write to error report ==========
-process_result(df_learner_account, "test_learner_account_validation.xlsx", sheet_name, index=False)
-
-
-# # ========== Post prcoessing: Enum for send request ==========
-df_postprocessing = df_preprocessing_config.loc[df_preprocessing_config["processing_type"] == "postprocessing"]
-# logger.info(df_postprocessing)
-df_learner_account = process_data(df_learner_account, df_postprocessing)
-df_postprocessing.to_excel("df_learner_account_postrocessing_config.xlsx", index=False)
-
-
-
-
-# # process config file ok
-# # pre processing ok
-# # and run validation -> which can in validation_config.yaml -> common config
-# Which special -> write special validation -> inherit ValidationStrategy
-# # need do: Outer reference and special logic -> pipeline
-#  data_type -> check integer type, numeric type, boolean type

@@ -11,10 +11,10 @@ class ValueListValidation(ValidationStrategy):
     def validate(self, column: str = "") -> pd.Series:
         value_list = self.kwargs.get("values")
         if not value_list:
-            raise ValueError(f"[{self.__class__.__name__}] value_list is required.")
+            raise ValueError(f"[{self.__class__.__name__}] [{column}] value_list is required.")
         if not isinstance(value_list, object):
             raise TypeError(
-                f"[{self.__class__.__name__}] value_list is incorrect type."
+                f"[{self.__class__.__name__}] [{column}] value_list is incorrect type."
             )
 
         mask: pd.Series = ~self.df[column].isin(value_list) & self.df[column].notna()

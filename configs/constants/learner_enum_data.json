@@ -1,0 +1,5081 @@
+{
+  "Gender": {
+    "Unknown": "0",
+    "Female": "1",
+    "Male": "2"
+  },
+  "ResidentialStatus": {
+    "Singapore citizen": "1",
+    "Singapore PR": "2",
+    "Foreigner": "3"
+  },
+  "PassType": {
+    "None": "-1",
+    "RPass (Work Permit)": "0",
+    "SPass (S Pass)": "1",
+    "P1Pass (Employment Pass)": "2",
+    "P2Pass (Employment Pass)": "3",
+    "QPass (Employment Pass)": "4",
+    "PEP (Personalised Employment Pass)": "5",
+    "WHP (Work Holiday Pass)": "6",
+    "TEP (Training Employment Pass)": "7",
+    "Entre (EntrePass)": "8",
+    "DP (Dependent Pass)": "9",
+    "LTVP (Long Term Visit Pass)": "10",
+    "LOC (Letter of Consent)": "11",
+    "MWP (Miscellaneous Work Pass)": "12",
+    "STP (Student Pass)": "13",
+    "LTVP+ (Long Term Visit Pass +)": "14",
+    "IEO (Immigration Exemption Order)": "15",
+    "Others": "16"
+  },
+  "ResidentialAddress": {
+    "Singapore": "0",
+    "Non-Singapore": "1"
+  },
+  "noFloorAndUnit": {
+    "Yes": true,
+    "No": false
+  },
+  "IsEmployed": {
+    "yes": true,
+    "no": false
+  },
+  "VIP": {
+    "yes": true,
+    "no": false
+  },
+  "CountryList": [
+    {
+      "isoCode": "AF",
+      "code": "93",
+      "name": "Afghanistan"
+    },
+    {
+      "isoCode": "AL",
+      "code": "355",
+      "name": "Albania"
+    },
+    {
+      "isoCode": "DZ",
+      "code": "213",
+      "name": "Algeria"
+    },
+    {
+      "isoCode": "AS",
+      "code": "1 684",
+      "name": "American Samoa"
+    },
+    {
+      "isoCode": "AD",
+      "code": "376",
+      "name": "Andorra"
+    },
+    {
+      "isoCode": "AO",
+      "code": "244",
+      "name": "Angola"
+    },
+    {
+      "isoCode": "AI",
+      "code": "1 264",
+      "name": "Anguilla"
+    },
+    {
+      "isoCode": "AQ",
+      "code": "672",
+      "name": "Antarctica"
+    },
+    {
+      "isoCode": "AG",
+      "code": "1 268",
+      "name": "Antigua and Barbuda"
+    },
+    {
+      "isoCode": "AR",
+      "code": "54",
+      "name": "Argentina"
+    },
+    {
+      "isoCode": "AM",
+      "code": "374",
+      "name": "Armenia"
+    },
+    {
+      "isoCode": "AW",
+      "code": "297",
+      "name": "Aruba"
+    },
+    {
+      "isoCode": "AU",
+      "code": "61",
+      "name": "Australia"
+    },
+    {
+      "isoCode": "AT",
+      "code": "43",
+      "name": "Austria"
+    },
+    {
+      "isoCode": "AZ",
+      "code": "994",
+      "name": "Azerbaijan"
+    },
+    {
+      "isoCode": "BH",
+      "code": "973",
+      "name": "Bahrain"
+    },
+    {
+      "isoCode": "BD",
+      "code": "880",
+      "name": "Bangladesh"
+    },
+    {
+      "isoCode": "BB",
+      "code": "1 246",
+      "name": "Barbados"
+    },
+    {
+      "isoCode": "BY",
+      "code": "375",
+      "name": "Belarus"
+    },
+    {
+      "isoCode": "BE",
+      "code": "32",
+      "name": "Belgium"
+    },
+    {
+      "isoCode": "BZ",
+      "code": "501",
+      "name": "Belize"
+    },
+    {
+      "isoCode": "BJ",
+      "code": "229",
+      "name": "Benin"
+    },
+    {
+      "isoCode": "BM",
+      "code": "1 441",
+      "name": "Bermuda"
+    },
+    {
+      "isoCode": "BT",
+      "code": "975",
+      "name": "Bhutan"
+    },
+    {
+      "isoCode": "BO",
+      "code": "591",
+      "name": "Bolivia"
+    },
+    {
+      "isoCode": "BA",
+      "code": "387",
+      "name": "Bosnia and Herzegovina"
+    },
+    {
+      "isoCode": "BW",
+      "code": "267",
+      "name": "Botswana"
+    },
+    {
+      "isoCode": "BR",
+      "code": "55",
+      "name": "Brazil"
+    },
+    {
+      "isoCode": "VG",
+      "code": "1 284",
+      "name": "British Virgin Islands"
+    },
+    {
+      "isoCode": "BN",
+      "code": "673",
+      "name": "Brunei Darussalam"
+    },
+    {
+      "isoCode": "BG",
+      "code": "359",
+      "name": "Bulgaria"
+    },
+    {
+      "isoCode": "BF",
+      "code": "226",
+      "name": "Burkina Faso"
+    },
+    {
+      "isoCode": "MM",
+      "code": "95",
+      "name": "Myanmar"
+    },
+    {
+      "isoCode": "BI",
+      "code": "257",
+      "name": "Burundi"
+    },
+    {
+      "isoCode": "KH",
+      "code": "855",
+      "name": "Cambodia"
+    },
+    {
+      "isoCode": "CM",
+      "code": "237",
+      "name": "Cameroon"
+    },
+    {
+      "isoCode": "CA",
+      "code": "1",
+      "name": "Canada"
+    },
+    {
+      "isoCode": "CV",
+      "code": "238",
+      "name": "Cape Verde"
+    },
+    {
+      "isoCode": "KY",
+      "code": "1 345",
+      "name": "Cayman Islands"
+    },
+    {
+      "isoCode": "CF",
+      "code": "236",
+      "name": "Central African Republic"
+    },
+    {
+      "isoCode": "TD",
+      "code": "235",
+      "name": "Chad"
+    },
+    {
+      "isoCode": "CL",
+      "code": "56",
+      "name": "Chile"
+    },
+    {
+      "isoCode": "CN",
+      "code": "86",
+      "name": "China"
+    },
+    {
+      "isoCode": "TW",
+      "code": "886",
+      "name": "China Taiwan"
+    },
+    {
+      "isoCode": "CX",
+      "code": "61",
+      "name": "Christmas Island"
+    },
+    {
+      "isoCode": "CC",
+      "code": "61",
+      "name": "Cocos (Keeling) Islands"
+    },
+    {
+      "isoCode": "CO",
+      "code": "57",
+      "name": "Colombia"
+    },
+    {
+      "isoCode": "KM",
+      "code": "269",
+      "name": "Comoros"
+    },
+    {
+      "isoCode": "CK",
+      "code": "682",
+      "name": "Cook Islands"
+    },
+    {
+      "isoCode": "CR",
+      "code": "506",
+      "name": "Costa Rica"
+    },
+    {
+      "isoCode": "CI",
+      "code": "225",
+      "name": "Cote d'Ivoire"
+    },
+    {
+      "isoCode": "HR",
+      "code": "385",
+      "name": "Croatia"
+    },
+    {
+      "isoCode": "CY",
+      "code": "357",
+      "name": "Cyprus"
+    },
+    {
+      "isoCode": "CZ",
+      "code": "420",
+      "name": "Czech Republic"
+    },
+    {
+      "isoCode": "CD",
+      "code": "243",
+      "name": "Democratic Republic of the Congo"
+    },
+    {
+      "isoCode": "DK",
+      "code": "45",
+      "name": "Denmark"
+    },
+    {
+      "isoCode": "DJ",
+      "code": "253",
+      "name": "Djibouti"
+    },
+    {
+      "isoCode": "DM",
+      "code": "1 767",
+      "name": "Dominica"
+    },
+    {
+      "isoCode": "DO",
+      "code": "1 809",
+      "name": "Dominican Republic"
+    },
+    {
+      "isoCode": "EC",
+      "code": "593",
+      "name": "Ecuador"
+    },
+    {
+      "isoCode": "EG",
+      "code": "20",
+      "name": "Egypt"
+    },
+    {
+      "isoCode": "SV",
+      "code": "503",
+      "name": "El Salvador"
+    },
+    {
+      "isoCode": "GQ",
+      "code": "240",
+      "name": "Equatorial Guinea"
+    },
+    {
+      "isoCode": "ER",
+      "code": "291",
+      "name": "Eritrea"
+    },
+    {
+      "isoCode": "EE",
+      "code": "372",
+      "name": "Estonia"
+    },
+    {
+      "isoCode": "ET",
+      "code": "251",
+      "name": "Ethiopia"
+    },
+    {
+      "isoCode": "FK",
+      "code": "500",
+      "name": "Falkland Islands (Islas Malvinas)"
+    },
+    {
+      "isoCode": "FO",
+      "code": "298",
+      "name": "Faroe Islands"
+    },
+    {
+      "isoCode": "FM",
+      "code": "691",
+      "name": "Federated States of Micronesia"
+    },
+    {
+      "isoCode": "FJ",
+      "code": "679",
+      "name": "Fiji"
+    },
+    {
+      "isoCode": "FI",
+      "code": "358",
+      "name": "Finland"
+    },
+    {
+      "isoCode": "FR",
+      "code": "33",
+      "name": "France"
+    },
+    {
+      "isoCode": "GF",
+      "code": "594",
+      "name": "French Guiana"
+    },
+    {
+      "isoCode": "PF",
+      "code": "689",
+      "name": "French Polynesia"
+    },
+    {
+      "isoCode": "GA",
+      "code": "241",
+      "name": "Gabon"
+    },
+    {
+      "isoCode": "GE",
+      "code": "995",
+      "name": "Georgia"
+    },
+    {
+      "isoCode": "DE",
+      "code": "49",
+      "name": "Germany"
+    },
+    {
+      "isoCode": "GH",
+      "code": "233",
+      "name": "Ghana"
+    },
+    {
+      "isoCode": "GI",
+      "code": "350",
+      "name": "Gibraltar"
+    },
+    {
+      "isoCode": "GR",
+      "code": "30",
+      "name": "Greece"
+    },
+    {
+      "isoCode": "GL",
+      "code": "299",
+      "name": "Greenland"
+    },
+    {
+      "isoCode": "GD",
+      "code": "1 473",
+      "name": "Grenada"
+    },
+    {
+      "isoCode": "GP",
+      "code": "590",
+      "name": "Guadeloupe"
+    },
+    {
+      "isoCode": "GU",
+      "code": "1 671",
+      "name": "Guam"
+    },
+    {
+      "isoCode": "GT",
+      "code": "502",
+      "name": "Guatemala"
+    },
+    {
+      "isoCode": "GG",
+      "code": "44 1481",
+      "name": "Guernsey"
+    },
+    {
+      "isoCode": "GN",
+      "code": "224",
+      "name": "Guinea"
+    },
+    {
+      "isoCode": "GW",
+      "code": "245",
+      "name": "Guinea-Bissau"
+    },
+    {
+      "isoCode": "GY",
+      "code": "592",
+      "name": "Guyana"
+    },
+    {
+      "isoCode": "HT",
+      "code": "509",
+      "name": "Haiti"
+    },
+    {
+      "isoCode": "VA",
+      "code": "39",
+      "name": "Holy See (Vatican City)"
+    },
+    {
+      "isoCode": "HN",
+      "code": "504",
+      "name": "Honduras"
+    },
+    {
+      "isoCode": "HK",
+      "code": "852",
+      "name": "Hong Kong (SAR)"
+    },
+    {
+      "isoCode": "HU",
+      "code": "36",
+      "name": "Hungary"
+    },
+    {
+      "isoCode": "IS",
+      "code": "354",
+      "name": "Iceland"
+    },
+    {
+      "isoCode": "IN",
+      "code": "91",
+      "name": "India"
+    },
+    {
+      "isoCode": "id",
+      "code": "62",
+      "name": "Indonesia"
+    },
+    {
+      "isoCode": "IQ",
+      "code": "964",
+      "name": "Iraq"
+    },
+    {
+      "isoCode": "IE",
+      "code": "353",
+      "name": "Ireland"
+    },
+    {
+      "isoCode": "IL",
+      "code": "972",
+      "name": "Israel"
+    },
+    {
+      "isoCode": "IT",
+      "code": "39",
+      "name": "Italy"
+    },
+    {
+      "isoCode": "JM",
+      "code": "1 876",
+      "name": "Jamaica"
+    },
+    {
+      "isoCode": "JP",
+      "code": "81",
+      "name": "Japan"
+    },
+    {
+      "isoCode": "JO",
+      "code": "962",
+      "name": "Jordan"
+    },
+    {
+      "isoCode": "KZ",
+      "code": "7",
+      "name": "Kazakhstan"
+    },
+    {
+      "isoCode": "KE",
+      "code": "254",
+      "name": "Kenya"
+    },
+    {
+      "isoCode": "KI",
+      "code": "686",
+      "name": "Kiribati"
+    },
+    {
+      "isoCode": "KR",
+      "code": "82",
+      "name": "Korea South"
+    },
+    {
+      "isoCode": "KW",
+      "code": "965",
+      "name": "Kuwait"
+    },
+    {
+      "isoCode": "KG",
+      "code": "996",
+      "name": "Kyrgyzstan"
+    },
+    {
+      "isoCode": "LA",
+      "code": "856",
+      "name": "Laos"
+    },
+    {
+      "isoCode": "LV",
+      "code": "371",
+      "name": "Latvia"
+    },
+    {
+      "isoCode": "LB",
+      "code": "961",
+      "name": "Lebanon"
+    },
+    {
+      "isoCode": "LS",
+      "code": "266",
+      "name": "Lesotho"
+    },
+    {
+      "isoCode": "LR",
+      "code": "231",
+      "name": "Liberia"
+    },
+    {
+      "isoCode": "LY",
+      "code": "218",
+      "name": "Libya"
+    },
+    {
+      "isoCode": "LI",
+      "code": "423",
+      "name": "Liechtenstein"
+    },
+    {
+      "isoCode": "LT",
+      "code": "370",
+      "name": "Lithuania"
+    },
+    {
+      "isoCode": "LU",
+      "code": "352",
+      "name": "Luxembourg"
+    },
+    {
+      "isoCode": "MO",
+      "code": "853",
+      "name": "Macao"
+    },
+    {
+      "isoCode": "MG",
+      "code": "261",
+      "name": "Madagascar"
+    },
+    {
+      "isoCode": "MW",
+      "code": "265",
+      "name": "Malawi"
+    },
+    {
+      "isoCode": "MY",
+      "code": "60",
+      "name": "Malaysia"
+    },
+    {
+      "isoCode": "MV",
+      "code": "960",
+      "name": "Maldives"
+    },
+    {
+      "isoCode": "ML",
+      "code": "223",
+      "name": "Mali"
+    },
+    {
+      "isoCode": "MT",
+      "code": "356",
+      "name": "Malta"
+    },
+    {
+      "isoCode": "MH",
+      "code": "692",
+      "name": "Marshall Islands"
+    },
+    {
+      "isoCode": "MQ",
+      "code": "596",
+      "name": "Martinique"
+    },
+    {
+      "isoCode": "MR",
+      "code": "222",
+      "name": "Mauritania"
+    },
+    {
+      "isoCode": "MU",
+      "code": "230",
+      "name": "Mauritius"
+    },
+    {
+      "isoCode": "YT",
+      "code": "262",
+      "name": "Mayotte"
+    },
+    {
+      "isoCode": "MX",
+      "code": "52",
+      "name": "Mexico"
+    },
+    {
+      "isoCode": "MD",
+      "code": "373",
+      "name": "Moldova"
+    },
+    {
+      "isoCode": "MC",
+      "code": "377",
+      "name": "Monaco"
+    },
+    {
+      "isoCode": "ME",
+      "code": "382",
+      "name": "Montenegro"
+    },
+    {
+      "isoCode": "MN",
+      "code": "976",
+      "name": "Mongolia"
+    },
+    {
+      "isoCode": "MS",
+      "code": "1 664",
+      "name": "Montserrat"
+    },
+    {
+      "isoCode": "MA",
+      "code": "212",
+      "name": "Morocco"
+    },
+    {
+      "isoCode": "MZ",
+      "code": "258",
+      "name": "Mozambique"
+    },
+    {
+      "isoCode": "NA",
+      "code": "264",
+      "name": "Namibia"
+    },
+    {
+      "isoCode": "NR",
+      "code": "674",
+      "name": "Nauru"
+    },
+    {
+      "isoCode": "NP",
+      "code": "977",
+      "name": "Nepal"
+    },
+    {
+      "isoCode": "NL",
+      "code": "31",
+      "name": "Netherlands"
+    },
+    {
+      "isoCode": "NC",
+      "code": "687",
+      "name": "New Caledonia"
+    },
+    {
+      "isoCode": "NZ",
+      "code": "64",
+      "name": "New Zealand"
+    },
+    {
+      "isoCode": "NI",
+      "code": "505",
+      "name": "Nicaragua"
+    },
+    {
+      "isoCode": "NE",
+      "code": "227",
+      "name": "Niger"
+    },
+    {
+      "isoCode": "NG",
+      "code": "234",
+      "name": "Nigeria"
+    },
+    {
+      "isoCode": "NU",
+      "code": "683",
+      "name": "Niue"
+    },
+    {
+      "isoCode": "NF",
+      "code": "672",
+      "name": "Norfolk Island"
+    },
+    {
+      "isoCode": "MP",
+      "code": "1 670",
+      "name": "Northern Mariana Islands"
+    },
+    {
+      "isoCode": "NO",
+      "code": "47",
+      "name": "Norway"
+    },
+    {
+      "isoCode": "OM",
+      "code": "968",
+      "name": "Oman"
+    },
+    {
+      "isoCode": "PK",
+      "code": "92",
+      "name": "Pakistan"
+    },
+    {
+      "isoCode": "PW",
+      "code": "680",
+      "name": "Palau"
+    },
+    {
+      "isoCode": "PA",
+      "code": "507",
+      "name": "Panama"
+    },
+    {
+      "isoCode": "PG",
+      "code": "675",
+      "name": "Papua New Guinea"
+    },
+    {
+      "isoCode": "PY",
+      "code": "595",
+      "name": "Paraguay"
+    },
+    {
+      "isoCode": "PE",
+      "code": "51",
+      "name": "Peru"
+    },
+    {
+      "isoCode": "PH",
+      "code": "63",
+      "name": "Philippines"
+    },
+    {
+      "isoCode": "PL",
+      "code": "48",
+      "name": "Poland"
+    },
+    {
+      "isoCode": "PT",
+      "code": "351",
+      "name": "Portugal"
+    },
+    {
+      "isoCode": "PR",
+      "code": "1",
+      "name": "Puerto Rico"
+    },
+    {
+      "isoCode": "QA",
+      "code": "974",
+      "name": "Qatar"
+    },
+    {
+      "isoCode": "CG",
+      "code": "242",
+      "name": "Republic of the Congo"
+    },
+    {
+      "isoCode": "RE",
+      "code": "262",
+      "name": "Reunion"
+    },
+    {
+      "isoCode": "RO",
+      "code": "40",
+      "name": "Romania"
+    },
+    {
+      "isoCode": "RU",
+      "code": "7",
+      "name": "Russia"
+    },
+    {
+      "isoCode": "RW",
+      "code": "250",
+      "name": "Rwanda"
+    },
+    {
+      "isoCode": "SH",
+      "code": "290",
+      "name": "Saint Helena"
+    },
+    {
+      "isoCode": "KN",
+      "code": "1 869",
+      "name": "Saint Kitts and Nevis"
+    },
+    {
+      "isoCode": "LC",
+      "code": "1 758",
+      "name": "Saint Lucia"
+    },
+    {
+      "isoCode": "VC",
+      "code": "1 784",
+      "name": "Saint Vincent and the Grenadines"
+    },
+    {
+      "isoCode": "WS",
+      "code": "685",
+      "name": "Samoa"
+    },
+    {
+      "isoCode": "SM",
+      "code": "378",
+      "name": "San Marino"
+    },
+    {
+      "isoCode": "ST",
+      "code": "239",
+      "name": "Sao Tome and Principe"
+    },
+    {
+      "isoCode": "SA",
+      "code": "966",
+      "name": "Saudi Arabia"
+    },
+    {
+      "isoCode": "SN",
+      "code": "221",
+      "name": "Senegal"
+    },
+    {
+      "isoCode": "RS",
+      "code": "381",
+      "name": "Serbia"
+    },
+    {
+      "isoCode": "SC",
+      "code": "248",
+      "name": "Seychelles"
+    },
+    {
+      "isoCode": "SL",
+      "code": "232",
+      "name": "Sierra Leone"
+    },
+    {
+      "isoCode": "SG",
+      "code": "65",
+      "name": "Singapore"
+    },
+    {
+      "isoCode": "SK",
+      "code": "421",
+      "name": "Slovakia"
+    },
+    {
+      "isoCode": "SI",
+      "code": "386",
+      "name": "Slovenia"
+    },
+    {
+      "isoCode": "SB",
+      "code": "677",
+      "name": "Solomon Islands"
+    },
+    {
+      "isoCode": "ZA",
+      "code": "27",
+      "name": "South Africa"
+    },
+    {
+      "isoCode": "ES",
+      "code": "34",
+      "name": "Spain"
+    },
+    {
+      "isoCode": "LK",
+      "code": "94",
+      "name": "Sri Lanka"
+    },
+    {
+      "isoCode": "SR",
+      "code": "597",
+      "name": "Suriname"
+    },
+    {
+      "isoCode": "SZ",
+      "code": "268",
+      "name": "Swaziland"
+    },
+    {
+      "isoCode": "SE",
+      "code": "46",
+      "name": "Sweden"
+    },
+    {
+      "isoCode": "CH",
+      "code": "41",
+      "name": "Switzerland"
+    },
+    {
+      "isoCode": "TJ",
+      "code": "992",
+      "name": "Tajikistan"
+    },
+    {
+      "isoCode": "TZ",
+      "code": "255",
+      "name": "Tanzania"
+    },
+    {
+      "isoCode": "TH",
+      "code": "66",
+      "name": "Thailand"
+    },
+    {
+      "isoCode": "BS",
+      "code": "242",
+      "name": "The Bahamas"
+    },
+    {
+      "isoCode": "GM",
+      "code": "220",
+      "name": "The Gambia"
+    },
+    {
+      "isoCode": "TG",
+      "code": "228",
+      "name": "Togo"
+    },
+    {
+      "isoCode": "TK",
+      "code": "690",
+      "name": "Tokelau"
+    },
+    {
+      "isoCode": "TO",
+      "code": "676",
+      "name": "Tonga"
+    },
+    {
+      "isoCode": "TT",
+      "code": "1 868",
+      "name": "Trinidad and Tobago"
+    },
+    {
+      "isoCode": "TN",
+      "code": "216",
+      "name": "Tunisia"
+    },
+    {
+      "isoCode": "TR",
+      "code": "90",
+      "name": "Turkey"
+    },
+    {
+      "isoCode": "TM",
+      "code": "993",
+      "name": "Turkmenistan"
+    },
+    {
+      "isoCode": "TC",
+      "code": "1 649",
+      "name": "Turks and Caicos Islands"
+    },
+    {
+      "isoCode": "TV",
+      "code": "688",
+      "name": "Tuvalu"
+    },
+    {
+      "isoCode": "UG",
+      "code": "256",
+      "name": "Uganda"
+    },
+    {
+      "isoCode": "UA",
+      "code": "380",
+      "name": "Ukraine"
+    },
+    {
+      "isoCode": "AE",
+      "code": "971",
+      "name": "United Arab Emirates"
+    },
+    {
+      "isoCode": "GB",
+      "code": "44",
+      "name": "United Kingdom"
+    },
+    {
+      "isoCode": "US",
+      "code": "1",
+      "name": "United States"
+    },
+    {
+      "isoCode": "UY",
+      "code": "598",
+      "name": "Uruguay"
+    },
+    {
+      "isoCode": "UZ",
+      "code": "998",
+      "name": "Uzbekistan"
+    },
+    {
+      "isoCode": "VU",
+      "code": "678",
+      "name": "Vanuatu"
+    },
+    {
+      "isoCode": "VE",
+      "code": "58",
+      "name": "Venezuela"
+    },
+    {
+      "isoCode": "VN",
+      "code": "84",
+      "name": "Vietnam"
+    },
+    {
+      "isoCode": "VI",
+      "code": "1 340",
+      "name": "Virgin Islands"
+    },
+    {
+      "isoCode": "YE",
+      "code": "967",
+      "name": "Yemen"
+    },
+    {
+      "isoCode": "ZM",
+      "code": "260",
+      "name": "Zambia"
+    },
+    {
+      "isoCode": "ZW",
+      "code": "263",
+      "name": "Zimbabwe"
+    },
+    {
+      "isoCode": "AX",
+      "code": "358",
+      "name": "Åaland Islands"
+    },
+    {
+      "isoCode": "BL",
+      "code": "590",
+      "name": "Saint Barthélemy"
+    },
+    {
+      "isoCode": "BQ",
+      "code": "599",
+      "name": "Bonaire Sint Eustatius and Saba"
+    },
+    {
+      "isoCode": "BV",
+      "code": "47",
+      "name": "Bouvet Island"
+    },
+    {
+      "isoCode": "CW",
+      "code": "599",
+      "name": "Curaçao"
+    },
+    {
+      "isoCode": "EH",
+      "code": "212",
+      "name": "Western Sahara"
+    },
+    {
+      "isoCode": "GS",
+      "code": "500",
+      "name": "South Georgia and the South Sandwich Islands"
+    },
+    {
+      "isoCode": "HM",
+      "code": "61",
+      "name": "Heard Island and McDonald Islands"
+    },
+    {
+      "isoCode": "IM",
+      "code": "44",
+      "name": "Isle of Man"
+    },
+    {
+      "isoCode": "IO",
+      "code": "246",
+      "name": "British Indian Ocean Territory"
+    },
+    {
+      "isoCode": "JE",
+      "code": "44",
+      "name": "Jersey"
+    },
+    {
+      "isoCode": "MF",
+      "code": "1 599",
+      "name": "Saint Martin (French part)"
+    },
+    {
+      "isoCode": "PN",
+      "code": "870",
+      "name": "Pitcairn Islands"
+    },
+    {
+      "isoCode": "PS",
+      "code": "970",
+      "name": "Palestine State of"
+    },
+    {
+      "isoCode": "SJ",
+      "code": "47",
+      "name": "Svalbard and Jan Mayen"
+    },
+    {
+      "isoCode": "SX",
+      "code": "1 721",
+      "name": "Sint Maarten (Dutch part)"
+    },
+    {
+      "isoCode": "TF",
+      "code": "262",
+      "name": "French Southern Territories"
+    },
+    {
+      "isoCode": "TL",
+      "code": "670",
+      "name": "Timor-Leste"
+    },
+    {
+      "isoCode": "UM",
+      "code": "1 699",
+      "name": "United States Minor Outlying Islands"
+    }
+  ],
+  "NationalityCode": [
+    {
+      "id": "1",
+      "name": "ANDORRAN",
+      "code": "AD"
+    },
+    {
+      "id": "2",
+      "name": "UNITED ARAB EMIRATES",
+      "code": "AE"
+    },
+    {
+      "id": "3",
+      "name": "AFGHAN",
+      "code": "AF"
+    },
+    {
+      "id": "4",
+      "name": "ANTIGUAN",
+      "code": "AG"
+    },
+    {
+      "id": "5",
+      "name": "ALBANIAN",
+      "code": "AL"
+    },
+    {
+      "id": "6",
+      "name": "ARMENIAN",
+      "code": "AM"
+    },
+    {
+      "id": "7",
+      "name": "ANGOLAN",
+      "code": "AO"
+    },
+    {
+      "id": "8",
+      "name": "ARGENTINIAN",
+      "code": "AR"
+    },
+    {
+      "id": "9",
+      "name": "AUSTRIAN",
+      "code": "AT"
+    },
+    {
+      "id": "10",
+      "name": "AUSTRALIAN",
+      "code": "AU"
+    },
+    {
+      "id": "11",
+      "name": "AZERBAIJANI",
+      "code": "AZ"
+    },
+    {
+      "id": "12",
+      "name": "BOSNIAN",
+      "code": "BA"
+    },
+    {
+      "id": "13",
+      "name": "BARBADOS",
+      "code": "BB"
+    },
+    {
+      "id": "14",
+      "name": "BANGLADESHI",
+      "code": "BD"
+    },
+    {
+      "id": "15",
+      "name": "BELGIAN",
+      "code": "BE"
+    },
+    {
+      "id": "16",
+      "name": "BURKINABE",
+      "code": "BF"
+    },
+    {
+      "id": "17",
+      "name": "BULGARIAN",
+      "code": "BG"
+    },
+    {
+      "id": "18",
+      "name": "BAHRAINI",
+      "code": "BH"
+    },
+    {
+      "id": "19",
+      "name": "BURUNDIAN",
+      "code": "BI"
+    },
+    {
+      "id": "20",
+      "name": "BENINESE",
+      "code": "BJ"
+    },
+    {
+      "id": "21",
+      "name": "BELARUSSIAN",
+      "code": "BL"
+    },
+    {
+      "id": "22",
+      "name": "BRUNEIAN",
+      "code": "BN"
+    },
+    {
+      "id": "23",
+      "name": "BOLIVIAN",
+      "code": "BO"
+    },
+    {
+      "id": "24",
+      "name": "BRAZILIAN",
+      "code": "BR"
+    },
+    {
+      "id": "25",
+      "name": "BAHAMIAN",
+      "code": "BS"
+    },
+    {
+      "id": "26",
+      "name": "BHUTANESE",
+      "code": "BT"
+    },
+    {
+      "id": "27",
+      "name": "MYANMAR",
+      "code": "BU"
+    },
+    {
+      "id": "28",
+      "name": "BOTSWANA",
+      "code": "BW"
+    },
+    {
+      "id": "29",
+      "name": "BELIZEAN",
+      "code": "BZ"
+    },
+    {
+      "id": "30",
+      "name": "CANADIAN",
+      "code": "CA"
+    },
+    {
+      "id": "31",
+      "name": "CROATIAN",
+      "code": "CB"
+    },
+    {
+      "id": "32",
+      "name": "DEMOCRATIC REPUBLIC OF THE CONGO",
+      "code": "CD"
+    },
+    {
+      "id": "33",
+      "name": "CENTRAL AFRICAN REPUBLIC",
+      "code": "CF"
+    },
+    {
+      "id": "34",
+      "name": "CONGOLESE",
+      "code": "CG"
+    },
+    {
+      "id": "35",
+      "name": "SWISS",
+      "code": "CH"
+    },
+    {
+      "id": "36",
+      "name": "IVORY COAST",
+      "code": "CI"
+    },
+    {
+      "id": "37",
+      "name": "CHILEAN",
+      "code": "CL"
+    },
+    {
+      "id": "38",
+      "name": "CAMEROONIAN",
+      "code": "CM"
+    },
+    {
+      "id": "39",
+      "name": "CHINESE",
+      "code": "CN"
+    },
+    {
+      "id": "40",
+      "name": "COLOMBIAN",
+      "code": "CO"
+    },
+    {
+      "id": "41",
+      "name": "COSTA RICAN",
+      "code": "CR"
+    },
+    {
+      "id": "42",
+      "name": "CUBAN",
+      "code": "CU"
+    },
+    {
+      "id": "43",
+      "name": "CAPE VERDEAN",
+      "code": "CV"
+    },
+    {
+      "id": "44",
+      "name": "CYPRIOT",
+      "code": "CY"
+    },
+    {
+      "id": "45",
+      "name": "CZECH",
+      "code": "CZ"
+    },
+    {
+      "id": "46",
+      "name": "GERMAN",
+      "code": "DG"
+    },
+    {
+      "id": "47",
+      "name": "DJIBOUTIAN",
+      "code": "DJ"
+    },
+    {
+      "id": "48",
+      "name": "DANISH",
+      "code": "DK"
+    },
+    {
+      "id": "49",
+      "name": "DOMINICAN",
+      "code": "DM"
+    },
+    {
+      "id": "50",
+      "name": "DOMINICAN (REPUBLIC)",
+      "code": "DO"
+    },
+    {
+      "id": "51",
+      "name": "ALGERIAN",
+      "code": "DZ"
+    },
+    {
+      "id": "52",
+      "name": "ECUADORIAN",
+      "code": "EC"
+    },
+    {
+      "id": "53",
+      "name": "EGYPTIAN",
+      "code": "EG"
+    },
+    {
+      "id": "54",
+      "name": "ESTONIAN",
+      "code": "EN"
+    },
+    {
+      "id": "55",
+      "name": "ERITREAN",
+      "code": "ER"
+    },
+    {
+      "id": "56",
+      "name": "SPANISH",
+      "code": "ES"
+    },
+    {
+      "id": "57",
+      "name": "ETHIOPIAN",
+      "code": "ET"
+    },
+    {
+      "id": "58",
+      "name": "FINNISH",
+      "code": "FI"
+    },
+    {
+      "id": "59",
+      "name": "FIJIAN",
+      "code": "FJ"
+    },
+    {
+      "id": "60",
+      "name": "FRENCH",
+      "code": "FR"
+    },
+    {
+      "id": "61",
+      "name": "GABON",
+      "code": "GA"
+    },
+    {
+      "id": "62",
+      "name": "BRITISH",
+      "code": "GB"
+    },
+    {
+      "id": "63",
+      "name": "BRITISH OVERSEAS TERRITORIES CITIZEN",
+      "code": "GC"
+    },
+    {
+      "id": "64",
+      "name": "GRENADIAN",
+      "code": "GD"
+    },
+    {
+      "id": "65",
+      "name": "BRITISH OVERSEAS CITIZEN",
+      "code": "GE"
+    },
+    {
+      "id": "66",
+      "name": "BRITISH NATIONAL OVERSEAS",
+      "code": "GG"
+    },
+    {
+      "id": "67",
+      "name": "GHANAIAN",
+      "code": "GH"
+    },
+    {
+      "id": "68",
+      "name": "BRITISH PROTECTED PERSON",
+      "code": "GJ"
+    },
+    {
+      "id": "69",
+      "name": "GAMBIAN",
+      "code": "GM"
+    },
+    {
+      "id": "70",
+      "name": "GUINEAN",
+      "code": "GN"
+    },
+    {
+      "id": "71",
+      "name": "GEORGIAN",
+      "code": "GO"
+    },
+    {
+      "id": "72",
+      "name": "EQUATORIAL GUINEA",
+      "code": "GQ"
+    },
+    {
+      "id": "73",
+      "name": "GREEK",
+      "code": "GR"
+    },
+    {
+      "id": "74",
+      "name": "GUATEMALAN",
+      "code": "GT"
+    },
+    {
+      "id": "75",
+      "name": "GUINEAN (BISSAU)",
+      "code": "GW"
+    },
+    {
+      "id": "76",
+      "name": "GUYANESE",
+      "code": "GY"
+    },
+    {
+      "id": "77",
+      "name": "HONG KONG",
+      "code": "HK"
+    },
+    {
+      "id": "78",
+      "name": "HONDURAN",
+      "code": "HN"
+    },
+    {
+      "id": "79",
+      "name": "HAITIAN",
+      "code": "HT"
+    },
+    {
+      "id": "80",
+      "name": "HUNGARIAN",
+      "code": "HU"
+    },
+    {
+      "id": "81",
+      "name": "INDONESIAN",
+      "code": "ID"
+    },
+    {
+      "id": "82",
+      "name": "IRISH",
+      "code": "IE"
+    },
+    {
+      "id": "83",
+      "name": "ISRAELI",
+      "code": "IL"
+    },
+    {
+      "id": "84",
+      "name": "INDIAN",
+      "code": "IN"
+    },
+    {
+      "id": "85",
+      "name": "IRAQI",
+      "code": "IQ"
+    },
+    {
+      "id": "86",
+      "name": "IRANIAN",
+      "code": "IR"
+    },
+    {
+      "id": "87",
+      "name": "ICELANDER",
+      "code": "IS"
+    },
+    {
+      "id": "88",
+      "name": "ITALIAN",
+      "code": "IT"
+    },
+    {
+      "id": "89",
+      "name": "JAMAICAN",
+      "code": "JM"
+    },
+    {
+      "id": "90",
+      "name": "JORDANIAN",
+      "code": "JO"
+    },
+    {
+      "id": "91",
+      "name": "JAPANESE",
+      "code": "JP"
+    },
+    {
+      "id": "92",
+      "name": "CAMBODIAN",
+      "code": "KA"
+    },
+    {
+      "id": "93",
+      "name": "KENYAN",
+      "code": "KE"
+    },
+    {
+      "id": "94",
+      "name": "KIRIBATI",
+      "code": "KI"
+    },
+    {
+      "id": "95",
+      "name": "COMORAN",
+      "code": "KM"
+    },
+    {
+      "id": "96",
+      "name": "KOREAN NORTH",
+      "code": "KP"
+    },
+    {
+      "id": "97",
+      "name": "KOREAN SOUTH",
+      "code": "KR"
+    },
+    {
+      "id": "98",
+      "name": "KUWAITI",
+      "code": "KW"
+    },
+    {
+      "id": "99",
+      "name": "KYRGYZSTAN",
+      "code": "KY"
+    },
+    {
+      "id": "100",
+      "name": "KAZAKHSTANI",
+      "code": "KZ"
+    },
+    {
+      "id": "101",
+      "name": "LAOTIAN",
+      "code": "LA"
+    },
+    {
+      "id": "102",
+      "name": "LEBANESE",
+      "code": "LB"
+    },
+    {
+      "id": "103",
+      "name": "ST. LUCIA",
+      "code": "LC"
+    },
+    {
+      "id": "104",
+      "name": "LITHUANIAN",
+      "code": "LH"
+    },
+    {
+      "id": "105",
+      "name": "LIECHTENSTEINER",
+      "code": "LI"
+    },
+    {
+      "id": "106",
+      "name": "SRI LANKAN",
+      "code": "LK"
+    },
+    {
+      "id": "107",
+      "name": "LIBERIAN",
+      "code": "LR"
+    },
+    {
+      "id": "108",
+      "name": "LESOTHO",
+      "code": "LS"
+    },
+    {
+      "id": "109",
+      "name": "LUXEMBOURGER",
+      "code": "LU"
+    },
+    {
+      "id": "110",
+      "name": "LATVIAN",
+      "code": "LV"
+    },
+    {
+      "id": "111",
+      "name": "LIBYAN",
+      "code": "LY"
+    },
+    {
+      "id": "112",
+      "name": "MOROCCAN",
+      "code": "MA"
+    },
+    {
+      "id": "113",
+      "name": "MACEDONIAN",
+      "code": "MB"
+    },
+    {
+      "id": "114",
+      "name": "MONACAN",
+      "code": "MC"
+    },
+    {
+      "id": "115",
+      "name": "MOLDAVIAN",
+      "code": "MD"
+    },
+    {
+      "id": "116",
+      "name": "MICRONESIAN",
+      "code": "MF"
+    },
+    {
+      "id": "117",
+      "name": "MALAGASY",
+      "code": "MG"
+    },
+    {
+      "id": "118",
+      "name": "MARSHALLESE",
+      "code": "MH"
+    },
+    {
+      "id": "119",
+      "name": "MONTENEGRIN",
+      "code": "MJ"
+    },
+    {
+      "id": "120",
+      "name": "MALIAN",
+      "code": "ML"
+    },
+    {
+      "id": "121",
+      "name": "MONGOLIAN",
+      "code": "MN"
+    },
+    {
+      "id": "122",
+      "name": "MACAO",
+      "code": "MO"
+    },
+    {
+      "id": "123",
+      "name": "MAURITANEAN",
+      "code": "MR"
+    },
+    {
+      "id": "124",
+      "name": "MALTESE",
+      "code": "MT"
+    },
+    {
+      "id": "125",
+      "name": "MAURITIAN",
+      "code": "MU"
+    },
+    {
+      "id": "126",
+      "name": "MALDIVIAN",
+      "code": "MV"
+    },
+    {
+      "id": "127",
+      "name": "MALAWIAN",
+      "code": "MW"
+    },
+    {
+      "id": "128",
+      "name": "MEXICAN",
+      "code": "MX"
+    },
+    {
+      "id": "129",
+      "name": "MALAYSIAN",
+      "code": "MY"
+    },
+    {
+      "id": "130",
+      "name": "MOZAMBICAN",
+      "code": "MZ"
+    },
+    {
+      "id": "131",
+      "name": "NAMIBIAN",
+      "code": "NA"
+    },
+    {
+      "id": "132",
+      "name": "NIGER",
+      "code": "NE"
+    },
+    {
+      "id": "133",
+      "name": "NIGERIAN",
+      "code": "NG"
+    },
+    {
+      "id": "134",
+      "name": "NICARAGUAN",
+      "code": "NI"
+    },
+    {
+      "id": "135",
+      "name": "NORWEGIAN",
+      "code": "NO"
+    },
+    {
+      "id": "136",
+      "name": "NEPALESE",
+      "code": "NP"
+    },
+    {
+      "id": "137",
+      "name": "NAURUAN",
+      "code": "NR"
+    },
+    {
+      "id": "138",
+      "name": "NETHERLANDS",
+      "code": "NT"
+    },
+    {
+      "id": "139",
+      "name": "NEW ZEALANDER",
+      "code": "NZ"
+    },
+    {
+      "id": "140",
+      "name": "OMANI",
+      "code": "OM"
+    },
+    {
+      "id": "141",
+      "name": "PANAMANIAN",
+      "code": "PA"
+    },
+    {
+      "id": "142",
+      "name": "PERUVIAN",
+      "code": "PE"
+    },
+    {
+      "id": "143",
+      "name": "PAPUA NEW GUINEAN",
+      "code": "PG"
+    },
+    {
+      "id": "144",
+      "name": "FILIPINO",
+      "code": "PH"
+    },
+    {
+      "id": "145",
+      "name": "PAKISTANI",
+      "code": "PK"
+    },
+    {
+      "id": "146",
+      "name": "POLISH",
+      "code": "PL"
+    },
+    {
+      "id": "147",
+      "name": "PALESTINIAN",
+      "code": "PN"
+    },
+    {
+      "id": "148",
+      "name": "PORTUGUESE",
+      "code": "PT"
+    },
+    {
+      "id": "149",
+      "name": "PALAUAN",
+      "code": "PW"
+    },
+    {
+      "id": "150",
+      "name": "PARAGUAYAN",
+      "code": "PY"
+    },
+    {
+      "id": "151",
+      "name": "QATARI",
+      "code": "QA"
+    },
+    {
+      "id": "152",
+      "name": "RUSSIAN",
+      "code": "RF"
+    },
+    {
+      "id": "153",
+      "name": "ROMANIAN",
+      "code": "RO"
+    },
+    {
+      "id": "154",
+      "name": "SERBIAN",
+      "code": "RS"
+    },
+    {
+      "id": "155",
+      "name": "RWANDAN",
+      "code": "RW"
+    },
+    {
+      "id": "156",
+      "name": "SAUDI ARABIAN",
+      "code": "SA"
+    },
+    {
+      "id": "157",
+      "name": "SOLOMON ISLANDER",
+      "code": "SB"
+    },
+    {
+      "id": "158",
+      "name": "SEYCHELLOIS",
+      "code": "SC"
+    },
+    {
+      "id": "159",
+      "name": "SUDANESE",
+      "code": "SD"
+    },
+    {
+      "id": "160",
+      "name": "SWEDISH",
+      "code": "SE"
+    },
+    {
+      "id": "161",
+      "name": "SINGAPORE CITIZEN",
+      "code": "SG"
+    },
+    {
+      "id": "162",
+      "name": "SLOVENIAN",
+      "code": "SI"
+    },
+    {
+      "id": "163",
+      "name": "SLOVAK",
+      "code": "SK"
+    },
+    {
+      "id": "164",
+      "name": "SIERRA LEONE",
+      "code": "SL"
+    },
+    {
+      "id": "165",
+      "name": "SAMMARINESE",
+      "code": "SM"
+    },
+    {
+      "id": "166",
+      "name": "SENEGALESE",
+      "code": "SN"
+    },
+    {
+      "id": "167",
+      "name": "SOMALI",
+      "code": "SO"
+    },
+    {
+      "id": "168",
+      "name": "SURINAMER",
+      "code": "SR"
+    },
+    {
+      "id": "169",
+      "name": "STATELESS",
+      "code": "SS"
+    },
+    {
+      "id": "170",
+      "name": "SAO TOMEAN",
+      "code": "ST"
+    },
+    {
+      "id": "171",
+      "name": "SALVADORAN",
+      "code": "SV"
+    },
+    {
+      "id": "172",
+      "name": "KITTIAN & NEVISIAN",
+      "code": "SW"
+    },
+    {
+      "id": "173",
+      "name": "SYRIAN",
+      "code": "SY"
+    },
+    {
+      "id": "174",
+      "name": "SWAZI",
+      "code": "SZ"
+    },
+    {
+      "id": "175",
+      "name": "CHADIAN",
+      "code": "TD"
+    },
+    {
+      "id": "176",
+      "name": "TOGOLESE",
+      "code": "TG"
+    },
+    {
+      "id": "177",
+      "name": "THAI",
+      "code": "TH"
+    },
+    {
+      "id": "178",
+      "name": "TAJIKISTANI",
+      "code": "TI"
+    },
+    {
+      "id": "179",
+      "name": "TURKMEN",
+      "code": "TM"
+    },
+    {
+      "id": "180",
+      "name": "TUNISIAN",
+      "code": "TN"
+    },
+    {
+      "id": "181",
+      "name": "TONGAN",
+      "code": "TO"
+    },
+    {
+      "id": "182",
+      "name": "EAST TIMORESE",
+      "code": "TP"
+    },
+    {
+      "id": "183",
+      "name": "TURK",
+      "code": "TR"
+    },
+    {
+      "id": "184",
+      "name": "TRINIDADIAN & TOBAGONIAN",
+      "code": "TT"
+    },
+    {
+      "id": "185",
+      "name": "TUVALU",
+      "code": "TV"
+    },
+    {
+      "id": "186",
+      "name": "TAIWANESE",
+      "code": "TW"
+    },
+    {
+      "id": "187",
+      "name": "TANZANIAN",
+      "code": "TZ"
+    },
+    {
+      "id": "188",
+      "name": "UGANDAN",
+      "code": "UG"
+    },
+    {
+      "id": "189",
+      "name": "BRITISH SUBJECT",
+      "code": "UK"
+    },
+    {
+      "id": "190",
+      "name": "UNKNOWN",
+      "code": "UN"
+    },
+    {
+      "id": "191",
+      "name": "UKRAINIAN",
+      "code": "UR"
+    },
+    {
+      "id": "192",
+      "name": "AMERICAN",
+      "code": "US"
+    },
+    {
+      "id": "193",
+      "name": "URUGUAYAN",
+      "code": "UY"
+    },
+    {
+      "id": "194",
+      "name": "UZBEKISTAN",
+      "code": "UZ"
+    },
+    {
+      "id": "195",
+      "name": "VATICAN CITY STATE (HOLY SEE)",
+      "code": "VA"
+    },
+    {
+      "id": "196",
+      "name": "ST. VINCENTIAN",
+      "code": "VC"
+    },
+    {
+      "id": "197",
+      "name": "VENEZUELAN",
+      "code": "VE"
+    },
+    {
+      "id": "198",
+      "name": "VIETNAMESE",
+      "code": "VN"
+    },
+    {
+      "id": "199",
+      "name": "NI-VANUATU",
+      "code": "VU"
+    },
+    {
+      "id": "200",
+      "name": "SAMOAN",
+      "code": "WS"
+    },
+    {
+      "id": "201",
+      "name": "REFUGEE (XXB)",
+      "code": "XB"
+    },
+    {
+      "id": "202",
+      "name": "REFUGEE (OTHER THAN XXB)",
+      "code": "XC"
+    },
+    {
+      "id": "203",
+      "name": "YEMENI",
+      "code": "YM"
+    },
+    {
+      "id": "204",
+      "name": "SOUTH AFRICAN",
+      "code": "ZA"
+    },
+    {
+      "id": "205",
+      "name": "ZAMBIAN",
+      "code": "ZM"
+    },
+    {
+      "id": "206",
+      "name": "ZIMBABWEAN",
+      "code": "ZW"
+    }
+  ],
+  "CountryCode": [
+    {
+      "id": "1",
+      "name": "ARUBA",
+      "code": "AB",
+      "phoneCode": "297"
+    },
+    {
+      "id": "2",
+      "name": "ANDORRA",
+      "code": "AD",
+      "phoneCode": "376"
+    },
+    {
+      "id": "3",
+      "name": "UNITED ARAB EMIRATES",
+      "code": "AE",
+      "phoneCode": "971"
+    },
+    {
+      "id": "4",
+      "name": "AFGHANISTAN",
+      "code": "AF",
+      "phoneCode": "93"
+    },
+    {
+      "id": "5",
+      "name": "ANTIGUA",
+      "code": "AG",
+      "phoneCode": "1 268"
+    },
+    {
+      "id": "6",
+      "name": "ANGUILLA",
+      "code": "AI",
+      "phoneCode": "1 264"
+    },
+    {
+      "id": "7",
+      "name": "ALBANIA",
+      "code": "AL",
+      "phoneCode": "355"
+    },
+    {
+      "id": "8",
+      "name": "ARMENIA",
+      "code": "AM",
+      "phoneCode": "374"
+    },
+    {
+      "id": "9",
+      "name": "NETHERLANDS ANTILILLES",
+      "code": "AN",
+      "phoneCode": "599"
+    },
+    {
+      "id": "10",
+      "name": "ANGOLA",
+      "code": "AO",
+      "phoneCode": "244"
+    },
+    {
+      "id": "11",
+      "name": "ARGENTINA",
+      "code": "AR",
+      "phoneCode": "54"
+    },
+    {
+      "id": "12",
+      "name": "AMERICAN SAMOA",
+      "code": "AS",
+      "phoneCode": "1 684"
+    },
+    {
+      "id": "13",
+      "name": "AUSTRIA",
+      "code": "AT",
+      "phoneCode": "43"
+    },
+    {
+      "id": "14",
+      "name": "AUSTRALIA",
+      "code": "AU",
+      "phoneCode": "61"
+    },
+    {
+      "id": "15",
+      "name": "AZERBAIJAN",
+      "code": "AZ",
+      "phoneCode": "994"
+    },
+    {
+      "id": "16",
+      "name": "BOSNIA-HERZEGOVINA",
+      "code": "BA",
+      "phoneCode": "387"
+    },
+    {
+      "id": "17",
+      "name": "BARBADOS",
+      "code": "BB",
+      "phoneCode": "1 246"
+    },
+    {
+      "id": "18",
+      "name": "BANGLADESH",
+      "code": "BD",
+      "phoneCode": "880"
+    },
+    {
+      "id": "19",
+      "name": "BELGIUM",
+      "code": "BE",
+      "phoneCode": "32"
+    },
+    {
+      "id": "20",
+      "name": "BURKINA FASO",
+      "code": "BF",
+      "phoneCode": "226"
+    },
+    {
+      "id": "21",
+      "name": "BULGARIA",
+      "code": "BG",
+      "phoneCode": "359"
+    },
+    {
+      "id": "22",
+      "name": "BAHRAIN",
+      "code": "BH",
+      "phoneCode": "973"
+    },
+    {
+      "id": "23",
+      "name": "BURUNDI",
+      "code": "BI",
+      "phoneCode": "257"
+    },
+    {
+      "id": "24",
+      "name": "BENIN",
+      "code": "BJ",
+      "phoneCode": "229"
+    },
+    {
+      "id": "25",
+      "name": "BELARUS",
+      "code": "BL",
+      "phoneCode": "375"
+    },
+    {
+      "id": "26",
+      "name": "BERMUDA",
+      "code": "BM",
+      "phoneCode": "1 441"
+    },
+    {
+      "id": "27",
+      "name": "BRUNEI",
+      "code": "BN",
+      "phoneCode": "673"
+    },
+    {
+      "id": "28",
+      "name": "BOLIVIA",
+      "code": "BO",
+      "phoneCode": "591"
+    },
+    {
+      "id": "29",
+      "name": "BRITISH ANTARCTIC TERRITORY",
+      "code": "BQ",
+      "phoneCode": "599"
+    },
+    {
+      "id": "30",
+      "name": "BRAZIL",
+      "code": "BR",
+      "phoneCode": "55"
+    },
+    {
+      "id": "31",
+      "name": "BAHAMAS",
+      "code": "BS",
+      "phoneCode": "242"
+    },
+    {
+      "id": "32",
+      "name": "BHUTAN",
+      "code": "BT",
+      "phoneCode": "975"
+    },
+    {
+      "id": "33",
+      "name": "MYANMAR",
+      "code": "BU",
+      "phoneCode": "95"
+    },
+    {
+      "id": "34",
+      "name": "BOTSWANA",
+      "code": "BW",
+      "phoneCode": "267"
+    },
+    {
+      "id": "35",
+      "name": "BELIZE",
+      "code": "BZ",
+      "phoneCode": "501"
+    },
+    {
+      "id": "36",
+      "name": "CANADA",
+      "code": "CA",
+      "phoneCode": "1"
+    },
+    {
+      "id": "37",
+      "name": "CROATIA",
+      "code": "CB",
+      "phoneCode": "385"
+    },
+    {
+      "id": "38",
+      "name": "COCOS KEELING ISLAND",
+      "code": "CC",
+      "phoneCode": "61"
+    },
+    {
+      "id": "39",
+      "name": "CHANNEL ISLANDS",
+      "code": "CD",
+      "phoneCode": "243"
+    },
+    {
+      "id": "40",
+      "name": "CENTRAL AFRICAN REPUBLIC",
+      "code": "CF",
+      "phoneCode": "236"
+    },
+    {
+      "id": "41",
+      "name": "CONGO",
+      "code": "CG",
+      "phoneCode": "242"
+    },
+    {
+      "id": "42",
+      "name": "SWITZERLAND",
+      "code": "CH",
+      "phoneCode": "41"
+    },
+    {
+      "id": "43",
+      "name": "IVORY COAST",
+      "code": "CI",
+      "phoneCode": "225"
+    },
+    {
+      "id": "44",
+      "name": "COOK ISLANDS",
+      "code": "CK",
+      "phoneCode": "682"
+    },
+    {
+      "id": "45",
+      "name": "CHILE",
+      "code": "CL",
+      "phoneCode": "56"
+    },
+    {
+      "id": "46",
+      "name": "CAMEROON",
+      "code": "CM",
+      "phoneCode": "237"
+    },
+    {
+      "id": "47",
+      "name": "CHINA",
+      "code": "CN",
+      "phoneCode": "86"
+    },
+    {
+      "id": "48",
+      "name": "COLOMBIA",
+      "code": "CO",
+      "phoneCode": "57"
+    },
+    {
+      "id": "49",
+      "name": "COSTA RICA",
+      "code": "CR",
+      "phoneCode": "506"
+    },
+    {
+      "id": "50",
+      "name": "CANTON & ENDERBURY ISLANDS",
+      "code": "CT",
+      "phoneCode": "128"
+    },
+    {
+      "id": "51",
+      "name": "CUBA",
+      "code": "CU",
+      "phoneCode": "53"
+    },
+    {
+      "id": "52",
+      "name": "CAPE VERDE",
+      "code": "CV",
+      "phoneCode": "238"
+    },
+    {
+      "id": "53",
+      "name": "CHRISTMAS ISLAND",
+      "code": "CX",
+      "phoneCode": "61"
+    },
+    {
+      "id": "54",
+      "name": "CYPRUS",
+      "code": "CY",
+      "phoneCode": "357"
+    },
+    {
+      "id": "55",
+      "name": "CZECH REPUBLIC",
+      "code": "CZ",
+      "phoneCode": "420"
+    },
+    {
+      "id": "56",
+      "name": "GERMANY",
+      "code": "DG",
+      "phoneCode": "49"
+    },
+    {
+      "id": "57",
+      "name": "DJIBOUTI",
+      "code": "DJ",
+      "phoneCode": "253"
+    },
+    {
+      "id": "58",
+      "name": "DENMARK",
+      "code": "DK",
+      "phoneCode": "45"
+    },
+    {
+      "id": "59",
+      "name": "DOMINICA",
+      "code": "DM",
+      "phoneCode": "1 767"
+    },
+    {
+      "id": "60",
+      "name": "DOMINICAN REPUBLIC",
+      "code": "DO",
+      "phoneCode": "1 809"
+    },
+    {
+      "id": "61",
+      "name": "ALGERIA",
+      "code": "DZ",
+      "phoneCode": "213"
+    },
+    {
+      "id": "62",
+      "name": "ECUADOR",
+      "code": "EC",
+      "phoneCode": "593"
+    },
+    {
+      "id": "63",
+      "name": "EGYPT",
+      "code": "EG",
+      "phoneCode": "20"
+    },
+    {
+      "id": "64",
+      "name": "WESTERN SAHARA",
+      "code": "EH",
+      "phoneCode": "212"
+    },
+    {
+      "id": "65",
+      "name": "ESTONIA",
+      "code": "EN",
+      "phoneCode": "372"
+    },
+    {
+      "id": "66",
+      "name": "ERITREA",
+      "code": "ER",
+      "phoneCode": "291"
+    },
+    {
+      "id": "67",
+      "name": "SPAIN",
+      "code": "ES",
+      "phoneCode": "34"
+    },
+    {
+      "id": "68",
+      "name": "ETHIOPIA",
+      "code": "ET",
+      "phoneCode": "251"
+    },
+    {
+      "id": "69",
+      "name": "FINLAND",
+      "code": "FI",
+      "phoneCode": "358"
+    },
+    {
+      "id": "70",
+      "name": "FIJI",
+      "code": "FJ",
+      "phoneCode": "679"
+    },
+    {
+      "id": "71",
+      "name": "FALKLAND ISLANDS",
+      "code": "FK",
+      "phoneCode": "500"
+    },
+    {
+      "id": "72",
+      "name": "FAEROE ISLANDS",
+      "code": "FO",
+      "phoneCode": "298"
+    },
+    {
+      "id": "73",
+      "name": "FRENCH SOUTHERN & ANTARCTIC TERRITORIES",
+      "code": "FQ",
+      "phoneCode": "262"
+    },
+    {
+      "id": "74",
+      "name": "FRANCE",
+      "code": "FR",
+      "phoneCode": "33"
+    },
+    {
+      "id": "75",
+      "name": "GABON",
+      "code": "GA",
+      "phoneCode": "241"
+    },
+    {
+      "id": "76",
+      "name": "UNITED KINGDOM",
+      "code": "GB",
+      "phoneCode": "44"
+    },
+    {
+      "id": "77",
+      "name": "GRENADA",
+      "code": "GD",
+      "phoneCode": "1 473"
+    },
+    {
+      "id": "78",
+      "name": "FRENCH GUIANA",
+      "code": "GF",
+      "phoneCode": "594"
+    },
+    {
+      "id": "79",
+      "name": "GHANA",
+      "code": "GH",
+      "phoneCode": "233"
+    },
+    {
+      "id": "80",
+      "name": "GIBRALTAR",
+      "code": "GI",
+      "phoneCode": "350"
+    },
+    {
+      "id": "81",
+      "name": "GUERNSEY",
+      "code": "GK",
+      "phoneCode": "44 1481"
+    },
+    {
+      "id": "82",
+      "name": "GREENLAND",
+      "code": "GL",
+      "phoneCode": "299"
+    },
+    {
+      "id": "83",
+      "name": "GAMBIA",
+      "code": "GM",
+      "phoneCode": "220"
+    },
+    {
+      "id": "84",
+      "name": "GUINEA",
+      "code": "GN",
+      "phoneCode": "224"
+    },
+    {
+      "id": "85",
+      "name": "GEORGIA",
+      "code": "GO",
+      "phoneCode": "995"
+    },
+    {
+      "id": "86",
+      "name": "GUADELOUPE",
+      "code": "GP",
+      "phoneCode": "590"
+    },
+    {
+      "id": "87",
+      "name": "EQUATORIAL GUINEA",
+      "code": "GQ",
+      "phoneCode": "240"
+    },
+    {
+      "id": "88",
+      "name": "GREECE",
+      "code": "GR",
+      "phoneCode": "30"
+    },
+    {
+      "id": "89",
+      "name": "GUATEMALA",
+      "code": "GT",
+      "phoneCode": "502"
+    },
+    {
+      "id": "90",
+      "name": "GUAM",
+      "code": "GU",
+      "phoneCode": "1 671"
+    },
+    {
+      "id": "91",
+      "name": "GUINEA-BISSAU",
+      "code": "GW",
+      "phoneCode": "245"
+    },
+    {
+      "id": "92",
+      "name": "GUYANA",
+      "code": "GY",
+      "phoneCode": "592"
+    },
+    {
+      "id": "93",
+      "name": "GAZA",
+      "code": "GZ",
+      "phoneCode": "970"
+    },
+    {
+      "id": "95",
+      "name": "HEARD & MCDONALD ISLAND",
+      "code": "HM",
+      "phoneCode": "61"
+    },
+    {
+      "id": "96",
+      "name": "HONDURAS",
+      "code": "HN",
+      "phoneCode": "504"
+    },
+    {
+      "id": "97",
+      "name": "HONG KONG SAR",
+      "code": "HS",
+      "phoneCode": "852"
+    },
+    {
+      "id": "98",
+      "name": "HAITI",
+      "code": "HT",
+      "phoneCode": "509"
+    },
+    {
+      "id": "99",
+      "name": "HUNGARY",
+      "code": "HU",
+      "phoneCode": "36"
+    },
+    {
+      "id": "100",
+      "name": "UPPER VOLTA",
+      "code": "HV",
+      "phoneCode": "226"
+    },
+    {
+      "id": "101",
+      "name": "INDONESIA",
+      "code": "ID",
+      "phoneCode": "62"
+    },
+    {
+      "id": "102",
+      "name": "IRELAND",
+      "code": "IE",
+      "phoneCode": "353"
+    },
+    {
+      "id": "103",
+      "name": "ISRAEL",
+      "code": "IL",
+      "phoneCode": "972"
+    },
+    {
+      "id": "104",
+      "name": "INDIA",
+      "code": "IN",
+      "phoneCode": "91"
+    },
+    {
+      "id": "105",
+      "name": "BRITISH INDIAN OCEAN TERRITORY",
+      "code": "IO",
+      "phoneCode": "246"
+    },
+    {
+      "id": "106",
+      "name": "IRAQ",
+      "code": "IQ",
+      "phoneCode": "964"
+    },
+    {
+      "id": "107",
+      "name": "IRAN",
+      "code": "IR",
+      "phoneCode": "98"
+    },
+    {
+      "id": "108",
+      "name": "ICELAND",
+      "code": "IS",
+      "phoneCode": "354"
+    },
+    {
+      "id": "109",
+      "name": "ITALY",
+      "code": "IT",
+      "phoneCode": "39"
+    },
+    {
+      "id": "110",
+      "name": "JAMAICA",
+      "code": "JM",
+      "phoneCode": "1 876"
+    },
+    {
+      "id": "111",
+      "name": "JORDAN",
+      "code": "JO",
+      "phoneCode": "962"
+    },
+    {
+      "id": "112",
+      "name": "JAPAN",
+      "code": "JP",
+      "phoneCode": "81"
+    },
+    {
+      "id": "113",
+      "name": "JOHNSTON ISLAND",
+      "code": "JT",
+      "phoneCode": "401"
+    },
+    {
+      "id": "114",
+      "name": "CAMBODIA",
+      "code": "KA",
+      "phoneCode": "855"
+    },
+    {
+      "id": "115",
+      "name": "KENYA",
+      "code": "KE",
+      "phoneCode": "254"
+    },
+    {
+      "id": "116",
+      "name": "KIRGHIZIA",
+      "code": "KG",
+      "phoneCode": "996"
+    },
+    {
+      "id": "117",
+      "name": "KIRIBATI",
+      "code": "KI",
+      "phoneCode": "686"
+    },
+    {
+      "id": "118",
+      "name": "COMOROS",
+      "code": "KM",
+      "phoneCode": "269"
+    },
+    {
+      "id": "119",
+      "name": "ST. KITTS-NEVIS",
+      "code": "KN",
+      "phoneCode": "1 869"
+    },
+    {
+      "id": "120",
+      "name": "KOREA NORTH",
+      "code": "KP",
+      "phoneCode": "850"
+    },
+    {
+      "id": "121",
+      "name": "KOREA SOUTH",
+      "code": "KR",
+      "phoneCode": "82"
+    },
+    {
+      "id": "122",
+      "name": "KYRGYZSTAN",
+      "code": "KS",
+      "phoneCode": "996"
+    },
+    {
+      "id": "123",
+      "name": "KOSOVO",
+      "code": "KV",
+      "phoneCode": "383"
+    },
+    {
+      "id": "124",
+      "name": "KUWAIT",
+      "code": "KW",
+      "phoneCode": "965"
+    },
+    {
+      "id": "125",
+      "name": "CAYMAN ISLANDS",
+      "code": "KY",
+      "phoneCode": "1 345"
+    },
+    {
+      "id": "126",
+      "name": "KAZAKHSTAN",
+      "code": "KZ",
+      "phoneCode": "7"
+    },
+    {
+      "id": "127",
+      "name": "LAOS",
+      "code": "LA",
+      "phoneCode": "856"
+    },
+    {
+      "id": "128",
+      "name": "LEBANON",
+      "code": "LB",
+      "phoneCode": "961"
+    },
+    {
+      "id": "129",
+      "name": "ST. LUCIA",
+      "code": "LC",
+      "phoneCode": "1 758"
+    },
+    {
+      "id": "130",
+      "name": "LITHUANIA",
+      "code": "LH",
+      "phoneCode": "370"
+    },
+    {
+      "id": "131",
+      "name": "LIECHTENSTEIN",
+      "code": "LI",
+      "phoneCode": "423"
+    },
+    {
+      "id": "132",
+      "name": "SRI LANKA",
+      "code": "LK",
+      "phoneCode": "94"
+    },
+    {
+      "id": "133",
+      "name": "LIBERIA",
+      "code": "LR",
+      "phoneCode": "231"
+    },
+    {
+      "id": "134",
+      "name": "LESOTHO",
+      "code": "LS",
+      "phoneCode": "266"
+    },
+    {
+      "id": "135",
+      "name": "LUXEMBOURG",
+      "code": "LU",
+      "phoneCode": "352"
+    },
+    {
+      "id": "136",
+      "name": "LATVIA",
+      "code": "LV",
+      "phoneCode": "371"
+    },
+    {
+      "id": "137",
+      "name": "LIBYA",
+      "code": "LY",
+      "phoneCode": "218"
+    },
+    {
+      "id": "138",
+      "name": "MOROCCO",
+      "code": "MA",
+      "phoneCode": "212"
+    },
+    {
+      "id": "139",
+      "name": "MACEDONIA",
+      "code": "MB",
+      "phoneCode": "398"
+    },
+    {
+      "id": "140",
+      "name": "MONACO",
+      "code": "MC",
+      "phoneCode": "377"
+    },
+    {
+      "id": "141",
+      "name": "MOLDOVA",
+      "code": "MD",
+      "phoneCode": "373"
+    },
+    {
+      "id": "142",
+      "name": "MAYOTTE",
+      "code": "ME",
+      "phoneCode": "262"
+    },
+    {
+      "id": "143",
+      "name": "MACAU SAR",
+      "code": "MF",
+      "phoneCode": "1 599"
+    },
+    {
+      "id": "144",
+      "name": "MADAGASCAR",
+      "code": "MG",
+      "phoneCode": "261"
+    },
+    {
+      "id": "145",
+      "name": "MARSHALL ISLANDS",
+      "code": "MH",
+      "phoneCode": "692"
+    },
+    {
+      "id": "146",
+      "name": "MIDWAY ISLANDS",
+      "code": "MI",
+      "phoneCode": "808"
+    },
+    {
+      "id": "147",
+      "name": "MONTENEGRO",
+      "code": "MJ",
+      "phoneCode": "382"
+    },
+    {
+      "id": "148",
+      "name": "MALI",
+      "code": "ML",
+      "phoneCode": "223"
+    },
+    {
+      "id": "149",
+      "name": "ISLE OF MAN",
+      "code": "MM",
+      "phoneCode": "44"
+    },
+    {
+      "id": "150",
+      "name": "MONGOLIA",
+      "code": "MN",
+      "phoneCode": "976"
+    },
+    {
+      "id": "151",
+      "name": "MACAO",
+      "code": "MO",
+      "phoneCode": "853"
+    },
+    {
+      "id": "152",
+      "name": "MARTINIQUE",
+      "code": "MQ",
+      "phoneCode": "596"
+    },
+    {
+      "id": "153",
+      "name": "MAURITANIA",
+      "code": "MR",
+      "phoneCode": "222"
+    },
+    {
+      "id": "154",
+      "name": "MONTSERRAT",
+      "code": "MS",
+      "phoneCode": "1 664"
+    },
+    {
+      "id": "155",
+      "name": "MALTA",
+      "code": "MT",
+      "phoneCode": "356"
+    },
+    {
+      "id": "156",
+      "name": "MAURITIUS",
+      "code": "MU",
+      "phoneCode": "230"
+    },
+    {
+      "id": "157",
+      "name": "MALDIVES",
+      "code": "MV",
+      "phoneCode": "960"
+    },
+    {
+      "id": "158",
+      "name": "MALAWI",
+      "code": "MW",
+      "phoneCode": "265"
+    },
+    {
+      "id": "159",
+      "name": "MEXICO",
+      "code": "MX",
+      "phoneCode": "52"
+    },
+    {
+      "id": "160",
+      "name": "MALAYSIA",
+      "code": "MY",
+      "phoneCode": "60"
+    },
+    {
+      "id": "161",
+      "name": "MOZAMBIQUE",
+      "code": "MZ",
+      "phoneCode": "258"
+    },
+    {
+      "id": "162",
+      "name": "NAMIBIA",
+      "code": "NA",
+      "phoneCode": "264"
+    },
+    {
+      "id": "163",
+      "name": "NEW CALEDONIA",
+      "code": "NC",
+      "phoneCode": "687"
+    },
+    {
+      "id": "164",
+      "name": "NIGER",
+      "code": "NE",
+      "phoneCode": "227"
+    },
+    {
+      "id": "165",
+      "name": "NORFOLK ISLAND",
+      "code": "NF",
+      "phoneCode": "672"
+    },
+    {
+      "id": "166",
+      "name": "NIGERIA",
+      "code": "NG",
+      "phoneCode": "234"
+    },
+    {
+      "id": "167",
+      "name": "NICARAGUA",
+      "code": "NI",
+      "phoneCode": "505"
+    },
+    {
+      "id": "168",
+      "name": "NETHERLANDS",
+      "code": "NL",
+      "phoneCode": "31"
+    },
+    {
+      "id": "169",
+      "name": "NORWAY",
+      "code": "NO",
+      "phoneCode": "47"
+    },
+    {
+      "id": "170",
+      "name": "NEPAL",
+      "code": "NP",
+      "phoneCode": "977"
+    },
+    {
+      "id": "171",
+      "name": "NAURU",
+      "code": "NR",
+      "phoneCode": "674"
+    },
+    {
+      "id": "172",
+      "name": "NIUE ISLAND",
+      "code": "NU",
+      "phoneCode": "683"
+    },
+    {
+      "id": "173",
+      "name": "NEW ZEALAND",
+      "code": "NZ",
+      "phoneCode": "64"
+    },
+    {
+      "id": "174",
+      "name": "OMAN",
+      "code": "OM",
+      "phoneCode": "968"
+    },
+    {
+      "id": "175",
+      "name": "PANAMA",
+      "code": "PA",
+      "phoneCode": "507"
+    },
+    {
+      "id": "176",
+      "name": "PALESTINE",
+      "code": "PB",
+      "phoneCode": "970"
+    },
+    {
+      "id": "177",
+      "name": "PACIFIC ISLAND TRUST TERRITORY",
+      "code": "PC",
+      "phoneCode": "1980"
+    },
+    {
+      "id": "178",
+      "name": "PERU",
+      "code": "PE",
+      "phoneCode": "51"
+    },
+    {
+      "id": "179",
+      "name": "FRENCH POLYNESIA",
+      "code": "PF",
+      "phoneCode": "689"
+    },
+    {
+      "id": "180",
+      "name": "PAPUA NEW GUINEA",
+      "code": "PG",
+      "phoneCode": "675"
+    },
+    {
+      "id": "181",
+      "name": "PHILIPPINES",
+      "code": "PH",
+      "phoneCode": "63"
+    },
+    {
+      "id": "182",
+      "name": "PAKISTAN",
+      "code": "PK",
+      "phoneCode": "92"
+    },
+    {
+      "id": "183",
+      "name": "POLAND",
+      "code": "PL",
+      "phoneCode": "48"
+    },
+    {
+      "id": "184",
+      "name": "ST. PIERRE & MIQUELON",
+      "code": "PM",
+      "phoneCode": "508"
+    },
+    {
+      "id": "185",
+      "name": "PITCAIRN ISLAND",
+      "code": "PN",
+      "phoneCode": "870"
+    },
+    {
+      "id": "186",
+      "name": "PUERTO RICO",
+      "code": "PR",
+      "phoneCode": "1"
+    },
+    {
+      "id": "187",
+      "name": "PORTUGAL",
+      "code": "PT",
+      "phoneCode": "351"
+    },
+    {
+      "id": "188",
+      "name": "PALAU",
+      "code": "PW",
+      "phoneCode": "680"
+    },
+    {
+      "id": "189",
+      "name": "PARAGUAY",
+      "code": "PY",
+      "phoneCode": "595"
+    },
+    {
+      "id": "190",
+      "name": "PANAMA CANAL ZONE",
+      "code": "PZ",
+      "phoneCode": "1403"
+    },
+    {
+      "id": "191",
+      "name": "QATAR",
+      "code": "QA",
+      "phoneCode": "974"
+    },
+    {
+      "id": "192",
+      "name": "REUNION",
+      "code": "RE",
+      "phoneCode": "262"
+    },
+    {
+      "id": "193",
+      "name": "RUSSIA",
+      "code": "RF",
+      "phoneCode": "7"
+    },
+    {
+      "id": "194",
+      "name": "ROMANIA",
+      "code": "RO",
+      "phoneCode": "40"
+    },
+    {
+      "id": "195",
+      "name": "SERBIA",
+      "code": "RS",
+      "phoneCode": "381"
+    },
+    {
+      "id": "196",
+      "name": "RWANDA",
+      "code": "RW",
+      "phoneCode": "250"
+    },
+    {
+      "id": "197",
+      "name": "SAUDI ARABIA",
+      "code": "SA",
+      "phoneCode": "966"
+    },
+    {
+      "id": "198",
+      "name": "SOLOMON ISLANDS",
+      "code": "SB",
+      "phoneCode": "677"
+    },
+    {
+      "id": "199",
+      "name": "SEYCHELLES",
+      "code": "SC",
+      "phoneCode": "248"
+    },
+    {
+      "id": "200",
+      "name": "SUDAN",
+      "code": "SD",
+      "phoneCode": "249"
+    },
+    {
+      "id": "201",
+      "name": "SWEDEN",
+      "code": "SE",
+      "phoneCode": "46"
+    },
+    {
+      "id": "202",
+      "name": "SERBIA/MONTENEGRO",
+      "code": "SF",
+      "phoneCode": "381"
+    },
+    {
+      "id": "203",
+      "name": "SINGAPORE",
+      "code": "SG",
+      "phoneCode": "65"
+    },
+    {
+      "id": "204",
+      "name": "ST. HELENA",
+      "code": "SH",
+      "phoneCode": "290"
+    },
+    {
+      "id": "205",
+      "name": "SLOVENIA",
+      "code": "SI",
+      "phoneCode": "386"
+    },
+    {
+      "id": "206",
+      "name": "SLOVAK REPUBLIC",
+      "code": "SK",
+      "phoneCode": "421"
+    },
+    {
+      "id": "207",
+      "name": "SIERRA LEONE",
+      "code": "SL",
+      "phoneCode": "232"
+    },
+    {
+      "id": "208",
+      "name": "SAN MARINO",
+      "code": "SM",
+      "phoneCode": "378"
+    },
+    {
+      "id": "209",
+      "name": "SENEGAL",
+      "code": "SN",
+      "phoneCode": "221"
+    },
+    {
+      "id": "210",
+      "name": "SOMALIA",
+      "code": "SO",
+      "phoneCode": "252"
+    },
+    {
+      "id": "211",
+      "name": "SURINAME",
+      "code": "SR",
+      "phoneCode": "597"
+    },
+    {
+      "id": "212",
+      "name": "SAO TOME & PRINCIPE",
+      "code": "ST",
+      "phoneCode": "239"
+    },
+    {
+      "id": "213",
+      "name": "EL SALVADOR",
+      "code": "SV",
+      "phoneCode": "503"
+    },
+    {
+      "id": "214",
+      "name": "SYRIA",
+      "code": "SY",
+      "phoneCode": "963"
+    },
+    {
+      "id": "215",
+      "name": "SWAZILAND",
+      "code": "SZ",
+      "phoneCode": "268"
+    },
+    {
+      "id": "216",
+      "name": "TURKS & CAICOS ISLANDS",
+      "code": "TC",
+      "phoneCode": "1 649"
+    },
+    {
+      "id": "217",
+      "name": "CHAD",
+      "code": "TD",
+      "phoneCode": "235"
+    },
+    {
+      "id": "218",
+      "name": "TIMOR",
+      "code": "TE",
+      "phoneCode": "670"
+    },
+    {
+      "id": "219",
+      "name": "TOGO",
+      "code": "TG",
+      "phoneCode": "228"
+    },
+    {
+      "id": "220",
+      "name": "THAILAND",
+      "code": "TH",
+      "phoneCode": "66"
+    },
+    {
+      "id": "221",
+      "name": "TAJIKISTAN",
+      "code": "TI",
+      "phoneCode": "992"
+    },
+    {
+      "id": "222",
+      "name": "TOKELAU ISLANDS",
+      "code": "TK",
+      "phoneCode": "690"
+    },
+    {
+      "id": "223",
+      "name": "TURKMENISTAN",
+      "code": "TM",
+      "phoneCode": "993"
+    },
+    {
+      "id": "224",
+      "name": "TUNISIA",
+      "code": "TN",
+      "phoneCode": "216"
+    },
+    {
+      "id": "225",
+      "name": "TONGA",
+      "code": "TO",
+      "phoneCode": "676"
+    },
+    {
+      "id": "226",
+      "name": "EAST TIMOR",
+      "code": "TP",
+      "phoneCode": "670"
+    },
+    {
+      "id": "227",
+      "name": "TURKEY",
+      "code": "TR",
+      "phoneCode": "90"
+    },
+    {
+      "id": "228",
+      "name": "TRINIDAD & TOBAGO",
+      "code": "TT",
+      "phoneCode": "1 868"
+    },
+    {
+      "id": "229",
+      "name": "TUVALU",
+      "code": "TV",
+      "phoneCode": "688"
+    },
+    {
+      "id": "230",
+      "name": "TAIWAN",
+      "code": "TW",
+      "phoneCode": "886"
+    },
+    {
+      "id": "231",
+      "name": "TANZANIA",
+      "code": "TZ",
+      "phoneCode": "255"
+    },
+    {
+      "id": "232",
+      "name": "UGANDA",
+      "code": "UG",
+      "phoneCode": "256"
+    },
+    {
+      "id": "233",
+      "name": "UNKNOWN",
+      "code": "UN",
+      "phoneCode": ""
+    },
+    {
+      "id": "234",
+      "name": "UKRAINE",
+      "code": "UR",
+      "phoneCode": "380"
+    },
+    {
+      "id": "235",
+      "name": "UNITED STATES",
+      "code": "US",
+      "phoneCode": "1"
+    },
+    {
+      "id": "236",
+      "name": "URUGUAY",
+      "code": "UY",
+      "phoneCode": "598"
+    },
+    {
+      "id": "237",
+      "name": "UZBEKISTAN",
+      "code": "UZ",
+      "phoneCode": "998"
+    },
+    {
+      "id": "238",
+      "name": "VATICAN CITY STATE",
+      "code": "VA",
+      "phoneCode": "39"
+    },
+    {
+      "id": "239",
+      "name": "ST. VINCENT",
+      "code": "VC",
+      "phoneCode": "1 784"
+    },
+    {
+      "id": "240",
+      "name": "VENEZUELA",
+      "code": "VE",
+      "phoneCode": "58"
+    },
+    {
+      "id": "241",
+      "name": "BRITISH VIRGIN ISLANDS",
+      "code": "VG",
+      "phoneCode": "1 284"
+    },
+    {
+      "id": "242",
+      "name": "US VIRGIN ISLANDS",
+      "code": "VI",
+      "phoneCode": "1 340"
+    },
+    {
+      "id": "243",
+      "name": "VIETNAM",
+      "code": "VN",
+      "phoneCode": "84"
+    },
+    {
+      "id": "244",
+      "name": "VANUATU",
+      "code": "VU",
+      "phoneCode": "678"
+    },
+    {
+      "id": "245",
+      "name": "WALLIS AND FUTUNA",
+      "code": "WF",
+      "phoneCode": "681"
+    },
+    {
+      "id": "246",
+      "name": "WAKE ISLAND",
+      "code": "WK",
+      "phoneCode": "808"
+    },
+    {
+      "id": "247",
+      "name": "SAMOA",
+      "code": "WM",
+      "phoneCode": "685"
+    },
+    {
+      "id": "248",
+      "name": "OTHERS",
+      "code": "XX",
+      "phoneCode": ""
+    },
+    {
+      "id": "249",
+      "name": "YEMEN",
+      "code": "YM",
+      "phoneCode": "967"
+    },
+    {
+      "id": "250",
+      "name": "YUGOSLAVIA",
+      "code": "YU",
+      "phoneCode": "381"
+    },
+    {
+      "id": "251",
+      "name": "SOUTH AFRICA",
+      "code": "ZA",
+      "phoneCode": "27"
+    },
+    {
+      "id": "252",
+      "name": "ZAMBIA",
+      "code": "ZM",
+      "phoneCode": "260"
+    },
+    {
+      "id": "253",
+      "name": "ZAIRE",
+      "code": "ZR",
+      "phoneCode": "243"
+    },
+    {
+      "id": "254",
+      "name": "ZIMBABWE",
+      "code": "ZW",
+      "phoneCode": "263"
+    }
+  ],
+  "RaceCode": [
+    {
+      "id": 1,
+      "name": "ANGLO BURMESE",
+      "code": "AB"
+    },
+    {
+      "id": 2,
+      "name": "ANGLO CHINESE",
+      "code": "AC"
+    },
+    {
+      "id": 3,
+      "name": "AMERINDIAN",
+      "code": "AD"
+    },
+    {
+      "id": 4,
+      "name": "AFRICAN",
+      "code": "AF"
+    },
+    {
+      "id": 5,
+      "name": "AFGHAN",
+      "code": "AG"
+    },
+    {
+      "id": 6,
+      "name": "ANGLO THAI",
+      "code": "AH"
+    },
+    {
+      "id": 7,
+      "name": "ANGLO INDIAN",
+      "code": "AI"
+    },
+    {
+      "id": 8,
+      "name": "ACHEHNESE",
+      "code": "AJ"
+    },
+    {
+      "id": 9,
+      "name": "ALBANIAN",
+      "code": "AL"
+    },
+    {
+      "id": 10,
+      "name": "ARMENIAN",
+      "code": "AM"
+    },
+    {
+      "id": 11,
+      "name": "ANNAMITE",
+      "code": "AN"
+    },
+    {
+      "id": 12,
+      "name": "AMBONESE",
+      "code": "AO"
+    },
+    {
+      "id": 13,
+      "name": "ANGLO FILIPINO",
+      "code": "AP"
+    },
+    {
+      "id": 14,
+      "name": "ARAB",
+      "code": "AR"
+    },
+    {
+      "id": 15,
+      "name": "ASSAMI",
+      "code": "AS"
+    },
+    {
+      "id": 16,
+      "name": "AUSTRIAN",
+      "code": "AT"
+    },
+    {
+      "id": 17,
+      "name": "AUSTRALIAN",
+      "code": "AU"
+    },
+    {
+      "id": 18,
+      "name": "ANGLO SAXON",
+      "code": "AX"
+    },
+    {
+      "id": 19,
+      "name": "ARYAN",
+      "code": "AY"
+    },
+    {
+      "id": 20,
+      "name": "AZERI",
+      "code": "AZ"
+    },
+    {
+      "id": 21,
+      "name": "BATAK",
+      "code": "BA"
+    },
+    {
+      "id": 22,
+      "name": "BULGARIAN",
+      "code": "BB"
+    },
+    {
+      "id": 23,
+      "name": "BUTONESE",
+      "code": "BC"
+    },
+    {
+      "id": 24,
+      "name": "BANGLADESHI",
+      "code": "BD"
+    },
+    {
+      "id": 25,
+      "name": "BELGIAN",
+      "code": "BE"
+    },
+    {
+      "id": 26,
+      "name": "BAJAU",
+      "code": "BF"
+    },
+    {
+      "id": 27,
+      "name": "BUGIS",
+      "code": "BG"
+    },
+    {
+      "id": 28,
+      "name": "BURGHER",
+      "code": "BH"
+    },
+    {
+      "id": 29,
+      "name": "BENGALI",
+      "code": "BI"
+    },
+    {
+      "id": 30,
+      "name": "BANJARESE",
+      "code": "BJ"
+    },
+    {
+      "id": 31,
+      "name": "BAMAR",
+      "code": "BK"
+    },
+    {
+      "id": 32,
+      "name": "BANGALA",
+      "code": "BL"
+    },
+    {
+      "id": 33,
+      "name": "BALINESE",
+      "code": "BM"
+    },
+    {
+      "id": 34,
+      "name": "BHUTANESE",
+      "code": "BN"
+    },
+    {
+      "id": 35,
+      "name": "BANTEN",
+      "code": "BO"
+    },
+    {
+      "id": 36,
+      "name": "BASQUE",
+      "code": "BQ"
+    },
+    {
+      "id": 37,
+      "name": "BRAHMIN",
+      "code": "BR"
+    },
+    {
+      "id": 38,
+      "name": "BISAYA",
+      "code": "BS"
+    },
+    {
+      "id": 39,
+      "name": "BRITISH",
+      "code": "BT"
+    },
+    {
+      "id": 40,
+      "name": "BURMESE",
+      "code": "BU"
+    },
+    {
+      "id": 41,
+      "name": "BOSNIAK",
+      "code": "BV"
+    },
+    {
+      "id": 42,
+      "name": "BETAWI",
+      "code": "BW"
+    },
+    {
+      "id": 43,
+      "name": "BOYANESE",
+      "code": "BY"
+    },
+    {
+      "id": 44,
+      "name": "BRAZILIAN",
+      "code": "BZ"
+    },
+    {
+      "id": 45,
+      "name": "CAUCASIAN",
+      "code": "CA"
+    },
+    {
+      "id": 46,
+      "name": "CANADIAN",
+      "code": "CB"
+    },
+    {
+      "id": 47,
+      "name": "CAPE COLOURED",
+      "code": "CC"
+    },
+    {
+      "id": 48,
+      "name": "CAMBODIAN",
+      "code": "CD"
+    },
+    {
+      "id": 49,
+      "name": "CEYLONESE",
+      "code": "CE"
+    },
+    {
+      "id": 50,
+      "name": "CORNISH",
+      "code": "CF"
+    },
+    {
+      "id": 51,
+      "name": "CREOLE",
+      "code": "CG"
+    },
+    {
+      "id": 52,
+      "name": "SWISS",
+      "code": "CH"
+    },
+    {
+      "id": 53,
+      "name": "CROAT",
+      "code": "CI"
+    },
+    {
+      "id": 54,
+      "name": "CHAMORRO",
+      "code": "CJ"
+    },
+    {
+      "id": 55,
+      "name": "CEYLON MOOR",
+      "code": "CM"
+    },
+    {
+      "id": 56,
+      "name": "CHINESE",
+      "code": "CN"
+    },
+    {
+      "id": 57,
+      "name": "COCOS",
+      "code": "CO"
+    },
+    {
+      "id": 58,
+      "name": "CARIBBEAN",
+      "code": "CR"
+    },
+    {
+      "id": 59,
+      "name": "CZECHOSLOVAK",
+      "code": "CS"
+    },
+    {
+      "id": 60,
+      "name": "CZECH",
+      "code": "CZ"
+    },
+    {
+      "id": 61,
+      "name": "DANE",
+      "code": "DA"
+    },
+    {
+      "id": 62,
+      "name": "DUTCH BURGHER",
+      "code": "DB"
+    },
+    {
+      "id": 63,
+      "name": "BIDAYUH",
+      "code": "DH"
+    },
+    {
+      "id": 64,
+      "name": "DUSUN",
+      "code": "DS"
+    },
+    {
+      "id": 65,
+      "name": "DUTCH",
+      "code": "DU"
+    },
+    {
+      "id": 66,
+      "name": "DAYAK",
+      "code": "DY"
+    },
+    {
+      "id": 67,
+      "name": "ENGLISH",
+      "code": "EL"
+    },
+    {
+      "id": 68,
+      "name": "EUROPEAN",
+      "code": "ER"
+    },
+    {
+      "id": 69,
+      "name": "SPANISH",
+      "code": "ES"
+    },
+    {
+      "id": 70,
+      "name": "ETHIOPIAN",
+      "code": "ET"
+    },
+    {
+      "id": 71,
+      "name": "EURASIAN",
+      "code": "EU"
+    },
+    {
+      "id": 72,
+      "name": "EGYPTIAN",
+      "code": "EY"
+    },
+    {
+      "id": 73,
+      "name": "FINN",
+      "code": "FI"
+    },
+    {
+      "id": 74,
+      "name": "FIJIAN",
+      "code": "FJ"
+    },
+    {
+      "id": 75,
+      "name": "FLEMISH",
+      "code": "FM"
+    },
+    {
+      "id": 76,
+      "name": "FRENCH",
+      "code": "FR"
+    },
+    {
+      "id": 77,
+      "name": "GOAN",
+      "code": "GA"
+    },
+    {
+      "id": 78,
+      "name": "GUJARATI",
+      "code": "GE"
+    },
+    {
+      "id": 79,
+      "name": "GHANAIAN",
+      "code": "GH"
+    },
+    {
+      "id": 80,
+      "name": "GURKHA",
+      "code": "GK"
+    },
+    {
+      "id": 81,
+      "name": "GERMAN",
+      "code": "GM"
+    },
+    {
+      "id": 82,
+      "name": "GOANESE",
+      "code": "GO"
+    },
+    {
+      "id": 83,
+      "name": "GREEK",
+      "code": "GR"
+    },
+    {
+      "id": 84,
+      "name": "HAITIAN",
+      "code": "HA"
+    },
+    {
+      "id": 85,
+      "name": "HISPANIC",
+      "code": "HI"
+    },
+    {
+      "id": 86,
+      "name": "HOLLANDER",
+      "code": "HO"
+    },
+    {
+      "id": 87,
+      "name": "HINDUSTANI",
+      "code": "HT"
+    },
+    {
+      "id": 88,
+      "name": "HUNGARIAN",
+      "code": "HU"
+    },
+    {
+      "id": 89,
+      "name": "HAWAIIAN",
+      "code": "HW"
+    },
+    {
+      "id": 90,
+      "name": "IRANIAN",
+      "code": "IA"
+    },
+    {
+      "id": 91,
+      "name": "IBAN",
+      "code": "IB"
+    },
+    {
+      "id": 92,
+      "name": "INDONESIAN",
+      "code": "ID"
+    },
+    {
+      "id": 93,
+      "name": "ISOKO",
+      "code": "IK"
+    },
+    {
+      "id": 94,
+      "name": "ISRAELI",
+      "code": "IL"
+    },
+    {
+      "id": 95,
+      "name": "INDIAN",
+      "code": "IN"
+    },
+    {
+      "id": 96,
+      "name": "IRAQI",
+      "code": "IQ"
+    },
+    {
+      "id": 97,
+      "name": "IRISH",
+      "code": "IR"
+    },
+    {
+      "id": 98,
+      "name": "ICELANDER",
+      "code": "IS"
+    },
+    {
+      "id": 99,
+      "name": "ITALIAN",
+      "code": "IT"
+    },
+    {
+      "id": 100,
+      "name": "INUIT",
+      "code": "IU"
+    },
+    {
+      "id": 101,
+      "name": "JAVANESE",
+      "code": "JA"
+    },
+    {
+      "id": 102,
+      "name": "JAKUN",
+      "code": "JK"
+    },
+    {
+      "id": 103,
+      "name": "JAMAICAN",
+      "code": "JM"
+    },
+    {
+      "id": 104,
+      "name": "JORDANIAN",
+      "code": "JO"
+    },
+    {
+      "id": 105,
+      "name": "JAPANESE",
+      "code": "JP"
+    },
+    {
+      "id": 106,
+      "name": "JEW",
+      "code": "JW"
+    },
+    {
+      "id": 107,
+      "name": "KACHIN",
+      "code": "KA"
+    },
+    {
+      "id": 108,
+      "name": "KHASI",
+      "code": "KB"
+    },
+    {
+      "id": 109,
+      "name": "KAYAH",
+      "code": "KC"
+    },
+    {
+      "id": 110,
+      "name": "KAYIN",
+      "code": "KD"
+    },
+    {
+      "id": 111,
+      "name": "KENYAN",
+      "code": "KE"
+    },
+    {
+      "id": 112,
+      "name": "KINH",
+      "code": "KF"
+    },
+    {
+      "id": 113,
+      "name": "KYRGYZ",
+      "code": "KG"
+    },
+    {
+      "id": 114,
+      "name": "KHMER",
+      "code": "KH"
+    },
+    {
+      "id": 115,
+      "name": "KENYAH",
+      "code": "KI"
+    },
+    {
+      "id": 116,
+      "name": "KAZAKH",
+      "code": "KK"
+    },
+    {
+      "id": 117,
+      "name": "KELABIT",
+      "code": "KL"
+    },
+    {
+      "id": 118,
+      "name": "KAMPUCHEAN",
+      "code": "KM"
+    },
+    {
+      "id": 119,
+      "name": "KAREN",
+      "code": "KN"
+    },
+    {
+      "id": 120,
+      "name": "KOREAN",
+      "code": "KR"
+    },
+    {
+      "id": 121,
+      "name": "KAYAN",
+      "code": "KY"
+    },
+    {
+      "id": 122,
+      "name": "KADAZAN",
+      "code": "KZ"
+    },
+    {
+      "id": 123,
+      "name": "LAO",
+      "code": "LA"
+    },
+    {
+      "id": 124,
+      "name": "LEBANESE",
+      "code": "LB"
+    },
+    {
+      "id": 125,
+      "name": "LITHUANIAN",
+      "code": "LI"
+    },
+    {
+      "id": 126,
+      "name": "SRI LANKAN",
+      "code": "LK"
+    },
+    {
+      "id": 127,
+      "name": "LATIN",
+      "code": "LT"
+    },
+    {
+      "id": 128,
+      "name": "LATVIAN",
+      "code": "LV"
+    },
+    {
+      "id": 129,
+      "name": "LUXEMBOURGER",
+      "code": "LX"
+    },
+    {
+      "id": 130,
+      "name": "LIBYAN",
+      "code": "LY"
+    },
+    {
+      "id": 131,
+      "name": "MADURESE",
+      "code": "MA"
+    },
+    {
+      "id": 132,
+      "name": "MALABARI",
+      "code": "MB"
+    },
+    {
+      "id": 133,
+      "name": "MAGYARS",
+      "code": "MC"
+    },
+    {
+      "id": 134,
+      "name": "MOLDAVIAN",
+      "code": "MD"
+    },
+    {
+      "id": 135,
+      "name": "MINANGKABAU",
+      "code": "ME"
+    },
+    {
+      "id": 136,
+      "name": "MANX",
+      "code": "MF"
+    },
+    {
+      "id": 137,
+      "name": "MALAGASY",
+      "code": "MG"
+    },
+    {
+      "id": 138,
+      "name": "MAHRATTA",
+      "code": "MH"
+    },
+    {
+      "id": 139,
+      "name": "MAORI",
+      "code": "MI"
+    },
+    {
+      "id": 140,
+      "name": "MURUT",
+      "code": "MJ"
+    },
+    {
+      "id": 141,
+      "name": "MAKASARESE",
+      "code": "MK"
+    },
+    {
+      "id": 142,
+      "name": "MALDIVIAN",
+      "code": "ML"
+    },
+    {
+      "id": 143,
+      "name": "MALAYALEE",
+      "code": "MM"
+    },
+    {
+      "id": 144,
+      "name": "MELANESIAN",
+      "code": "MN"
+    },
+    {
+      "id": 145,
+      "name": "MONGOLIAN",
+      "code": "MO"
+    },
+    {
+      "id": 146,
+      "name": "MANIPURI",
+      "code": "MP"
+    },
+    {
+      "id": 147,
+      "name": "MESTIZO",
+      "code": "MQ"
+    },
+    {
+      "id": 148,
+      "name": "MARATHI",
+      "code": "MR"
+    },
+    {
+      "id": 149,
+      "name": "METIS",
+      "code": "MS"
+    },
+    {
+      "id": 150,
+      "name": "MALTESE",
+      "code": "MT"
+    },
+    {
+      "id": 151,
+      "name": "MAURITIAN",
+      "code": "MU"
+    },
+    {
+      "id": 152,
+      "name": "MON",
+      "code": "MV"
+    },
+    {
+      "id": 153,
+      "name": "MOROCCAN",
+      "code": "MW"
+    },
+    {
+      "id": 154,
+      "name": "MEXICAN",
+      "code": "MX"
+    },
+    {
+      "id": 155,
+      "name": "MALAY",
+      "code": "MY"
+    },
+    {
+      "id": 156,
+      "name": "MELANAU",
+      "code": "MZ"
+    },
+    {
+      "id": 157,
+      "name": "NAGA",
+      "code": "NA"
+    },
+    {
+      "id": 158,
+      "name": "NEGRO",
+      "code": "NG"
+    },
+    {
+      "id": 159,
+      "name": "NIGERIAN",
+      "code": "NI"
+    },
+    {
+      "id": 160,
+      "name": "NETHERLANDER",
+      "code": "NL"
+    },
+    {
+      "id": 161,
+      "name": "NORWEGIAN",
+      "code": "NO"
+    },
+    {
+      "id": 162,
+      "name": "NEPALESE",
+      "code": "NP"
+    },
+    {
+      "id": 163,
+      "name": "NAURUAN",
+      "code": "NR"
+    },
+    {
+      "id": 164,
+      "name": "NEWAR",
+      "code": "NW"
+    },
+    {
+      "id": 165,
+      "name": "NEW ZEALANDER",
+      "code": "NZ"
+    },
+    {
+      "id": 166,
+      "name": "PENAN",
+      "code": "PA"
+    },
+    {
+      "id": 167,
+      "name": "PALESTINE",
+      "code": "PB"
+    },
+    {
+      "id": 168,
+      "name": "POLISH",
+      "code": "PC"
+    },
+    {
+      "id": 169,
+      "name": "PERSIAN",
+      "code": "PE"
+    },
+    {
+      "id": 170,
+      "name": "FILIPINO",
+      "code": "PH"
+    },
+    {
+      "id": 171,
+      "name": "PUNJABI",
+      "code": "PJ"
+    },
+    {
+      "id": 172,
+      "name": "PAKISTANI",
+      "code": "PK"
+    },
+    {
+      "id": 173,
+      "name": "POLE",
+      "code": "PL"
+    },
+    {
+      "id": 174,
+      "name": "PATHAN",
+      "code": "PN"
+    },
+    {
+      "id": 175,
+      "name": "PORTUGUESE",
+      "code": "PO"
+    },
+    {
+      "id": 176,
+      "name": "PERUVIAN",
+      "code": "PR"
+    },
+    {
+      "id": 177,
+      "name": "PARSEE",
+      "code": "PS"
+    },
+    {
+      "id": 178,
+      "name": "POLYNESIAN",
+      "code": "PY"
+    },
+    {
+      "id": 179,
+      "name": "RAJPUT",
+      "code": "RJ"
+    },
+    {
+      "id": 180,
+      "name": "RAKHINE",
+      "code": "RK"
+    },
+    {
+      "id": 181,
+      "name": "ROMANIAN",
+      "code": "RO"
+    },
+    {
+      "id": 182,
+      "name": "RUSSIAN",
+      "code": "RU"
+    },
+    {
+      "id": 183,
+      "name": "SINO KADAZAN",
+      "code": "SA"
+    },
+    {
+      "id": 184,
+      "name": "SAMMARINESE",
+      "code": "SB"
+    },
+    {
+      "id": 185,
+      "name": "SCOT",
+      "code": "SC"
+    },
+    {
+      "id": 186,
+      "name": "SINDHI",
+      "code": "SD"
+    },
+    {
+      "id": 187,
+      "name": "SWEDE",
+      "code": "SE"
+    },
+    {
+      "id": 188,
+      "name": "SERBIA/MONTENGERIN",
+      "code": "SF"
+    },
+    {
+      "id": 189,
+      "name": "SAMOAN",
+      "code": "SG"
+    },
+    {
+      "id": 190,
+      "name": "SHAN",
+      "code": "SH"
+    },
+    {
+      "id": 191,
+      "name": "SINHALESE",
+      "code": "SI"
+    },
+    {
+      "id": 192,
+      "name": "SINO JAPANESE",
+      "code": "SJ"
+    },
+    {
+      "id": 193,
+      "name": "SIKH",
+      "code": "SK"
+    },
+    {
+      "id": 194,
+      "name": "SLOVAK",
+      "code": "SL"
+    },
+    {
+      "id": 195,
+      "name": "SUMATRAN",
+      "code": "SM"
+    },
+    {
+      "id": 196,
+      "name": "SINO INDIAN",
+      "code": "SN"
+    },
+    {
+      "id": 197,
+      "name": "SOMALI",
+      "code": "SO"
+    },
+    {
+      "id": 198,
+      "name": "SLAVIC",
+      "code": "SQ"
+    },
+    {
+      "id": 199,
+      "name": "SERANI",
+      "code": "SR"
+    },
+    {
+      "id": 200,
+      "name": "SUNDANESE",
+      "code": "SS"
+    },
+    {
+      "id": 201,
+      "name": "SUDANESE",
+      "code": "SU"
+    },
+    {
+      "id": 202,
+      "name": "SWEDISH",
+      "code": "SW"
+    },
+    {
+      "id": 203,
+      "name": "SEYCHELLOIS",
+      "code": "SY"
+    },
+    {
+      "id": 204,
+      "name": "TELUGU",
+      "code": "TE"
+    },
+    {
+      "id": 205,
+      "name": "THAI",
+      "code": "TH"
+    },
+    {
+      "id": 206,
+      "name": "TIBETAN",
+      "code": "TI"
+    },
+    {
+      "id": 207,
+      "name": "TAJIK",
+      "code": "TJ"
+    },
+    {
+      "id": 208,
+      "name": "TAMIL",
+      "code": "TM"
+    },
+    {
+      "id": 209,
+      "name": "TURKMEN",
+      "code": "TN"
+    },
+    {
+      "id": 210,
+      "name": "TONGAN",
+      "code": "TO"
+    },
+    {
+      "id": 211,
+      "name": "TIMOR",
+      "code": "TP"
+    },
+    {
+      "id": 212,
+      "name": "TURK",
+      "code": "TR"
+    },
+    {
+      "id": 213,
+      "name": "UNKNOWN",
+      "code": "UN"
+    },
+    {
+      "id": 214,
+      "name": "UKRAINIAN",
+      "code": "UR"
+    },
+    {
+      "id": 215,
+      "name": "AMERICAN",
+      "code": "US"
+    },
+    {
+      "id": 216,
+      "name": "UYGHUR",
+      "code": "UY"
+    },
+    {
+      "id": 217,
+      "name": "UZBEK",
+      "code": "UZ"
+    },
+    {
+      "id": 218,
+      "name": "VENEZUELAN",
+      "code": "VE"
+    },
+    {
+      "id": 219,
+      "name": "VIETNAMESE",
+      "code": "VN"
+    },
+    {
+      "id": 220,
+      "name": "WELSH",
+      "code": "WE"
+    },
+    {
+      "id": 221,
+      "name": "OTHER INDONESIAN",
+      "code": "XD"
+    },
+    {
+      "id": 222,
+      "name": "OTHER EURASIAN",
+      "code": "XE"
+    },
+    {
+      "id": 223,
+      "name": "OTHER INDIAN",
+      "code": "XI"
+    },
+    {
+      "id": 224,
+      "name": "OTHERS",
+      "code": "XX"
+    },
+    {
+      "id": 225,
+      "name": "YUGOSLAV",
+      "code": "YU"
+    },
+    {
+      "id": 226,
+      "name": "ZIMBABWEAN",
+      "code": "ZW"
+    }
+  ],
+  "BasicSalary": [
+    {
+      "name": "Below $1000",
+      "code": "0",
+      "order": 1,
+      "status": 0
+    },
+    {
+      "name": "$1000 - $1500",
+      "code": "1",
+      "order": 2,
+      "status": 0
+    },
+    {
+      "name": "$1501 - $2000",
+      "code": "2",
+      "order": 3,
+      "status": 0
+    },
+    {
+      "name": "$2001 - $2500",
+      "code": "3",
+      "order": 4,
+      "status": 0
+    },
+    {
+      "name": "$2501 - $3000",
+      "code": "4",
+      "order": 5,
+      "status": 0
+    },
+    {
+      "name": "$3001 - $4000",
+      "code": "5",
+      "order": 6,
+      "status": 0
+    },
+    {
+      "name": "$4001 - $5000",
+      "code": "6",
+      "order": 7,
+      "status": 0
+    },
+    {
+      "name": "$5001 - $6000",
+      "code": "7",
+      "order": 8,
+      "status": 0
+    },
+    {
+      "name": "$6001 and above",
+      "code": "8",
+      "order": 9,
+      "status": 0
+    },
+    {
+      "name": "Unemployed more than 6 months",
+      "code": "9",
+      "order": -2,
+      "status": 0
+    },
+    {
+      "name": "Unemployed less than 6 months",
+      "code": "11",
+      "order": -3,
+      "status": 0
+    },
+    {
+      "name": "Unknown",
+      "code": "10",
+      "order": -1,
+      "status": 0
+    }
+  ],
+  "Designation": [
+    {
+      "name": "None",
+      "code": "0"
+    },
+    {
+      "name": "Agricultural and Fishery Workers",
+      "code": "1"
+    },
+    {
+      "name": "Associate Professionals and Technicians",
+      "code": "2"
+    },
+    {
+      "name": "Cleaners, Labourers and Related Workers",
+      "code": "3"
+    },
+    {
+      "name": "Clerical Support Workers",
+      "code": "4"
+    },
+    {
+      "name": "Construction Supervisor/Manager",
+      "code": "5"
+    },
+    {
+      "name": "Construction Worker",
+      "code": "6"
+    },
+    {
+      "name": "Craftsmen and Related Trades Workers",
+      "code": "7"
+    },
+    {
+      "name": "Legislators, Senior Officials and Managers",
+      "code": "8"
+    },
+    {
+      "name": "Migrated",
+      "code": "9"
+    },
+    {
+      "name": "Plan and Machine Operators and Assemblers",
+      "code": "10"
+    },
+    {
+      "name": "Professionals",
+      "code": "11"
+    },
+    {
+      "name": "Service and Sales Workers",
+      "code": "12"
+    },
+    {
+      "name": "Shipyard Supervisor/Manager",
+      "code": "13"
+    },
+    {
+      "name": "Shipyard Workers",
+      "code": "14"
+    },
+    {
+      "name": "Unemployed",
+      "code": "15"
+    },
+    {
+      "name": "Unemployed - Economically Active",
+      "code": "16"
+    },
+    {
+      "name": "Unemployed - Economically Inactive",
+      "code": "17"
+    },
+    {
+      "name": "Others",
+      "code": "18"
+    }
+  ]
+}

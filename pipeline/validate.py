@@ -21,6 +21,5 @@ def validate_data(df: pd.DataFrame = None, df_validation_config: pd.DataFrame = 
         if config["type"] == "inner_reference":
             config["factory"] = validation_strategy_factory
         validation_strategy_factory.get_strategy(config["type"])(df=df, **config).run()
-    
+
     return df
-    
