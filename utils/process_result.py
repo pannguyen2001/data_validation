@@ -7,27 +7,47 @@ from .logger_wrapper import logger_wrapper
 def process_result(
     df: pd.DataFrame = None,
     file_path: str = "",
-    sheet_name: str = "",
+    sheet_name: str = "Sheet1",
+    index: bool = False,
     *args,
     **kwargs
-    ) -> None:
+) -> None:
     """
     Process validation result and write to error report.
     """
     if df is None:
         raise ValueError(f"[{process_result.__name__}] df is required.")
     if df.empty:
-        logger.success(f"[{process_result.__name__}] df is empty. No error needs recording.")
+        logger.success(
+            f"[{process_result.__name__}] df is empty. No error needs recording."
+        )
     if "validation_result" not in df.columns:
-        raise ValueError(f"[{process_result.__name__}] validation_result is not in df columns: {df.columns.values.tolist()}]")
+        raise ValueError(
+            f"[{process_result.__name__}] validation_result is not in df columns: {df.columns.values.tolist()}]"
+        )
 
     df_error = df.loc[df["validation_result"].map(lambda x: len(x) > 0)]
 
     if df_error.empty:
         logger.success(f"[{process_result.__name__}] No error needs recording.")
+    else:
+        df_error["validation_result"] = df_error["validation_result"].map(
+            lambda x: sorted(x)
+        )
+        df_error["validation_result"] = df_error["validation_result"].map(
+            lambda x: "\n".join(x)
+        )
 
-    df_error["validation_result"] = df_error["validation_result"].map(lambda x: sorted(x))
-    df_error["validation_result"] = df_error["validation_result"].map(lambda x: "\n".join(x))
+        with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
+            df_error.to_excel(
+                writer, sheet_name=sheet_name, index=index, *args, **kwargs
+            )
 
-    with pd.ExcelWriter(file_path) as writer:
-        df_error.to_excel(writer, sheet_name= sheet_name, *args, **kwargs)
+        logger.success(
+            f"[{process_result.__name__}] Error report has been written to {file_path}"
+        )
+
+    mask = df["validation_result"].map(lambda x: len(x) == 0)
+    df = df[mask].reset_index(drop=True)
+    df = df.drop(columns="validation_result")
+    return df

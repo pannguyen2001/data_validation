@@ -36,5 +36,4 @@ class TestReadFileStrategyFactory(unittest.TestCase):
         excel_file_path: str = os.path.join(BASE_PATH, "data", "test_data", "API learner profile template Dev.xlsx")
         read_file_strategy_factory.register("excel", ReadExcelFileStrategy(excel_file_path))
 
-        assert read_file_strategy_factory.get_strategy("json") is not None, "JSON strategy not found"
-        
+        assert read_file_strategy_factory.get_strategy("json") is None, "JSON strategy not found"

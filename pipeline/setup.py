@@ -1,7 +1,8 @@
 from helpers.factory import (
     ValidationStrategyFactory,
     ReadFileStrategyFactory,
-    PreprocessingStrategyFactory
+    PreprocessingStrategyFactory,
+    WriteDataStrategyFactory
     )
 from helpers.strategy.read_file import (
     ReadExcelFileStrategy,
@@ -22,6 +23,9 @@ from helpers.strategy.preprocessing import (
     EnumMappingProcessing,
     FillDefaultValueProcessing
     )
+from helpers.strategy.write_data import (
+    WriteToExcelStrategy
+)
 from helpers.strategy.validation.inner_reference import InnerReferenceValidation
 from loguru import logger
 
@@ -51,6 +55,11 @@ validation_strategy_factory.register("datetime_format", DatetimeFormatValidation
 validation_strategy_factory.register("datetime_range", InRangeDateTimeValidation)
 validation_strategy_factory.register("value_list", ValueListValidation)
 # validation_strategy_factory.register("data_type", ValueListValidation)
+# validation_strategy_factory.register("outer_reference", ValueListValidation)
+
+# ========== WriteDataStrategy ==========
+write_data_strategy_factory = WriteDataStrategyFactory()
+write_data_strategy_factory.register("excel", WriteToExcelStrategy)
 
 
 logger.success("Setup strategy complete.")

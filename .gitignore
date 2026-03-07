@@ -10,3 +10,5 @@ old_code.py
 .pytest_cache
 logs/*
 reports/*
+allure-report/*
+allure-results/*

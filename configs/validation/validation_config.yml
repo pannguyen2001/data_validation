@@ -1,0 +1,78 @@
+files:
+- file_path: ${FILE_PATH}
+  sheet_name: ${SHEET_NAME}
+  columns:
+    - name: User ID
+      rules:
+        - type: mandatory
+          empty_list: ${EMPTY_LIST}
+        - type: unique
+
+    - name: Name
+      rules:
+        - type: mandatory
+          empty_list: ${EMPTY_LIST}
+        - type: unique
+
+    - name: Gender
+      rules:
+        - type: mandatory
+          empty_list: ${EMPTY_LIST}
+        - type: value_list
+          values: ${GENDER}
+
+    - name: Date of birth
+      rules:
+        - type: mandatory
+          empty_list: ${EMPTY_LIST}
+        # - type: data_type
+        #   data_type: datetime
+        - type: datetime_format
+          format: "%Y-%m-%d"
+        - type: datetime_range
+          format: "%Y-%m-%d"
+          start_date: 1900-01-01
+          end_date: now
+
+    - name: Residential status
+      rules:
+        - type: mandatory
+          empty_list: ${EMPTY_LIST}
+        - type: value_list
+          values: ${RESIDENTIAL_STATUS}
+
+    - name: NRIC/FIN
+      rules:
+        - type: mandatory
+          empty_list: ${EMPTY_LIST}
+        - type: unique
+
+    - name: Pass type
+      rules:
+        - type: value_list
+          values: ${PASS_TYPE}
+        - type: inner_reference
+          ref_info:
+            - condition:
+                operator: OR
+                conditions:
+                - column: Residential status
+                  operator: ==
+                  values: Foreigner
+              ref_rules:
+                - type: mandatory
+                  empty_list: ${EMPTY_LIST}
+                  message: "Pass type is required if Residential status is Foreigner"
+                - type: unique
+                  message: "Pass type should be unique if Residential status is Foreigner"
+
+    - name: Pass expiry date
+      rules:
+        # - type: data_type
+        #   data_type: datetime
+        - type: datetime_format
+          format: "%Y-%m-%d"
+        - type: datetime_range
+          format: "%Y-%m-%d"
+          start_date: 1900-01-01
+          end_date: now
