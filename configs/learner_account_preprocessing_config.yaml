@@ -1,0 +1,196 @@
+files:
+  - file_path: ${FILE_PATH}
+    sheet_name: ${SHEET_NAME}
+    columns:
+      - name: User ID
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Name
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+      
+      - name: Gender
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${GENDER_ENUM}
+            processing_type: postprocessing
+      
+      - name: Date of birth
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+      
+      - name: Residential status
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${RESIDENTIAL_STATUS_ENUM}
+            processing_type: postprocessing
+      
+      - name: NRIC/FIN
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Pass type
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${PASS_TYPE_ENUM}
+            processing_type: postprocessing
+          - type: fill_default
+            default_value: "None"
+            processing_type: postprocessing
+            condition:
+              operator: OR
+              conditions:
+                - column: Residential status
+                  operator: "!="
+                  values: Foreigner
+
+      - name: Pass expiry date
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Work permit ID
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+      
+      - name: Race
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${RACE_ENUM}
+            processing_type: postprocessing
+      
+      - name: Country/Region of birth
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${COUNTRY_ENUM}
+            processing_type: postprocessing
+      
+      - name: Nationality
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${NATIONALITY_ENUM}
+            processing_type: postprocessing
+
+      - name: Employee ID
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Residential address
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${RESINDETAL_ADDRESS_ENUM}
+            processing_type: postprocessing
+      
+      - name: Country or region
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${COUNTRY_ENUM}
+            processing_type: postprocessing
+      
+      - name: Postal code
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Block/Building No.
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Building name
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Street name
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Floor number
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Unit number
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Floor/Unit number is not applicable 
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${NO_FLOOR_OR_UNIT_NUMER_ENUM}
+            processing_type: postprocessing
+
+      - name: Address line 1
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+
+      - name: Address line 2
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+      
+      - name: Employed
+        rules:
+          - type: string_case
+            case_type: lower
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${EMPLOYED_ENUM}
+            processing_type: postprocessing
+
+      - name: Designation
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: fill_default
+            default_value: "None"
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${DESIGNATION_ENUM}
+            processing_type: postprocessing
+
+      - name: Basic salary
+        rules:
+          - type: remove_white_space
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${BASIC_SALARY_ENUM}
+            processing_type: postprocessing
+
+      - name: VIP
+        rules:
+          - type: string_case
+            case_type: lower
+            processing_type: preprocessing
+          - type: enum_mapping
+            enum_values: ${VIP_ENUM}
+            processing_type: postprocessing

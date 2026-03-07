@@ -1,0 +1,12 @@
+.venv
+.gitignore
+logs/*
+reports/*
+*.env
+__pycache__
+.idx
+old_code.py
+*.xlsx
+.pytest_cache
+logs/*
+reports/*
