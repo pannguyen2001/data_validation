@@ -11,6 +11,7 @@ from .setup import (
     validation_strategy_factory
 )
 from utils import logger, process_config, process_result
+from .processing import process_data
 
 # ========== Data validation pipeline ==========
 # Load config
@@ -51,7 +52,7 @@ def data_validation_pipeline(
         return
 
     if df_processing is not None and not df_processing.empty:
-        df = process_data(df, df_processing, processing_type_list)
+        df = process_data(df, df_processing)
         if df is None:
             logger.warning(f"[{data_validation_pipeline.__name__}] Processing data is failed")
             return
