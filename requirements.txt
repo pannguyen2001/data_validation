@@ -1,9 +1,11 @@
 pandas
 python_calamine
+openpyxl
 loguru
 snoop
-pytest
-allure-pytest
+# pytest
+# allure-pytest
 pytz
 python-dotenv
 dynamic-yaml
+PyYAML
