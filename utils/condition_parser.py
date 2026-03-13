@@ -1,6 +1,7 @@
 import operator
 import pandas as pd
 # from loguru import logger
+from typing import Union
 from utils.logger_wrapper import logger_wrapper
 
 class ConditionParser:
@@ -28,7 +29,7 @@ class ConditionParser:
 
     @classmethod
     @logger_wrapper
-    def build_mask(cls, df: pd.DataFrame, condition_config: dict) -> pd.Series:
+    def build_mask(cls, df: Union[pd.DataFrame, pd.Series], condition_config: dict) -> pd.Series:
         """
         Ex:
         {

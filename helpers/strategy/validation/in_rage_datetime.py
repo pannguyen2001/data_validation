@@ -1,3 +1,4 @@
+import datetime
 import pandas as pd
 from .base_strategy import ValidationStrategy
 
@@ -7,8 +8,8 @@ class InRangeDateTimeValidation(ValidationStrategy):
         self, df: pd.DataFrame = None, *args, **kwargs
     ) -> None:
         super().__init__(df, *args, **kwargs)
-        self.kwargs["validation_type"] = "Check datetime range"
-        self.kwargs["message"] = f"Datetime should be between {self.kwargs.get('start_date')} and {self.kwargs.get('end_date')}"
+        self.kwargs["validation_type"] = self.kwargs.get("validation_type") or "Check datetime range"
+        self.kwargs["message"] = self.kwargs.get("message") or f"Datetime should be between {self.kwargs.get('start_date')} and {self.kwargs.get('end_date')}"
 
     def validate(self, column: str = "") -> pd.Series:
         start_date = self.kwargs.get("start_date")

@@ -1,0 +1,9 @@
+- file_path: ${FILE_PATH}
+  sheet_name: InternalSuspendedList
+  columns:
+    - name: Bad debt write-off amount
+      rules:
+        - type: convert_data_type
+          data_type: numeric
+          decimal_places: 4
+          processing_action: postprocessing

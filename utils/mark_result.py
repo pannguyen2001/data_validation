@@ -51,8 +51,8 @@ def mark_result(
     if mask is None or mask.empty:
         logger.warning("Validation mask is empty.")
         return
-    if column not in df.columns:
-        raise ValueError(f"{column} is not in data columns: {df.columns.values.tolist()}")
+    # if column not in df.columns:
+    #     raise ValueError(f"{column} is not in data columns: {df.columns.values.tolist()}")
     if not validation_type or not message:
             logger.warning("validation_type, message are empty.")
             return

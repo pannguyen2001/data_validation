@@ -1,7 +1,7 @@
 from helpers.factory import (
     ValidationStrategyFactory,
     ReadFileStrategyFactory,
-    PreprocessingStrategyFactory,
+    ProcessingStrategyFactory,
     WriteDataStrategyFactory
     )
 from helpers.strategy.read_file import (
@@ -14,19 +14,24 @@ from helpers.strategy.validation import (
     UniqueValidation,
     DatetimeFormatValidation,
     InRangeDateTimeValidation,
-    ValueListValidation
+    ValueListValidation,
+    DataTypeValidation,
+    InRangeNumberValidation,
+    InRangeStringLengthValidation
     )
-from helpers.strategy.preprocessing import (
+from helpers.strategy.processing import (
     RemoveWhiteSpaceProcessing,
     StringCaseProcessing,
     SplitStringProcessing,
     EnumMappingProcessing,
-    FillDefaultValueProcessing
+    FillDefaultValueProcessing,
+    ConvertDataTypeProcessing
     )
 from helpers.strategy.write_data import (
     WriteToExcelStrategy
 )
 from helpers.strategy.validation.inner_reference import InnerReferenceValidation
+from helpers.strategy.validation.outer_reference import OuterReferenceValidation, OuterReferenceRegistry
 from loguru import logger
 
 
@@ -39,12 +44,13 @@ read_file_strategy_factory.register("json", ReadJsonFileStrategy)
 read_file_strategy_factory.register("yaml", ReadYAMLFileStrategy)
 
 # ========== PreprocessingStrategy ==========
-preprocessing_strategy_factory = PreprocessingStrategyFactory()
-preprocessing_strategy_factory.register("remove_white_space", RemoveWhiteSpaceProcessing)
-preprocessing_strategy_factory.register("string_case", StringCaseProcessing)
-preprocessing_strategy_factory.register("split_string", SplitStringProcessing)
-preprocessing_strategy_factory.register("enum_mapping", EnumMappingProcessing)
-preprocessing_strategy_factory.register("fill_default", FillDefaultValueProcessing)
+processing_strategy_factory = ProcessingStrategyFactory()
+processing_strategy_factory.register("remove_white_space", RemoveWhiteSpaceProcessing)
+processing_strategy_factory.register("string_case", StringCaseProcessing)
+processing_strategy_factory.register("split_string", SplitStringProcessing)
+processing_strategy_factory.register("enum_mapping", EnumMappingProcessing)
+processing_strategy_factory.register("fill_default", FillDefaultValueProcessing)
+processing_strategy_factory.register("convert_data_type", ConvertDataTypeProcessing)
 
 # ========== ValidationStrategy ==========
 validation_strategy_factory = ValidationStrategyFactory()
@@ -54,8 +60,11 @@ validation_strategy_factory.register("inner_reference", InnerReferenceValidation
 validation_strategy_factory.register("datetime_format", DatetimeFormatValidation)
 validation_strategy_factory.register("datetime_range", InRangeDateTimeValidation)
 validation_strategy_factory.register("value_list", ValueListValidation)
-# validation_strategy_factory.register("data_type", ValueListValidation)
-# validation_strategy_factory.register("outer_reference", ValueListValidation)
+validation_strategy_factory.register("data_type", DataTypeValidation)
+validation_strategy_factory.register("outer_reference", OuterReferenceValidation)
+validation_strategy_factory.register("in_range_number", InRangeNumberValidation)
+validation_strategy_factory.register("in_range_string_length", InRangeStringLengthValidation)
+outer_reference_registry = OuterReferenceRegistry(read_file_strategy_factory)
 
 # ========== WriteDataStrategy ==========
 write_data_strategy_factory = WriteDataStrategyFactory()

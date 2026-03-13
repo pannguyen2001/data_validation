@@ -44,7 +44,7 @@ class WriteDataStrategy(ABC):
             logger.warning(f"[{self.__class__.__name__}] data is empty")
             return
         if not os.path.exists(file_path):
-            logger.warning(f"[{self.__class__.__name__}] file/folder is not exists. Create new one.")
+            logger.info(f"[{self.__class__.__name__}] file/folder is not exists. Create new one: {file_path}.")
             output_file = Path(file_path)
             output_file.parent.mkdir(exist_ok=True, parents=True)
 

@@ -38,15 +38,17 @@ class ValidationStrategy(ABC):
         column = self.kwargs.get("name")
         if not column:
             raise ValueError(f"[{self.__class__.__name__}] column is required.")
-        if column not in self.df.columns:
+        set_columns = {column} if isinstance(column, str) else set(column)
+        invalid_columns = set_columns - set(self.df.columns.values.tolist())
+        if invalid_columns:
             raise ValueError(
-                f"[{self.__class__.__name__}] Column '{column}' not in df: {self.df.columns.values.tolist()}"
+                f"[{self.__class__.__name__}] Column '{invalid_columns}' not in df: {self.df.columns.values.tolist()}"
             )
 
         self.is_empty(self.df[column])
         self.mask = self.validate(column)
 
-        if self.__class__.__name__ not in ["InnerReferenceValidation"]:
+        if self.__class__.__name__ not in ["InnerReferenceValidation", "OuterReferenceValidation"]:
             validation_type = self.kwargs.get("validation_type")
             message = self.kwargs.get("message")
             mark_result(self.df, self.mask, column, validation_type, message)

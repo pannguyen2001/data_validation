@@ -1,5 +1,5 @@
 from .condition_parser import ConditionParser
-from .detec_file_type import detect_file_type
+from .detect_file_type import detect_file_type
 from .logger_wrapper import logger_wrapper
 from .logger import logger
 from .mark_result import mark_result
