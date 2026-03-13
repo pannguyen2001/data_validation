@@ -63,8 +63,8 @@ files:
                 - type: mandatory
                   empty_list: ${EMPTY_LIST}
                   message: "Pass type is required if Residential status is Foreigner"
-                - type: unique
-                  message: "Pass type should be unique if Residential status is Foreigner"
+                # - type: unique
+                #   message: "Pass type should be unique if Residential status is Foreigner"
 
     - name: Pass expiry date
       rules:
@@ -75,4 +75,4 @@ files:
         - type: datetime_range
           format: "%Y-%m-%d"
           start_date: 1900-01-01
-          end_date: now
+          end_date: 2029-01-01

@@ -1,0 +1,16 @@
+- file_name: Data Template M02_Master Data Setup_C2R1.xlsx
+  file_name_mapping: MASTER_DATA_SETUP
+  constant_file: null
+  processing_config_file: master_data_setup_processing_config.yml
+  validation_config_file: master_data_setup_validation_config.yaml
+  sheets:
+    - InternalSuspendedList
+    - SuspensionReason
+
+- file: API learner profile template Dev.xlsx
+  file_name_mapping: null
+  config_file: learner_enum_data.json
+  processing_config_file: learner_account_processing_config.yaml
+  validation_config_file: master_data_setup_validation_config.yaml
+  sheets:
+    - Edit learner profile result

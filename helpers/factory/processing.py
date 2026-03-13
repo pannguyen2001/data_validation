@@ -1,8 +1,8 @@
 from typing import Dict
-from helpers.strategy.preprocessing.base_strategy import PreprocessingStrategy
+from helpers.strategy.processing.base_strategy import PreprocessingStrategy
 from utils.logger_wrapper import logger_wrapper
 
-class PreprocessingStrategyFactory:
+class ProcessingStrategyFactory:
     def __init__(self):
         self.strategies: Dict[str, PreprocessingStrategy] = {}
 

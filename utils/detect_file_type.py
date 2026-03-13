@@ -11,18 +11,19 @@ def detect_file_type(file_path: str = "") -> Optional[str]:
         raise ValueError(f"[{detect_file_type.__name__}] file_path is required.")
 
     file_type: str = file_path.split(".")[-1]
+
     match file_type:
         case ["yaml", "yml"]:
             return "yaml"
-        case ["json"]:
+        case "json":
             return "json"
-        case ["xlsx", "xls", "xlsm", "xlsb", "odf", "ods", "odt"]:
+        case "xlsx" | "xls":
             return "excel"
-        case ["parquet"]:
+        case "parquet":
             return "parquet"
-        case ["csv"]:
+        case "csv":
             return "csv"
-        case ["feather"]:
+        case "feather":
             return "feather"
         case _:
             raise ValueError(f"[{detect_file_type.__name__}] Invalid file type: {file_type}.")

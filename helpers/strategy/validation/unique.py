@@ -9,5 +9,6 @@ class UniqueValidation(ValidationStrategy):
         self.kwargs["message"] = self.kwargs.get("message") or "Duplicate value"
 
     def validate(self, column: str = "") -> pd.Series:
-        mask = self.df[column].duplicated(keep="first") & self.df[column].notna()
+        mask = self.df[column].duplicated(keep="first") & pd.DataFrame(self.df[column]).notna().all(axis=1)
+        # self.df[column].notna()
         return mask

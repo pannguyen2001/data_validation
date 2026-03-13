@@ -7,8 +7,8 @@ class DatetimeFormatValidation(ValidationStrategy):
         self, df: pd.DataFrame = None, *args, **kwargs
     ) -> None:
         super().__init__(df, *args, **kwargs)
-        self.kwargs["validation_type"] = "Check datetime format"
-        self.kwargs["message"] = f"Incorrect datetime format. Correct format is {self.kwargs.get('format')}"
+        self.kwargs["validation_type"] = self.kwargs.get("validation_type") or "Check datetime format"
+        self.kwargs["message"] = self.kwargs.get("message") or f"Incorrect datetime format. Correct format is {self.kwargs.get('format')}"
 
     def validate(self, column: str = "") -> pd.Series:
         datetime_format = self.kwargs.get("format")

@@ -2,7 +2,7 @@ import pandas as pd
 from loguru import logger
 from typing import Optional
 from utils import logger_wrapper
-from .setup import validation_strategy_factory
+from .setup import validation_strategy_factory, outer_reference_registry
 
 
 @logger_wrapper
@@ -20,6 +20,9 @@ def validate_data(df: pd.DataFrame = None, df_validation_config: pd.DataFrame = 
     for index, config in df_validation_config.iterrows():
         if config["type"] == "inner_reference":
             config["factory"] = validation_strategy_factory
+        if config["type"] == "outer_reference":
+            config["factory"] = validation_strategy_factory
+            config["outer_reference_registry"] = outer_reference_registry
         validation_strategy_factory.get_strategy(config["type"])(df=df, **config).run()
 
     return df

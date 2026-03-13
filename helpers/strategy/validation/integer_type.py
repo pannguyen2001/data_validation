@@ -8,8 +8,8 @@ class IntergerTypeValidation(ValidationStrategy):
 
     def __init__(self, df: pd.DataFrame = None, *args, **kwargs) -> None:
         super().__init__(df, *args, **kwargs)
-        self.kwargs["validation_type"] = "Check integer type"
-        self.kwargs["message"] = "Incorrect integer type"
+        self.kwargs["validation_type"] = self.kwargs.get("validation_type") or "Check integer type"
+        self.kwargs["message"] = self.kwargs.get("message") or "Incorrect integer type"
 
     def validate(self, column: str = "") -> pd.Series:
         mask = self.df[column].notna() & (

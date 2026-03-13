@@ -1,3 +1,4 @@
+import datetime
 import pandas as pd
 from loguru import logger
 from .logger_wrapper import logger_wrapper
@@ -16,20 +17,21 @@ def process_result(
     Process validation result and write to error report.
     """
     if df is None:
-        raise ValueError(f"[{process_result.__name__}] df is required.")
+        raise ValueError("df is required.")
     if df.empty:
         logger.success(
-            f"[{process_result.__name__}] df is empty. No error needs recording."
+            "df is empty. No error needs recording."
         )
     if "validation_result" not in df.columns:
         raise ValueError(
-            f"[{process_result.__name__}] validation_result is not in df columns: {df.columns.values.tolist()}]"
+            "validation_result is not in df columns: {df.columns.values.tolist()}]"
         )
 
     df_error = df.loc[df["validation_result"].map(lambda x: len(x) > 0)]
+    df_error["datetime"] = datetime.datetime.strftime(datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=7))), format="%Y-%m-%d %H:%M:%S") # this is just for fun, if need assign time for report, assign it as: reports/date(YYYY-MM-DD)/<file_name>_<datetime: YYY-MM-DD_HH-MM-SS>.<file_type>, for example: reports/2026-03-09/learner_account_validation_report_2026-03-09_00-00-00.xlsx
 
     if df_error.empty:
-        logger.success(f"[{process_result.__name__}] No error needs recording.")
+        logger.success("No error needs recording.")
     else:
         df_error["validation_result"] = df_error["validation_result"].map(
             lambda x: sorted(x)
@@ -44,7 +46,7 @@ def process_result(
             )
 
         logger.success(
-            f"[{process_result.__name__}] Error report has been written to {file_path}"
+            f"Error report has been written to {file_path}"
         )
 
     mask = df["validation_result"].map(lambda x: len(x) == 0)
