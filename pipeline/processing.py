@@ -2,7 +2,7 @@ import json
 import pandas as pd
 from loguru import logger
 from typing import List
-from utils import logger_wrapper
+from utils.logger_wrapper import logger_wrapper
 from .setup import processing_strategy_factory
 
 PROCESS_ACTION: List = ["preprocessing", "postprocessing"]
@@ -31,13 +31,21 @@ def process_data(
     - Fill default value
     - Enum mapping
     """
-    if df is None or df_processing_config is None:
+    if df is None:
         raise ValueError(
-            f"[{processing_action}] df or df_processing_config is required."
+            f"[{processing_action}] df is required."
         )
         return
-    if df.empty or df_processing_config.empty:
-        logger.error(f"[{processing_action}] df or df_processing_config is empty.")
+    if df_processing_config is None:
+        raise ValueError(
+            f"[{processing_action}] df_processing_config is required."
+        )
+        return
+    if df.empty:
+        logger.warning(f"[{processing_action}] df is empty.")
+        return df
+    if df_processing_config.empty:
+        logger.info(f"[{processing_action}] df_processing_config is empty. No processing action needs.")
         return df
 
     if processing_action not in PROCESS_ACTION:
@@ -54,8 +62,8 @@ def process_data(
             )
         ]
         if processing_columns.empty:
-            logger.warning(
-                f"[{processing_action}] No columns to take action {item}."
+            logger.info(
+                f"[{processing_action}] No column needs to take action {item}."
             )
             continue
 

@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import logger_wrapper
+from utils.logger_wrapper import logger_wrapper
 from .base_strategy import PreprocessingStrategy
 
 

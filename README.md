@@ -42,6 +42,7 @@ python -m venv .venv
 ```
 2. Install requirements.
 ```
+Active virtual environment: & "<absolute folder path>\.venv\Scripts\Activate.ps1"
 pip install -r requirements.txt
 ```
 3. Check .venv python environment
@@ -67,14 +68,14 @@ allure open ./allure-report
 ```
 
 ## VI. TODO
-- [ ] Add data type check. **
-- [ ] Add fill default value based on condition. **
-- [ ] Add outer reference validation. ***
-- [ ] Add data validation pipeline for many sheets and files.
+- [X] Add data type check. **
+- [X] Add fill default value based on condition. **
+- [X] Add outer reference validation. ***
+- [X] Add data validation pipeline for many sheets and files.
 - [ ] Add more unit tests.
 - [ ] Add write report to file and database: csv, json, exce, parquet, SQLite, PostgreSQL, Mongodb.
-- [ ] Add cache memory.
-- [ ] Add concurency, multiple threads, multiple processings, async await.
+- [X] Add cache memory.
+- [X] Add concurency, multiple threads, multiple processings, async await.
 - [ ] Add CI/CD.
 - [ ] Improve perfomance: time running, complexity.
 - [ ] Add function to check time excecition, profiling, benchmark.

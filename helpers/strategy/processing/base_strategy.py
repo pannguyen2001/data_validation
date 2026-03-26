@@ -38,7 +38,7 @@ class PreprocessingStrategy(ABC):
             )
         if self.is_empty(self.df[column]):
             logger.warning(f"[{column}] [{self.__class__.__name__}] Empty data. No processing.")
-            return
+            return self.df
 
         self.process(column, *args, **kwargs)
         logger.success(f"[{column}] [{self.__class__.__name__}] Processing complete.")

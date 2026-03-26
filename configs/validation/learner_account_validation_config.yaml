@@ -1,4 +1,3 @@
-files:
 - file_path: ${FILE_PATH}
   sheet_name: ${SHEET_NAME}
   columns:

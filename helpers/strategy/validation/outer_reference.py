@@ -5,7 +5,8 @@ from helpers.factory.validation import ValidationStrategyFactory
 from helpers.factory.read_file_factory import ReadFileStrategyFactory
 from utils.logger_wrapper import logger_wrapper
 from utils.condition_parser import ConditionParser
-from utils import detect_file_type, mark_result
+from utils.detect_file_type import detect_file_type
+from utils.mark_result import mark_result
 
 
 class OuterReferenceRegistry:
@@ -29,7 +30,7 @@ class OuterReferenceRegistry:
 
         key = (file_path, sheet_name)
 
-        if file_path not in self.cache:
+        if key not in self.cache:
             read_file_strategy = self.read_file_strategy_factory.get_strategy(file_type)
             df = read_file_strategy(file_path=file_path).load(*args, **kwargs)
             self.cache[key] = df
@@ -54,6 +55,7 @@ class OuterReferenceValidation(ValidationStrategy):
       self.outer_reference_registry = outer_reference_registry
       self.compiled_refs = []
       self.kwargs["validation_type"] = "Check outer reference"
+      self.marks_own_results = True
 
       if not self.ref_info:
         raise ValueError("ref_info is required")
@@ -87,7 +89,7 @@ class OuterReferenceValidation(ValidationStrategy):
             ref_column = condition.get("column")
             filters = condition.get("conditions")
 
-            df_ref = self.outer_reference_registry.get_data(file_path=file_path, sheet_name=sheet_name, dtype=str)
+            df_ref = self.outer_reference_registry.get_data(file_path=file_path, sheet_name=sheet_name)
 
             if filters:
                 for f in filters:

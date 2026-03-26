@@ -43,7 +43,8 @@ def mark_result(
     mask: pd.Series = None,
     column: str = "",
     validation_type: str = "",
-    message: str = ""
+    message: str = "",
+    extra_message: str = ""
     ) -> None:
     if df is None or df.empty:
         logger.warning("Data is empty.")
@@ -58,15 +59,19 @@ def mark_result(
             return
 
     error_message: str = f"[{column}] [{validation_type}] {message}"
-    df.loc[mask, "validation_result"] = df.loc[mask, "validation_result"].map(lambda x: x.union({error_message}))
+    # df.loc[mask, "validation_result"] = df.loc[mask, "validation_result"].map(lambda x: x.union({error_message}))
+    failed_idx = df.index[mask]
+    for idx in failed_idx:
+        df.at[idx, "validation_result"].add(error_message)
 
     error_amount: int = mask.sum()
     if error_amount == 0:
-        logger.success(f"[{column}] [{validation_type}] All records are valid.")
+        logger.success(f"[{column}] [{validation_type}] All records are valid. {extra_message}")
         return
 
     shape: int = mask.shape[0]
     sample_index_errors: List = (mask.where(mask).dropna().index + 2).values.tolist()[:5]
     logger.error(f"{error_message}. {error_amount}/{shape} records are invalid. Excel index example: {sample_index_errors}.")
+    
     return
 

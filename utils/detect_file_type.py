@@ -13,7 +13,7 @@ def detect_file_type(file_path: str = "") -> Optional[str]:
     file_type: str = file_path.split(".")[-1]
 
     match file_type:
-        case ["yaml", "yml"]:
+        case "yaml" | "yml":
             return "yaml"
         case "json":
             return "json"
@@ -27,4 +27,3 @@ def detect_file_type(file_path: str = "") -> Optional[str]:
             return "feather"
         case _:
             raise ValueError(f"[{detect_file_type.__name__}] Invalid file type: {file_type}.")
-    return False

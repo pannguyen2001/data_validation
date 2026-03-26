@@ -1,6 +1,7 @@
 import datetime
 import zoneinfo
 import sys
+from pathlib import Path
 from loguru import logger
 from string import Template
 from configs.constants import log_file_path, date_today
@@ -14,6 +15,13 @@ def set_datetime(record):
 
 error_template = Template("""[${funct_name}] has error:
 ${error}""")
+
+error_log_file_path: str = f"./logs/error_logs/{date_today}.log"
+file_path = Path(error_log_file_path)
+file_path.unlink(missing_ok=True)
+with open(error_log_file_path, "w"):
+    pass
+
 
 logger.remove()
 logger.configure(patcher=set_datetime)
@@ -32,7 +40,7 @@ logger.add(
 )
 
 logger.add(
-    f"logs/error_logs/{date_today}.log",
+    error_log_file_path,
     level="ERROR",
     colorize=False,
     format="[{level}][{extra[datetime]}][{name}:{function}:{line}]\n{message}"

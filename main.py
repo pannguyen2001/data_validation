@@ -1,238 +1,192 @@
-import datetime
+import os
 import pandas as pd
-import numpy as np
-from loguru import logger
-from typing import Dict
-from pipeline.setup import read_file_strategy_factory
-from utils import process_config, process_result
-from pipeline.validate import validate_data
-from pipeline.processing import process_data
-from pipeline.setup import write_data_strategy_factory
-from pipeline.pipeline import data_validation_pipeline
-from configs.constants import report_folder_path, date_today, time_today, DATA_FOLDER_PATH, CONSTANTS_CONFIG_FOLDER_PATH, PROCESSING_CONFIG_FOLDER_PATH, VALIDATION_CONFIG_FOLDER_PATH
+import sys
+import time
+import socket
+import platform
+import psutil
+import multiprocessing as mp
+from typing import Any, Dict
+from utils.logger import logger
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from pipeline.validate_files import validate_files
+from configs.constants import DATA_FOLDER_PATH
+from utils.logger_wrapper import logger_wrapper
+from utils.load_all_configs import load_all_configs
+from utils.build_common_kwargs import build_common_kwargs
+from utils.get_input_files import get_input_files
+from utils.build_validation_sheet_set import build_validation_sheet_set
+from additional_functions.course_setup import course_setup_additional_function
 
 
-# ========== Constants ==========
-data_file_path = r"data/test_data/Data Template M02_Master Data Setup_C2R1.xlsx"
-file_name: str = data_file_path.split("/")[-1].split(".")[0]
-# r"data/test_data/API learner profile template Dev.xlsx"
-# r"data/test_data/API learner profile template Dev - correct data.xlsx"
-sheet_name: str = "InternalSuspendedList"
-# "Edit learner profile result"
-
-validation_config_file_path: str = r"configs/validation/master_data_setup_validation_config.yaml"
-# r"configs/validation/learner_account_validation_config.yaml"
-processing_congfig_file_path: str = "configs/processing/master_data_setup_processing_config.yml"
-r"configs/processing/learner_account_processing_config.yaml"
-# learner_config_data_file_path: str = r"configs/constants/learner_enum_data.json"
-
-# process all config file, processing, validation file before run test
-common_kwargs = {
-    "${DATA_FOLDER_PATH}": DATA_FOLDER_PATH,
-    "${SHEET_NAME}": sheet_name,
-    "${FILE_PATH}": data_file_path,
-    "${EMPTY_LIST}": ["", "nan", np.nan, pd.NA, None, "nan", "NA", "<NA>", "NAT", "null"],
-    "now": datetime.datetime.now()
-}
-
-with open("/home/user/datavalidation/configs/file_info.yaml", "r") as f:
-    import yaml
-    data = yaml.load(f, Loader=yaml.FullLoader)
-    df_file_info = pd.DataFrame(data)
-
-df_file_info = df_file_info.explode("sheets", ignore_index=True)
-
-file_name_mapping = df_file_info[["file_name", "file_name_mapping"]].dropna().drop_duplicates().to_dict(orient="records")
-
-for item in file_name_mapping:
-    key = "${" + item["file_name_mapping"] + "}"
-    common_kwargs[key] = item["file_name"]
-
-# logger.info(common_kwargs)
-
-df_file_info["file_name"] = DATA_FOLDER_PATH + "/" + df_file_info["file_name"]
-df_file_info["config_file"] = CONSTANTS_CONFIG_FOLDER_PATH + "/" + df_file_info["config_file"]
-df_file_info["processing_config_file"] = PROCESSING_CONFIG_FOLDER_PATH + "/" + df_file_info["processing_config_file"]
-df_file_info["validation_config_file"] = VALIDATION_CONFIG_FOLDER_PATH + "/" + df_file_info["validation_config_file"]
-
-# ========== ReadFileStrategy ==========
-read_excel_file_strategy = read_file_strategy_factory.get_strategy("excel")
-read_json_file_strategy = read_file_strategy_factory.get_strategy("json")
-read_yaml_file_strategy = read_file_strategy_factory.get_strategy("yaml")
+addtional_function: Dict = {**course_setup_additional_function}
 
 
-# ========== Load constant data (enum value, real value list,...) ==========
-# learner_config_data: Dict = read_json_file_strategy(learner_config_data_file_path).load()
-# logger.info(learner_config_data)
+@logger_wrapper
+def _safe_get_total_memory() -> Dict[str, Any]:
+    """
+    Try to get memory info.
+    psutil is best if installed; otherwise return partial info.
+    """
+    try:
+        import psutil
+        vm = psutil.virtual_memory()
+        return {
+            "total_ram_gb": round(vm.total // 10**9, 2),
+            "available_gb": round(vm.available // 10**9, 2),
+            "used_ram_gb": round(vm.used // 10**9, 2),
+            "ram_percent": vm.percent,
+            "psutil_available": True,
+        }
+    except Exception:
+        return {
+            "total_ram_gb": None,
+            "available_ram_gb": None,
+            "used_ram_gb": None,
+            "ram_percent": None,
+            "psutil_available": False,
+        }
 
-# learner_enum_data: Dict = learner_config_data
-# logger.info(learner_enum_data)
+@logger_wrapper
+def _safe_get_physical_cpu_count() -> int | None:
+    """
+    Try to get physical CPU count if psutil exists.
+    """
+    try:
+        import psutil
+        return psutil.cpu_count(logical=False)
+    except Exception:
+        return None
 
-# enum is post processing, meaning string data will be mapped before send to be
-# enum_mapping_kwargs: Dict = {
-#     "${GENDER_ENUM}": learner_enum_data.get("Gender", {}),
-#     "${RESIDENTIAL_STATUS_ENUM}": learner_enum_data.get("ResidentialStatus", {}),
-#     "${PASS_TYPE_ENUM}": learner_enum_data.get("PassType", {}),
-#     "${RACE_ENUM}": {i.get("name"): i.get("id") for i in learner_enum_data.get("RaceCode", {})},
-#     "${COUNTRY_ENUM}": {i.get("name"): i.get("id") for i in learner_enum_data.get("CountryCode", {})},
-#     "${NATIONALITY_ENUM}": {i.get("name"): i.get("id") for i in learner_enum_data.get("NationalityCode", {})},
-#     "${RESINDETAL_ADDRESS_ENUM}": learner_enum_data.get("ResidentialAddress", {}),
-#     "${NO_FLOOR_OR_UNIT_NUMER_ENUM}": learner_enum_data.get("noFloorAndUnit", {}),
-#     "${EMPLOYED_ENUM}": learner_enum_data.get("IsEmployed", {}),
-#     "${VIP_ENUM}": learner_enum_data.get("VIP", {}),
-#     "${DESIGNATION_ENUM}": {i.get("name"): i.get("code") for i in learner_enum_data.get("Designation", {})},
-#     "${BASIC_SALARY_ENUM}": {i.get("name"): i.get("code") for i in learner_enum_data.get("BasicSalary", {})}
-# }
-# logger.info(enum_mapping_kwargs)
+@logger_wrapper
+def get_env_info() -> Dict[str, Any]:
+    """
+    Collect environment/runtime info before starting validation.
+    """
+    info: Dict[str, Any] = {
+        "run_started_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "hostname": socket.gethostname(),
+        "cwd": os.getcwd(),
+        "python_version": sys.version.replace("\n", " "),
+        "python_executable": sys.executable,
+        "platform": platform.platform(),
+        "system": platform.system(),
+        "release": platform.release(),
+        "machine": platform.machine(),
+        "processor": platform.processor(),
+        "cpu_logical_count": os.cpu_count(),
+        "cpu_physical_count": _safe_get_physical_cpu_count(),
+        "multiprocessing_start_method": mp.get_start_method(allow_none=True),
+    }
 
-# value_list_kwargs: Dict = {
-#     "${GENDER}": list(learner_enum_data.get("Gender", {}).keys()),
-#     "${RESIDENTIAL_STATUS}": list(learner_enum_data.get("ResidentialStatus", {}).keys()),
-#     "${PASS_TYPE}": list(learner_enum_data.get("PassType", {}).keys()),
-#     "${RACE}": [i.get("name") for i in learner_enum_data.get("Race", {})],
-#     "${COUNTRY}": [i.get("name") for i in learner_enum_data.get("CountryCode", {})],
-#     "${NATIONALITY}": [i.get("name") for i in learner_enum_data.get("NationalityCode", {})],
-# }
-# logger.info(value_list_kwargs)
-
-# ========== Load processing config ==========
-processing_config_data = read_yaml_file_strategy(processing_congfig_file_path).load()
-
-df_processing_config = pd.DataFrame(processing_config_data)
-df_processing_config = process_config(df_processing_config, common_kwargs)
-df_processing_config.to_excel(f"{file_name}_processing_config.xlsx", index=False)
-
-
-# ========== Load validation config ==========
-validation_config = read_yaml_file_strategy(validation_config_file_path).load()
-
-df = pd.DataFrame(validation_config)
-# df = process_config(df, {**common_kwargs, **value_list_kwargs})
-df = process_config(df, {**common_kwargs}) # internal suspension list
-df.to_excel(f"{file_name}_validation_config.xlsx", index=False)
-# logger.info(df["ref_info"].values.tolist())
-
-
-# ========== Read data ==========
-df_learner_account: pd.DataFrame = read_excel_file_strategy(data_file_path).load(sheet_name=sheet_name, dtype=str, engine="calamine")
-# logger.info(df_learner_account.columns)
-
-data_validation_pipeline(
-    df=df_learner_account,
-    df_processing_config=df_processing_config,
-    df_validation_config=df,
-    file_path=data_file_path,
-    sheet_name=sheet_name
-)
-
-# # Internal suspended list
-# from pipeline.setup import validation_strategy_factory, outer_reference_registry
-# outer_validation_strategy = validation_strategy_factory.get_strategy("outer_reference")
-# outer_ref_columns = df.loc[df["ref_info"].notna()]
-# for index, config in outer_ref_columns.iterrows():
-#     result = outer_validation_strategy(
-#         df=df_learner_account,
-#         factory=validation_strategy_factory,
-#         outer_reference_registry=outer_reference_registry,
-#         **config
-#     ).run()
+    info.update(_safe_get_total_memory())
+    return info
 
 
-# run validation -> which can in validation_config.yaml -> common config
-# Which special -> write special validation -> inherit ValidationStrategy
-# # need do: special logic -> pipeline
-# connect to slack, discord, emal, sms each running -> report
+@logger_wrapper
+def main(data_folder_path: str) -> None:
+    if not data_folder_path:
+        raise ValueError("data_folder_path is required.")
+        return
+
+    file_paths = get_input_files(data_folder_path)
+
+    if not file_paths:
+        logger.warning("No input files found.")
+        return
+
+    common_kwargs = build_common_kwargs(file_paths)
+    df_processing, df_validation = load_all_configs(common_kwargs)
+    validation_sheet_set = build_validation_sheet_set(df_validation)
+
+    if not validation_sheet_set:
+        logger.warning("No validation sheets configured.")
+        return
+
+    # max_workers = 1
+    # max(1, min(os.cpu_count() or 1, len(file_paths)))
+
+    results: list[dict[str]] = []
+
+    # with ProcessPoolExecutor(max_workers=max_workers) as executor: # create multiple worker processes.
+    #     futures = [
+    #         executor.submit( # send one file as one task to a worker process.
+    #             validate_files,
+    #             file_path,
+    #             df_processing,
+    #             df_validation,
+    #             validation_sheet_set,
+    #         )
+    #         for file_path in file_paths
+    #     ]
+
+    #     for future in as_completed(futures): # collect results in completion order, not submission order.
+    #         try:
+    #             result = future.result() # get returned data from worker (or raise uncaught worker exception).
+    #             results.append(result)
+    #             logger.info(
+    #                 f"Completed file: {result['file_path']}. Validated: {len(result['validated_sheets'])}. Errors: {len(result['errors'])}"
+    #             )
+    #         except Exception as e:
+    #             logger.exception(f"Worker future failed: {e}")
+    for file_path in file_paths:
+        if "Course" not in file_path:
+            continue
+        try:
+            result = validate_files(
+                file_path,
+                df_processing,
+                df_validation,
+                validation_sheet_set,
+                common_kwargs=common_kwargs,
+                additional_function=addtional_function
+            )
+            results.append(result)
+        except Exception as e:
+            logger.exception(f"Failed: {file_path}: {e}")
+
+    logger.info(f"Done. Processed {len(results)} files.")
+    # for item in results:
+    #     logger.info(item)
+    # import json
+    # logger.info(json.dumps(results, indent=1))
+    # logger.info(f"{'='*50}\n")
+
+
+@logger_wrapper
+def log_env_info(env_info: dict):
+    df = pd.DataFrame([{"Key": k, "Value": str(v)} for k, v in env_info.items()])
+    df.index = df.index + 1
+    logger.info("========== ENVIRONMENT INFO ==========")
+    # logger.info(tabulate(df, headers='keys', tablefmt='psql'))
+    logger.info(df.to_markdown())
+    logger.info("====================================")
+
+
+def safe_worker_count(file_paths: list, safety_factor: float = 0.6) -> int:
+    available_gb = psutil.virtual_memory().available / 1e9
+    # Rough estimate: 1 GB per worker for large Excel files
+    # Adjust estimated_gb_per_worker based on your actual file sizes
+    estimated_gb_per_worker = 1.5
+    memory_based = max(1, int((available_gb * safety_factor) / estimated_gb_per_worker))
+    cpu_based = max(1, os.cpu_count() - 1)  # leave 1 core for the main process
+    return min(memory_based, cpu_based, len(file_paths))
+
+
+if __name__ == "__main__":
+    mp.freeze_support()
+    import psutil
+    vm = psutil.virtual_memory()
+    logger.info(f"Available RAM: {vm.available / 1e9:.1f} GB ({vm.percent}% used)")
+    logger.info(safe_worker_count(file_paths=DATA_FOLDER_PATH))
+    # env_info = get_env_info()
+    # log_env_info(env_info)
+    main(DATA_FOLDER_PATH)
+
+
+# how to avoid memery leak
 
 
 
-# ===========================
-
-# remove white space
-# remove_white_space_columns = df_processing_config.loc[df_processing_config["type"] == "remove_white_space"]
-# remove_white_space_processing = processing_strategy_factory.get_strategy("remove_white_space")
-# for index, config in remove_white_space_columns.iterrows():
-#     df_learner_account = remove_white_space_processing(df=df_learner_account, **config).run()
-    
-# # lower case
-# string_case_configs = df_processing_config.loc[df_processing_config["type"] == "string_case"]
-# string_case_processing = processing_strategy_factory.get_strategy("string_case")
-# for index, config in string_case_configs.iterrows():
-#     df_learner_account = string_case_processing(df_learner_account, **config).run()
-
-# # Fill default value: be carefull
-# # 2 types:
-# # no condition: can fill all
-# # having condition: for example: Pass type justr fill default if Reasidental status is not Foreigner, if is Foreigner, it will be validation case: pass type can not empty if Reasidental status is Foreigner
-# fill_default_configs = df_processing_config.loc[df_processing_config["type"] == "fill_default"]
-# fill_default_processing = processing_strategy_factory.get_strategy("fill_default")(df_learner_account)
-# for index, config in fill_default_configs.iterrows():
-#     column = config["name"]
-#     default_value = config["default_value"]
-#     df_learner_account = fill_default_processing.run(column=column, default_value=default_value)
-
-# Split string (Don't have)
 
 
-# mandatory_validation_strategy = validation_strategy_factory.get_strategy("mandatory") # can add more , validation_type="Check mandatory", message="This field is required." here if want
-
-# for index, config in required_columns.iterrows():
-#     validation_strategy_factory.get_strategy("mandatory")(
-#         df=df_learner_account,
-#         **config
-#         ).run()
-
-
-# unique_validation_strategy = validation_strategy_factory.get_strategy("unique")
-# unique_columns.apply(
-#     lambda x: validation_strategy_factory.get_strategy("unique")(
-#     df=df_learner_account,
-#     **x
-#     ).run(),
-#     axis=1
-# )
-# for index, config in unique_columns.iterrows():
-#     validation_strategy_factory.get_strategy("unique")(
-#     df=df_learner_account,
-#     **config
-#     ).run()
-
-
-# inner_validation_strategy = validation_strategy_factory.get_strategy("inner_reference")
-# inner_ref_columns = df.loc[df["ref_info"].notna()]
-# for index, config in inner_ref_columns.iterrows():
-#     result = inner_validation_strategy(
-#         df=df_learner_account,
-#         **config
-#     ).run()
-
-
-# # Date time format
-# datetime_format_validation_strategy = validation_strategy_factory.get_strategy("datetime_format")
-# datetime_format_columns = df.loc[df["type"] == "datetime_format"]
-
-# for index, config in datetime_format_columns.iterrows():
-#     datetime_format_validation_strategy(
-#         df=df_learner_account,
-#         **config
-#     ).run()
-
-# # Date time value
-# in_range_datetime_validation_strategy = validation_strategy_factory.get_strategy("datetime_range")
-# in_range_datetime_columns = df.loc[df["type"] == "datetime_range"]
-# for index, config in in_range_datetime_columns.iterrows():
-#     in_range_datetime_validation_strategy(
-#         df=df_learner_account,
-#         **config
-#     ).run()
-
-
-# # Value list
-# value_list_validation_strategy = validation_strategy_factory.get_strategy("value_list")
-# value_list_columns = df.loc[df["type"] == "value_list"]
-# for index, config in value_list_columns.iterrows():
-#     value_list_validation_strategy(
-#         df=df_learner_account,
-#         **config
-#     ).run()
-
-# logger.info(df_learner_account["validation_result"])

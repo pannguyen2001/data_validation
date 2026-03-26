@@ -18,6 +18,7 @@ from utils.logger_wrapper import logger_wrapper
 pattern = re.compile(r"\$\{[A-Z0-9_]+\}")
 # re.compile(r"\$\{[^}]+\}")
 
+
 @logger_wrapper
 def replace_placeholders(obj, mapping):
     if isinstance(obj, dict):
@@ -30,7 +31,6 @@ def replace_placeholders(obj, mapping):
         return tuple(replace_placeholders(v, mapping) for v in obj)
 
     elif isinstance(obj, str):
-
         # case 1: whole string is placeholder
         if obj in mapping:
             return mapping[obj]
@@ -45,6 +45,7 @@ def replace_placeholders(obj, mapping):
 
     return obj
 
+
 @logger_wrapper
 def process_config(df: pd.DataFrame = None, value_mapping: Dict = None):
     """
@@ -52,34 +53,22 @@ def process_config(df: pd.DataFrame = None, value_mapping: Dict = None):
         - Explode data.
         - Replace ${...} to real values.
     """
-    if df is None or df.empty:
+    if df is None:
         raise ValueError(f"[{process_config.__name__}] df is required.")
-    
+    if df.empty:
+        raise ValueError(f"[{process_config.__name__}] df is empty.")
+
     df = df.explode("columns", ignore_index=True)
-    df = df.join(
-        pd.DataFrame(
-            df
-            .pop("columns")
-            .values
-            .tolist()
-        )
-    )
+    df = df.join(pd.DataFrame(df.pop("columns").values.tolist()))
     df = df.explode("rules", ignore_index=True)
-    df = df.join(
-        pd.DataFrame(
-            df
-            .pop('rules')
-            .values
-            .tolist()
-        )
-    )
+    df = df.join(pd.DataFrame(df.pop("rules").values.tolist()))
 
     if value_mapping is not None:
-        df = df.map(
-            lambda x: value_mapping.get(x, x) if isinstance(x, str) else x
-        )
+        df = df.map(lambda x: value_mapping.get(x, x) if isinstance(x, str) else x)
         if "ref_info" in df.columns:
             not_na_mask: pd.Series = df["ref_info"].notna()
-            df.loc[not_na_mask, "ref_info"] = df.loc[not_na_mask, "ref_info"].map(lambda x: replace_placeholders(x, value_mapping))
+            df.loc[not_na_mask, "ref_info"] = df.loc[not_na_mask, "ref_info"].map(
+                lambda x: replace_placeholders(x, value_mapping)
+            )
 
     return df

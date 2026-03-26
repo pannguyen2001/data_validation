@@ -4,7 +4,7 @@ import pandas as pd
 from abc import ABC, abstractmethod
 from loguru import logger
 from typing import Dict, List, Union
-from utils import logger_wrapper
+from utils.logger_wrapper import logger_wrapper
 
 
 class WriteDataStrategy(ABC):
