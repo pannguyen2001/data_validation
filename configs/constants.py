@@ -1,7 +1,7 @@
 import datetime
-from dotenv import load_dotenv
 import os
-
+from string import Template
+from dotenv import load_dotenv
 
 load_dotenv()
 DATA_FOLDER_PATH = os.getenv("DATA_FOLDER_PATH")
@@ -37,4 +37,7 @@ report_folder_path = os.path.join(BASE_PATH, "reports", date_today)
 if not os.path.exists(report_folder_path):
     os.makedirs(report_folder_path)
 
+
+default_success_message_values = {'column_name': 'a_default', 'extra_message': ''}
+success_message: str = Template("[${column_name}] [Special logic] All reocords are valid. ${extra_message}")
 

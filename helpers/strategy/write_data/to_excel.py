@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from loguru import logger
-from utils import logger_wrapper
+from utils.logger_wrapper import logger_wrapper
 from string import Template
 from .base_strategy import WriteDataStrategy
 

@@ -13,8 +13,8 @@ def logger_wrapper(func: Callable) -> Callable:
             # return result
             return func(*args, **kwargs)
         except Exception as e:
-            tb = "".join(traceback.TracebackException.from_exception(e).format())
-            logger.error(f"\x1b[0mError in {func.__name__}: {e}\n{tb}")
-            return None
+            # tb = "".join(traceback.TracebackException.from_exception(e).format())
+            logger.error(f"Error in {func.__name__}: {e}\n{e}")
+            raise
 
     return wrap

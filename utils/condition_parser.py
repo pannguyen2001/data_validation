@@ -15,6 +15,10 @@ class ConditionParser:
         "<=": operator.le,
         "in": lambda x, y: x.isin(y),
         "not in": lambda x, y: ~x.isin(y),
+        # "contain": lambda x, y: x.str.contains(y, regex=False, na=False),
+        "contain": lambda x, y: all(x.str.extract(fr"\b{y}\b")),
+        # "not contain": lambda x, y: ~x.str.contains(y, regex=False, na=False)
+        "not contain": lambda x, y: ~all(x.str.extract(fr"\b{y}\b")),
     }
 
     LOGICAL_MAP = {

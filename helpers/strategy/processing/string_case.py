@@ -1,6 +1,6 @@
 import pandas as pd
 from .base_strategy import PreprocessingStrategy
-from utils import logger_wrapper
+from utils.logger_wrapper import logger_wrapper
 from typing import List
 
 

@@ -8,6 +8,7 @@ from .in_range_string import InRangeStringLengthValidation
 # from .integer_type import IntergerTypeValidation
 from .mandatory import MandatoryValidation
 # from .numeric_type import NumericTypeValidation
+from .datetime_logic import DatetimeLogicValidation
 from .unique import UniqueValidation
 from .value_list import ValueListValidation
 
@@ -16,6 +17,7 @@ __all__ = [
     "BooleanTypeValidation",
     "DataTypeValidation",
     "DatetimeFormatValidation",
+    "DatetimeLogicValidation",
     "InRangeDateTimeValidation",
     "InRangeNumberValidation",
     "InRangeStringLengthValidation",

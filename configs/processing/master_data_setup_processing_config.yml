@@ -1,4 +1,4 @@
-- file_path: ${FILE_PATH}
+- file_path: ${MASTER_DATA_FILE_PATH}
   sheet_name: InternalSuspendedList
   columns:
     - name: Bad debt write-off amount
@@ -7,3 +7,11 @@
           data_type: numeric
           decimal_places: 4
           processing_action: postprocessing
+
+- file_path: ${MASTER_DATA_FILE_PATH}
+  sheet_name: SuspensionReason
+  columns:
+    - name: Status
+      rules:
+        - type: remove_white_space
+          processing_action: preprocessing

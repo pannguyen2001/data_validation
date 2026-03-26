@@ -1,9 +1,7 @@
 import pandas as pd
-from typing import Optional
 from helpers.strategy.validation.base_strategy import ValidationStrategy
-from helpers.factory import ValidationStrategyFactory
 from utils.condition_parser import ConditionParser
-from utils import mark_result
+from utils.mark_result import mark_result
 
 
 class InnerReferenceValidation(ValidationStrategy):
@@ -18,6 +16,7 @@ class InnerReferenceValidation(ValidationStrategy):
         self.factory = self.kwargs.get("factory")
         self.kwargs["validation_type"] = "Check inner reference"
         self.compiled_refs = []
+        self.marks_own_results = True
 
         for ref in self.ref_info:
             condition = ref.get("condition")

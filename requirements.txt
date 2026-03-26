@@ -9,3 +9,6 @@ pytz
 python-dotenv
 dynamic-yaml
 PyYAML
+cachetools
+pyarrow
+tabulate

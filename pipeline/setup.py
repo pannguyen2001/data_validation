@@ -1,3 +1,4 @@
+from utils.logger import logger
 from helpers.factory import (
     ValidationStrategyFactory,
     ReadFileStrategyFactory,
@@ -17,7 +18,8 @@ from helpers.strategy.validation import (
     ValueListValidation,
     DataTypeValidation,
     InRangeNumberValidation,
-    InRangeStringLengthValidation
+    InRangeStringLengthValidation,
+    DatetimeLogicValidation
     )
 from helpers.strategy.processing import (
     RemoveWhiteSpaceProcessing,
@@ -32,7 +34,6 @@ from helpers.strategy.write_data import (
 )
 from helpers.strategy.validation.inner_reference import InnerReferenceValidation
 from helpers.strategy.validation.outer_reference import OuterReferenceValidation, OuterReferenceRegistry
-from loguru import logger
 
 
 logger.info("Setup strategy")
@@ -64,6 +65,7 @@ validation_strategy_factory.register("data_type", DataTypeValidation)
 validation_strategy_factory.register("outer_reference", OuterReferenceValidation)
 validation_strategy_factory.register("in_range_number", InRangeNumberValidation)
 validation_strategy_factory.register("in_range_string_length", InRangeStringLengthValidation)
+validation_strategy_factory.register("datetime_logic", DatetimeLogicValidation)
 outer_reference_registry = OuterReferenceRegistry(read_file_strategy_factory)
 
 # ========== WriteDataStrategy ==========

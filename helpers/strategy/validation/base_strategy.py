@@ -1,7 +1,7 @@
 import pandas as pd
 from abc import ABC, abstractmethod
 from utils.logger_wrapper import logger_wrapper
-from utils import mark_result
+from utils.mark_result import mark_result
 
 
 class ValidationStrategy(ABC):
@@ -9,6 +9,7 @@ class ValidationStrategy(ABC):
         self.df = df
         self.args = args
         self.kwargs = kwargs
+        self.marks_own_results: bool = False
 
         if self.df is None:
             raise ValueError(
@@ -48,7 +49,7 @@ class ValidationStrategy(ABC):
         self.is_empty(self.df[column])
         self.mask = self.validate(column)
 
-        if self.__class__.__name__ not in ["InnerReferenceValidation", "OuterReferenceValidation"]:
+        if not self.marks_own_results:
             validation_type = self.kwargs.get("validation_type")
             message = self.kwargs.get("message")
             mark_result(self.df, self.mask, column, validation_type, message)

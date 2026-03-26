@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import logger_wrapper
+from utils.logger_wrapper import logger_wrapper
 from .base_strategy import PreprocessingStrategy
 
 
@@ -12,6 +12,10 @@ class SplitStringProcessing(PreprocessingStrategy):
         separator = self.kwargs.get("separator")
         if not separator:
             raise ValueError(f"[{self.__class__.__name__}] separator is required.")
+
+        if pd.api.types.is_string_dtype(self.df[column]):
+            # Convert to object to allow list storage
+            self.df[column] = self.df[column].astype(object)
 
         mask = self.df[column].notna()
         self.df.loc[mask, column] = (
