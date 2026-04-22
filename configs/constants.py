@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 DATA_FOLDER_PATH = os.getenv("DATA_FOLDER_PATH")
-CONSTANTS_CONFIG_FOLDER_PATH = os.getenv("CONSTANTS_CONFIG_FOLDER_PATH")
+CONSTANT_CONFIG_FOLDER_PATH = os.getenv("CONSTANT_CONFIG_FOLDER_PATH")
 PROCESSING_CONFIG_FOLDER_PATH = os.getenv("PROCESSING_CONFIG_FOLDER_PATH")
 VALIDATION_CONFIG_FOLDER_PATH = os.getenv("VALIDATION_CONFIG_FOLDER_PATH")
 
@@ -36,6 +36,9 @@ log_file_path = os.path.join(BASE_PATH, "logs")
 report_folder_path = os.path.join(BASE_PATH, "reports", date_today)
 if not os.path.exists(report_folder_path):
     os.makedirs(report_folder_path)
+additional_report_folder_path = os.path.join(report_folder_path, datetime_today)
+if not os.path.exists(additional_report_folder_path):
+    os.makedirs(additional_report_folder_path)
 
 
 default_success_message_values = {'column_name': 'a_default', 'extra_message': ''}

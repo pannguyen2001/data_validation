@@ -1,6 +1,7 @@
 import os
 from abc import ABC, abstractmethod
 from typing import Any
+from utils.logger import logger
 from utils.logger_wrapper import logger_wrapper
 
 class ReadDataStrategy(ABC):
@@ -19,4 +20,5 @@ class ReadDataStrategy(ABC):
         """
         Read data from a file and return its contents as a dictionary.
         """
+        logger.info(f"Read data from file: {self.file_path}")
         raise NotImplementedError

@@ -22,12 +22,13 @@ class DataTypeValidation(ValidationStrategy):
             raise ValueError(f"[{self.__class__.__name__}] [{column}] data_type is required.")
         if data_type not in DATA_TYPE_CHECKING_LIST:
             raise ValueError(f"[{self.__class__.__name__}] [{column}] data_type '{data_type}' is incorrect. Value must be one of these: {DATA_TYPE_CHECKING_LIST}.")
-        
+        not_in_empty_list: pd.Series = self.df[column].isin(["", "nan", "pd.NA", "null", "None", "none"])
+
         match data_type:
             case "integer":
-                mask = IntergerTypeValidation(self.df, self.args, self.kwargs).validate(column)
+                mask = IntergerTypeValidation(self.df, self.args, self.kwargs).validate(column) & not_in_empty_list
             case "numeric":
-                mask = NumericTypeValidation(self.df, self.args, self.kwargs).validate(column)
+                mask = NumericTypeValidation(self.df, self.args, self.kwargs).validate(column) & not_in_empty_list
             case "boolean":
-                mask = BooleanTypeValidation(self.df, self.args, self.kwargs).validate(column)
+                mask = BooleanTypeValidation(self.df, self.args, self.kwargs).validate(column) & not_in_empty_list
         return mask

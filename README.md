@@ -3,14 +3,14 @@
 ## I. Usage
 - Load data from many file types: csv, json, excel, parquet, etc.
 - Validate data against a schema.
-- Generate a report with the validation results.
-- Export the report to a file.
+- Generate a report and log with the validation results.
+- Export correct data to excel file.
 
 ## II. Features
 - Support for multiple data sources, formats.
 - Processing data before/after validation for keeping data clean and union format:
     - Remove white space.
-    - Transform string: uppercase, lowercase, trim, etc.
+    - Transform string: uppercase, lowercase, trim.
     - Split string by separator.
     - Enum mapping data.
     - Fill default value.
@@ -32,8 +32,10 @@
 ## III. Technologies
 - Python
 - Pandas
+- Polars
 - Loguru
 - Pytest
+- Allure
 
 ## IV. Setup and config
 1. Install virtual environment.
@@ -68,10 +70,6 @@ allure open ./allure-report
 ```
 
 ## VI. TODO
-- [X] Add data type check. **
-- [X] Add fill default value based on condition. **
-- [X] Add outer reference validation. ***
-- [X] Add data validation pipeline for many sheets and files.
 - [ ] Add more unit tests.
 - [ ] Add write report to file and database: csv, json, exce, parquet, SQLite, PostgreSQL, Mongodb.
 - [X] Add cache memory.

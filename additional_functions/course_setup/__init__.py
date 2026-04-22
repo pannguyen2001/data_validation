@@ -8,12 +8,12 @@ from .course_financial_setup_miscell import course_financial_setup_miscell
 from .course_financial_setup_discount import course_financial_setup_discount
 
 course_setup_additional_function: Dict = {
-    # "CourseFeeSetup": course_fee_setup,
-    # "CourseFeeSetupMiscellaneousItem": course_fee_setup_miscellaneous_item,
-    # "CourseFeeSetupDiscount": course_fee_setup_discount,
-    # "CourseFinancialSetupRevenue": course_financial_setup_revenue,
-    # "CourseModuleFeeRate": course_module_fee_rate
-    # "CourseFinancialSetupMiscell": course_financial_setup_miscell,
-    # "CourseFinancialSetupDiscount": course_financial_setup_discount
+    "CourseFeeSetup": course_fee_setup,
+    "CourseFeeSetupMiscellaneousItem": course_fee_setup_miscellaneous_item,
+    "CourseFeeSetupDiscount": course_fee_setup_discount,
+    "CourseFinancialSetupRevenue": course_financial_setup_revenue,
+    "CourseModuleFeeRate": course_module_fee_rate,
+    "CourseFinancialSetupMiscell": course_financial_setup_miscell,
+    "CourseFinancialSetupDiscount": course_financial_setup_discount
 }
 

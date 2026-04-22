@@ -7,4 +7,4 @@ def get_input_files(data_folder_path: str) -> list[str]:
     if not path.exists():
         raise FileNotFoundError(f"Path {path} does not exist.")
 
-    return [str(p) for p in path.iterdir() if p.is_file()]
+    return [str(p) for p in path.iterdir() if p.is_file() and "~$" not in str(p)]

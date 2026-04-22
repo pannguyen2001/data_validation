@@ -23,14 +23,14 @@ def course_financial_setup_miscell(
 
     lack_id_and_misc = id_and_misc_items - id_and_misc_financial
     if len(lack_id_and_misc) > 0:
-        logger.error(f"[CourseUniqueId - Miscellaneous item name] [Special logic] Data in CourseFeeSetupMiscellaneousItem but not in CourseFinancialSetupMiscell: {lack_id_and_misc}.")
+        logger.error(f"[CourseFinancialSetupMiscell - [CourseUniqueId - Miscellaneous item name]] [Special logic] Data in CourseFeeSetupMiscellaneousItem but not in CourseFinancialSetupMiscell. Amount: {len(lack_id_and_misc)}. Details: {lack_id_and_misc}.")
     else:
-        logger.success("[CourseUniqueId - Miscellaneous item name] [Special logic] All Data in CourseFeeSetupMiscellaneousItem are in CourseFinancialSetupMiscell.")
+        logger.success("[CourseFinancialSetupMiscell - [CourseUniqueId - Miscellaneous item name]] [Special logic] All Data in CourseFeeSetupMiscellaneousItem are in CourseFinancialSetupMiscell.")
 
     # Check id + misc in CourseFinancialSetupMiscell but not in CourseFeeSetupMiscellaneousItem
     extra_id_and_misc = set(id_and_misc_financial) - set(id_and_misc_items)
     if len(extra_id_and_misc) > 0:
-        logger.success(f"[CourseUniqueId - Miscellaneous item name] [Special logic] CourseFinancialSetupMiscell but not in CourseFeeSetupMiscellaneousItem: {extra_id_and_misc}.")
+        logger.success(f"[CourseUniqueId - Miscellaneous item name] [Special logic] CourseFinancialSetupMiscell but not in CourseFeeSetupMiscellaneousItem. Amount: {len(extra_id_and_misc)}. Details: {extra_id_and_misc}.")
     else:
         logger.info("[CourseUniqueId - Miscellaneous item name] [Special logic] No CourseFinancialSetupMiscell but not in CourseFeeSetupMiscellaneousItem.")
 

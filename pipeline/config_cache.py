@@ -35,16 +35,19 @@ class ConfigCache:
     @logger_wrapper
     def load_configs(self, folder_path: str = "", config_type: str = ""):
         if config_type not in self._cache.keys():
-            raise ValueError(f"Invalid type: {config_type}. Value must be in: {self._cache.keys()}")
+            raise ValueError(f"[{self.__class__.__name__}] Invalid type: {config_type}. Value must be in: {self._cache.keys()}")
         
         path = Path(folder_path)
         if not path.exists():
-            raise FileNotFoundError(f"Path {folder_path} does not exist.")
+            raise FileNotFoundError(f"[{self.__class__.__name__}] Path {folder_path} does not exist.")
 
         for file_path in path.iterdir():
             file_path = str(file_path)
             file_type: str = detect_file_type(file_path)
             data_config = read_file_strategy_factory.get_strategy(file_type)(file_path).load()
+            if data_config is None:
+                logger.warning(f"[{self.__class__.__name__}] File is empty. Skipping file: {file_path}")
+                continue
             # Stores the config indexed by sheet_name
             self._cache[config_type].extend(data_config)
         
@@ -57,7 +60,7 @@ class ConfigCache:
             return self._cache
 
         if config_type not in self._cache.keys():
-            raise ValueError(f"Invalid type: {config_type}")
+            raise ValueError(f"[{self.__class__.__name__}] Invalid type: {config_type}")
         
         return self._cache[config_type]
 
