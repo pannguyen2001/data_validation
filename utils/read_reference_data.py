@@ -32,13 +32,13 @@ def read_reference_data(
 
     if df is None:
         logger.error(
-            f"[{read_reference_data.__name__}] Read data failed."
+            f"[{read_reference_data.__name__}] Read data failed. Sheet: {sheet_name}, file: {file_path}"
         )
         return df
 
     if df.empty:
         logger.warning(
-            f"[{read_reference_data.__name__}] Data is empty."
+            f"[{read_reference_data.__name__}] Data is empty. Sheet: {sheet_name}, file: {file_path}"
         )
         return df
 

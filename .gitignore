@@ -23,5 +23,7 @@ configs/processing/*
 configs/constants/*
 configs/validation/*
 data/processed_data/*
-data/raw_data/*
-data/test_data/*
+data/*
+reports/*
+logs/*
+summary_pre_report.py

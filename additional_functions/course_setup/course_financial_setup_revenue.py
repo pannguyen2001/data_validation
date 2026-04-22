@@ -4,6 +4,7 @@ from utils.logger import logger
 from utils.logger_wrapper import logger_wrapper
 from utils.mark_result import mark_result
 from utils.read_reference_data import read_reference_data
+from configs.constants import additional_report_folder_path
 
 
 @logger_wrapper
@@ -29,7 +30,8 @@ def check_revenue_type(
         column="Revenue type",
         validation_type="Special logic",
         message='"Revenue type" is "Revenue" if "Method to calculate" is "Per Pax Attendees, Min. pax, Lump sum"',
-        extra_message='"Revenue type" is "Revenue" if "Method to calculate" is "Per Pax Attendees, Min. pax, Lump sum"'
+        extra_message='"Revenue type" is "Revenue" if "Method to calculate" is "Per Pax Attendees, Min. pax, Lump sum"',
+        sheet_name="CourseFinancialSetupRevenue",
     )
 
     # b. "Course Setup > CourseFeeSetup > Method to calculate" is "Tier based", then select "Revenue type" is "Revenue tier"
@@ -42,7 +44,8 @@ def check_revenue_type(
         column="Revenue type",
         validation_type="Special logic",
         message='"Revenue type" is "Revenue tier" if "Method to calculate" is "Tier based"',
-        extra_message='"Revenue type" is "Revenue tier" if "Method to calculate" is "Tier based"'
+        extra_message='"Revenue type" is "Revenue tier" if "Method to calculate" is "Tier based"',
+        sheet_name="CourseFinancialSetupRevenue",
     )
 
     # c. "Course Setup > CourseFeeSetup > Method to calculate" is "Per intake", then create two entries for the same CourseUniqueId:
@@ -60,7 +63,8 @@ def check_revenue_type(
         column="Revenue type",
         validation_type="Special logic",
         message='Revenue type must be "Revenue per intake" or "Revenue per additional learner" if Method to calculate is "Per intake"',
-        extra_message='All "Revenue type" = "Revenue per intake" or "Revenue per additional learner" if Method to calculate is "Per intake"'
+        extra_message='All "Revenue type" = "Revenue per intake" or "Revenue per additional learner" if Method to calculate is "Per intake"',
+        sheet_name="CourseFinancialSetupRevenue",
     )
 
     # Check revenue is not enough: "Revenue per intake" or "Revenue per additional learner"
@@ -95,7 +99,8 @@ def check_revenue_type(
             column="Revenue type",
             validation_type="Special logic",
             message='CourseUniqueId having Method to calculate = Per intake must have BOTH "Revenue per intake" and "Revenue per additional learner" entries.',
-            extra_message='CourseUniqueIds having Method to calculate = Per intake have BOTH "Revenue per intake" and "Revenue per additional learner" entries.'
+            extra_message='CourseUniqueIds having Method to calculate = Per intake have BOTH "Revenue per intake" and "Revenue per additional learner" entries.',
+            sheet_name="CourseFinancialSetupRevenue",
         )
 
     df_origin["validation_result"] = df["validation_result"]
@@ -107,97 +112,77 @@ def check_course_product_module(
     df_origin: pd.DataFrame, df_course: pd.DataFrame
 ) -> pd.DataFrame:
     """
-    1. The Course/Product code/Module reference follow this:
-    a. "Course Setup > Course > Blended course"  is "Yes"
-    In-house/Go1/Linkedin Learning - Refer to: Course Setup > ELearningCourseConfiguration > Selected courses
-    Product Subscription - Refer to: Course Setup > Course  >Products
-    Module Course - Refer to: Course Setup > PathwayStructure > Module code
-    b. "Course Setup > Course > Blended course"  is "No"
-    Module Course - Refer to: Course Setup > PathwayStructure > Module code
-    3. Example:
-    a. A blended course consists of 2 Go1 courses and 1 module; therefore, 3 records should be created in CourseFinancialSetupRevenue (one for each)
-    b. A normal course with 2 modules should have 2 records created in CourseFinancialSetupRevenue (one for each module).
+    Check enough course/module/product code or not
     """
-    df = df_origin.copy()
+    df = df_origin.copy().reset_index()
+    df = (
+        df.groupby("CourseUniqueId")
+        .agg({"Course/Product code/Module": list})
+        .reset_index()
+    )
+    df["Course/Product code/Module"] = df["Course/Product code/Module"].map(
+        lambda x: set(x) if x else set()
+    )
+
     df = df.merge(df_course, on="CourseUniqueId", how="left")
-
-    # a. "Course Setup > Course > Blended course"  is "Yes"
-    # - In-house/Go1/Linkedin Learning : Refer to: Course Setup > ELearningCourseConfiguration > Selected courses
-    # - Product Subscription: Refer to: Course Setup > Course  >Products
-    # Module Course: Refer to: Course Setup > PathwayStructure > Module code
-    # course_product_module_value_list: list[str] = set(df_course["Selected courses"].unique()).union(set(df_course["Module code"].unique()))
-
-    invalid_type_a_mask: pd.Series = (df["Blended course"] == "Yes") & (
-        df.apply(
-            lambda x: (
-                x["Course/Product code/Module"] not in x["Selected courses"]
-                if pd.notna(x["Selected courses"])
-                else False
-            ),
-            axis=1,
+    df["All modules"] = df["All modules"].map(lambda x: set(x) if x else set())
+    df["Missing data"] = df.apply(
+        lambda x: x["All modules"] - x["Course/Product code/Module"], axis=1
+    )
+    is_missing_data: pd.Series = df["Missing data"].map(lambda x: len(x) > 0)
+    df_result = df.loc[is_missing_data]
+    if not df_result.empty:
+        df_result = df_result.reset_index(drop=True)
+        df_result.index = df_result.index + 1
+        df_result = df_result[["CourseUniqueId", "Missing data"]]
+        df_result["Missing data"] = df_result["Missing data"].map(
+            lambda x: ", ".join(x)
         )
+        logger.error(
+            f"[CourseFinancialSetupRevenue - Course/Product code/Module] [Special logic] Course is lack of Course/Product code/Module. Amount: {df_result.shape[0]}"
+        )
+        if df_result.shape[0] <= 10:
+            logger.error(
+                f"[CourseFinancialSetupRevenue - Course/Product code/Module] [Special logic] Details:\n{df_result.to_markdown()}"
+            )
+        else:
+            detail_report_file_path: str = f"{additional_report_folder_path}/CourseFinancialSetupRevenue missing modules.xlsx"
+            df_result.to_excel(
+                detail_report_file_path,
+                sheet_name="CourseFinancialSetupRevenue",
+                index=False,
+            )
+            logger.error(
+                f"[CourseFinancialSetupRevenue - Module code] [Special logic] More than 10 error data. Detail error in: {detail_report_file_path}"
+            )
+    else:
+        logger.info(
+            "[CourseFinancialSetupRevenue - Course/Product code/Module] [Special logic] All course have enough Course/Product code/Module"
+        )
+
+    df2 = df_origin.copy().reset_index()
+    df2 = df2.merge(df_course, on="CourseUniqueId", how="left")
+    is_extra_modules_mask: pd.Series = (
+        df2["Course/Product code/Module"].notna()
+        & df2["All modules"].notna()
         & (
-            df.apply(
-                lambda x: (
-                    x["Course/Product code/Module"] not in x["Module code"]
-                    if pd.notna(x["Module code"])
-                    else False
-                ),
+            df2.apply(
+                lambda x: x["Course/Product code/Module"] not in x["All modules"],
                 axis=1,
             )
         )
     )
     mark_result(
-        df=df,
-        mask=invalid_type_a_mask,
+        df=df_origin,
+        mask=is_extra_modules_mask,
         column="Course/Product code/Module",
         validation_type="Special logic",
-        message='Course/Product code/Module follow this: "Course Setup > Course > Blended course"  is "Yes" In-house/Go1/Linkedin Learning - Refer to: Course Setup > ELearningCourseConfiguration > Selected courses Product Subscription - Refer to: Course Setup > Course  >Products Module Course - Refer to: Course Setup > PathwayStructure > Module code',
-        extra_message='All "Course/Product code/Module" follow this: "Course Setup > Course > Blended course"  is "Yes" In-house/Go1/Linkedin Learning - Refer to: Course Setup > ELearningCourseConfiguration > Selected courses Product Subscription - Refer to: Course Setup > Course  >Products Module Course - Refer to: Course Setup > PathwayStructure > Module code'
+        message="Extra Course/Product code/Module",
+        extra_message="All Courses/Product codes/Modules are in refer sheets",
+        sheet_name="CourseFinancialSetupRevenue",
     )
 
-    df_origin["validation_result"] = df["validation_result"]
     return df_origin
-
-
-# @logger_wrapper
-# def check_course_product_module(df_origin: pd.DataFrame, df_course: pd.DataFrame) -> pd.DataFrame:
-#     df = df_origin.copy().merge(df_course, on="CourseUniqueId", how="left")
-
-#     def validate_reference(row):
-#         val = row.get("Course/Product code/Module")
-#         if pd.isna(val):
-#             return False # Skip empty; handled by 'Required' rule
-
-#         # 1. Map 'Blended' status to the columns we are allowed to check
-#         # 'Yes' -> Check all 3 sources | 'No' -> Check only Module code
-#         check_cols = ["Selected courses", "Products", "Module code"] if row["Blended course"] == "Yes" else ["Module code"]
-
-#         # 2. Build the unified Allowed Set for this specific row
-#         allowed_refs = set()
-#         for col in check_cols:
-#             source = row.get(col)
-#             if isinstance(source, list):
-#                 allowed_refs.update(map(str, source))
-#             elif pd.notna(source):
-#                 allowed_refs.add(str(source))
-
-#         # 3. Valid if 'val' is found in any of the allowed sources
-#         return str(val) not in allowed_refs
-
-#     # Single Pass: Create one mask for all rows
-#     invalid_mask = df.apply(validate_reference, axis=1)
-
-#     mark_result(
-#         df=df,
-#         mask=invalid_mask,
-#         column="Course/Product code/Module",
-#         validation_type="Special logic",
-#         message='Reference mismatch: Blended="Yes" requires ELearning/Product/Module match; Blended="No" requires Module match.',
-#     )
-
-#     df_origin["validation_result"] = df["validation_result"]
-#     return df_origin
 
 
 @logger_wrapper
@@ -264,8 +249,9 @@ def check_revenue_completeness(
         mask=mask,
         column="CourseUniqueId",
         validation_type="Completeness",
-        message="Missing or Extra records. Ensure every Course/Product/Module from Setup has a corresponding row here.",
-        extra_message="CourseUniqueId has all required records: Blended: have entries for every Go1/E-Learning, Product, AND Module. Others: have entries for every Module"
+        message="Missing or Extra records. Ensure every Course/Product/Module from Setup has a corresponding row here",
+        extra_message="CourseUniqueId has all required records: Blended: have entries for every Go1/E-Learning, Product, AND Module. Others: have entries for every Module",
+        sheet_name="CourseFinancialSetupRevenue",
     )
 
     return df_origin
@@ -275,37 +261,103 @@ def check_revenue_completeness(
 def check_sum_of_amount(
     df_origin: pd.DataFrame, df_course_fee_setup: pd.DataFrame
 ) -> pd.DataFrame:
+    # Amount must be the same as:
+    # - Course module - Flat rate if course level
+    # - Total amount of all modules if module level
+    # - Total amount of all tiers if having course tier rate fee
+    # - Sum of "Charge rate of (without GST) per additional learner" if revenue type == Revenue per additional learner
     df = df_origin.copy().reset_index()
     df["Amount"] = df["Amount"].astype(float)
     df = (
-        df.groupby("CourseUniqueId").agg({"Amount": "sum", "index": list}).reset_index()
+        df.groupby(["CourseUniqueId", "Revenue type"])
+        .agg({"Amount": "sum", "index": list})
+        .reset_index()
     )
     df = df.merge(df_course_fee_setup, on="CourseUniqueId", how="left")
     df["Amount"] = df["Amount"].astype(float).round(14)
 
-    invalid_sum_of_amount_mask: pd.Series = (
-        (
-            (df["Sum of flat rate"].notna())
-            & (df["Sum of flat rate"].round(14) == df["Amount"])
-        )
-        | (
-            (df["Sum of module rate"].notna())
-            & (df["Sum of module rate"].round(14) == df["Amount"])
-        )
-        | (
-            (df["Sum of tier rate"].notna())
-            & (df["Sum of tier rate"].round(14) == df["Amount"])
-        )
+    # Revenue type = Revenue
+    invalid_sum_of_amount_revenue_mask: pd.Series = (
+        (df["Revenue type"] == "Revenue")
+        & (df["Sum of flat rate"].fillna(0).round(14) != df["Amount"])
+    ) & (
+        (df["Revenue type"] == "Revenue")
+        & (df["Sum of module rate"].fillna(0).round(14) != df["Amount"])
     )
-    invalid_course = df.loc[invalid_sum_of_amount_mask, "CourseUniqueId"].unique()
-    invalid_sum_of_amount_mask = ~df_origin["CourseUniqueId"].isin(invalid_course)
+    invalid_course = df.loc[
+        invalid_sum_of_amount_revenue_mask, "CourseUniqueId"
+    ].unique()
+    invalid_sum_of_amount_mask = df_origin["CourseUniqueId"].isin(invalid_course) & (
+        df_origin["Revenue type"] == "Revenue"
+    )
     mark_result(
         df=df_origin,
         mask=invalid_sum_of_amount_mask,
         column="Amount",
         validation_type="Special logic",
-        message="Amount is the same as course fee setup, if course level, or sum of amount of all modules, if module level or sum of all tiers",
-        extra_message="Amount is the same as course fee setup, if course level, or sum of amount of all modules, if module level or sum of all tiers"
+        message="Amount must be the same as: Course module - Flat rate if course level; Total amount of all modules if module level",
+        extra_message="All amount are the same as: Course module - Flat rate if course level; Total amount of all modules if module level",
+        sheet_name="CourseFinancialSetupRevenue",
+    )
+
+    # Revenue type = Revenue tier
+    invalid_sum_of_amount_revenue_tier_mask: pd.Series = (
+        df["Revenue type"] == "Revenue tier"
+    ) & (df["Sum of tier rate"].fillna(0).round(14) != df["Amount"])
+    invalid_course = df.loc[
+        invalid_sum_of_amount_revenue_tier_mask, "CourseUniqueId"
+    ].unique()
+    invalid_sum_of_amount_mask = df_origin["CourseUniqueId"].isin(invalid_course) & (
+        df_origin["Revenue type"] == "Revenue tier"
+    )
+    mark_result(
+        df=df_origin,
+        mask=invalid_sum_of_amount_mask,
+        column="Amount",
+        validation_type="Special logic",
+        message="Amount must be the same as: Total amount of all tiers if having course tier rate fee",
+        extra_message="All amount are the same as: Total amount of all tiers if having course tier rate fee",
+        sheet_name="CourseFinancialSetupRevenue",
+    )
+
+    # Revenue type = Revenue per additional learner
+    invalid_sum_of_amount_revenue_per_additional_learner_mask: pd.Series = (
+        df["Revenue type"] == "Revenue per additional learner"
+    ) & (df["Sum of charge rate"].fillna(0).round(14) != df["Amount"])
+    invalid_course = df.loc[
+        invalid_sum_of_amount_revenue_per_additional_learner_mask, "CourseUniqueId"
+    ].unique()
+    invalid_sum_of_amount_mask = df_origin["CourseUniqueId"].isin(invalid_course) & (
+        df_origin["Revenue type"] == "Revenue per additional learner"
+    )
+    mark_result(
+        df=df_origin,
+        mask=invalid_sum_of_amount_mask,
+        column="Amount",
+        validation_type="Special logic",
+        message="Amount must be the same as: Sum of 'Charge rate of (without GST) per additional learner' if revenue type == Revenue per additional learner",
+        extra_message="All amount are the same as: Sum of 'Charge rate of (without GST) per additional learner' if revenue type == Revenue per additional learner",
+        sheet_name="CourseFinancialSetupRevenue",
+    )
+
+    # Revenue type = Revenue per intake
+    invalid_sum_of_amount_revenue_per_intake_mask: pd.Series = (
+        df["Revenue type"] == "Revenue per intake"
+    ) & (df["Sum of package rate of"].fillna(0).round(14) != df["Amount"])
+    invalid_course = df.loc[
+        invalid_sum_of_amount_revenue_per_intake_mask, "CourseUniqueId"
+    ].unique()
+    invalid_sum_of_amount_mask = df_origin["CourseUniqueId"].isin(invalid_course) & (
+        df_origin["Revenue type"] == "Revenue per intake"
+    )
+    mark_result(
+        df=df_origin,
+        mask=invalid_sum_of_amount_mask,
+        column="Amount",
+        validation_type="Special logic",
+        message="Amount must be the same as: Sum of 'Package rate of (without GST)' if revenue type == Revenue per intake",
+        extra_message="All amount are the same as: Sum of 'Package rate of (without GST)' if revenue type == Revenue per intake",
+        sheet_name="CourseFinancialSetupRevenue",
     )
 
     return df_origin
@@ -315,38 +367,65 @@ def check_sum_of_amount(
 def course_financial_setup_revenue(
     df: pd.DataFrame, *args, **kwargs
 ) -> Optional[pd.DataFrame]:
+    # Calculate course fee setup total amount
     course_setup_file_path: str = kwargs.get("${COURSE_SETUP_FILE_PATH}")
+
+    # ----------------------------------------
+    # Read reference data
+    # ----------------------------------------
     rate_cols: List = [
-            "Flat rate per pax (without GST)",
-            "Package rate (without GST)",
-            "Package rate of (without GST)",
-            "Charge rate of (without GST) per additional learner",
-        ]
+        "Flat rate per pax (without GST)",
+        "Package rate (without GST)",
+        "Package rate of (without GST)",
+        "Charge rate of (without GST) per additional learner",
+    ]
     df_course_fee_setup = read_reference_data(
         course_setup_file_path,
         "CourseFeeSetup",
-        usecols=["CourseUniqueId", "Method to calculate"] + rate_cols,
+        usecols=["CourseUniqueId", "Method to calculate", "Setup fee at"] + rate_cols,
     )
+    course_fee_setup_ids: pd.Series = df_course_fee_setup["CourseUniqueId"].unique()
     df_course_fee_setup = df_course_fee_setup.loc[
         df_course_fee_setup["CourseUniqueId"].isin(df["CourseUniqueId"])
     ]
     df_course_fee_setup[rate_cols] = df_course_fee_setup[rate_cols].astype(float)
-    # df_course_fee_setup = df_course_fee_setup.rename(columns={"Flat rate per pax (without GST)": "Sum of flat rate"})
+    df_course_fee_setup["Sum of charge rate"] = df_course_fee_setup[
+        "Charge rate of (without GST) per additional learner"
+    ].fillna(0)
+    df_course_fee_setup["Sum of package rate of"] = df_course_fee_setup[
+        "Package rate of (without GST)"
+    ].fillna(0)
+    df_course_fee_setup.loc[
+        (
+            (df_course_fee_setup["Setup fee at"] != "Course level")
+            & (df_course_fee_setup["Method to calculate"] == "Per Pax Attendees")
+        ),
+        rate_cols,
+    ] = 0
     df_course_fee_setup["Sum of flat rate"] = df_course_fee_setup[rate_cols].sum(axis=1)
     df_course_fee_setup = df_course_fee_setup.drop(columns=rate_cols)
 
+    # Merge module and e learning module for course
     df_course = read_reference_data(
-        course_setup_file_path, "Course", usecols=["CourseUniqueId", "Blended course"]
+        course_setup_file_path,
+        "Course",
+        usecols=["CourseUniqueId", "Blended course", "Status"],
     )
+    course_ids: pd.Series = df_course.loc[
+        df_course["Status"].isin(
+            ["Pending activation", "Scheduled activation", "Active", "Inactive"]
+        ),
+        "CourseUniqueId",
+    ].unique()
     df_course = df_course.loc[df_course["CourseUniqueId"].isin(df["CourseUniqueId"])]
     df_course = df_course.merge(df_course_fee_setup, on="CourseUniqueId", how="left")
 
-    df_blended_course = read_reference_data(
+    df_blended = read_reference_data(
         course_setup_file_path,
         "ELearningCourseConfiguration",
         usecols=["CourseUniqueId", "Selected courses"],
     )
-    df_course = df_course.merge(df_blended_course, on="CourseUniqueId", how="left")
+    df_course = df_course.merge(df_blended, on="CourseUniqueId", how="left")
 
     df_pathway = read_reference_data(
         course_setup_file_path, "Pathway", usecols=["CourseUniqueId", "Pathway ID"]
@@ -370,11 +449,57 @@ def course_financial_setup_revenue(
         .reset_index()
     )
 
-    # df = check_revenue_type(df, df_course_fee_setup)
-    # df = check_course_product_module(df, df_blended_course)
-    # df = check_revenue_completeness(df, df_blended_course)
+    df_course_check = (
+        df_course.groupby("CourseUniqueId")
+        .agg({"Selected courses": list, "Module code": list})
+        .reset_index()
+    )
+    df_course_check["Selected courses"] = df_course_check["Selected courses"].map(
+        lambda x: [] if not isinstance(x, list) else x
+    )
+    df_course_check["Module code"] = df_course_check["Module code"].map(
+        lambda x: [] if not isinstance(x, list) else x
+    )
+    df_course_check["All modules"] = (
+        df_course_check["Selected courses"] + df_course_check["Module code"]
+    )
+    df_course_check["All modules"] = df_course_check["All modules"].map(
+        lambda x: set([i for i in x if pd.notna(i) and i != ""])
+    )
+    df_course_check = df_course_check[["CourseUniqueId", "All modules"]]
 
-    # Amount is the same as course fee setup, if course level, or sum of amount of all modules, if module level
+    # ----------------------------------------
+    # Validation
+    # ----------------------------------------
+    # CourseUniqueId in Course but not in CourseFinancialSetupRevenue
+    missing_course_ids: set = set(course_ids) - set(df["CourseUniqueId"])
+    if len(missing_course_ids) > 0:
+        logger.error(
+            f"[CourseFinancialSetupRevenue - CourseUniqueId] [Special logic] CourseUniqueId in Course but not in CourseFinancialSetupRevenue. Amount: {len(missing_course_ids)}. Details: {missing_course_ids}"
+        )
+    else:
+        logger.info(
+            "[CourseFinancialSetupRevenue - CourseUniqueId] [Special logic] All CourseUniqueId in Course are in CourseFinancialSetupRevenue."
+        )
+
+    # CourseUniqueId in CourseFeeSetup but not in CourseFinancialSetupRevenue
+    missing_course_fee_setup_ids: set = set(course_fee_setup_ids) - set(
+        df["CourseUniqueId"]
+    )
+    if len(missing_course_fee_setup_ids) > 0:
+        logger.error(
+            f"[CourseFinancialSetupRevenue - CourseUniqueId] [Special logic] CourseUniqueId in CourseFeeSetup but not in CourseFinancialSetupRevenue. Amount: {len(missing_course_fee_setup_ids)}. Details: {missing_course_fee_setup_ids}"
+        )
+    else:
+        logger.info(
+            "[CourseFinancialSetupRevenue - CourseUniqueId] [Special logic] All CourseUniqueId in CourseFeeSetup are in CourseFinancialSetupRevenue."
+        )
+
+    df = check_revenue_type(df, df_course_fee_setup)
+    df = check_course_product_module(df, df_course_check)
+    df = check_revenue_completeness(df, df_blended_course)
+
+    # Sum of amount fee of all modules, all tiers
     df_course_module_fee_rate = read_reference_data(
         course_setup_file_path, "CourseModuleFeeRate"
     )
@@ -421,4 +546,5 @@ def course_financial_setup_revenue(
 
     # Revenue tier, must comare that amount of each tier - each module the same as in course tier rate fee
 
+    # df = df.drop(columns=["Method to calculate", "Sum of flat rate", "Sum of charge rate", "Sum of package rate of"])
     return df

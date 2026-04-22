@@ -46,10 +46,11 @@ class OuterReferenceValidation(ValidationStrategy):
       *args,
       **kwargs
       ) -> None:
-      super().__init__(df, args, kwargs)
+      super().__init__(df, *args, **kwargs)
       self.df = df
-      self.args = args
-      self.kwargs = kwargs
+    #   self.args = args
+    #   self.kwargs = kwargs
+      self.sheet_name = self.kwargs.get("sheet_name")
       self.ref_info = self.kwargs.get("ref_info")
       self.factory = factory
       self.outer_reference_registry = outer_reference_registry
@@ -82,6 +83,7 @@ class OuterReferenceValidation(ValidationStrategy):
         conditions = config["conditions"]
 
         masks = []
+        lookup_set_final = []
 
         for condition in conditions:
             file_path: str = condition.get("file_path")
@@ -104,6 +106,7 @@ class OuterReferenceValidation(ValidationStrategy):
             mask = df[current_column].isin(lookup_set)
 
             masks.append(mask)
+            lookup_set_final.extend(lookup_set.values.tolist())
 
         if not masks:
           return pd.Series(False, index=df.index)
@@ -112,7 +115,7 @@ class OuterReferenceValidation(ValidationStrategy):
         for mask in masks[1:]:
           result = ConditionParser.LOGICAL_MAP[operator](result, mask)
 
-        return result, lookup_set
+        return result, lookup_set_final
 
     @logger_wrapper
     def validate(
@@ -139,15 +142,45 @@ class OuterReferenceValidation(ValidationStrategy):
                 final_mask = final_mask | sub_mask
 
                 mark_result(
-                    self.df,
-                    final_mask,
-                    column,
-                    self.kwargs["validation_type"],
-                    rule.kwargs["message"]
+                    df=self.df,
+                    mask=final_mask,
+                    column=column,
+                    validation_type=self.kwargs["validation_type"],
+                    message=rule.kwargs["message"],
+                    sheet_name=self.sheet_name
                 )
 
         return final_mask
 
+"""
+@logger_wrapper
+def validate(self, column: str) -> pd.Series:
+    final_mask = pd.Series(False, index=self.df.index)
+
+    for ref in self.compiled_refs:
+        condition_mask, value_list = self.reference_mask(
+            self.df, column, ref.get("condition")
+        )
+
+        for rule in ref.get("rules"):
+            if rule.__class__.__name__ == "ValueListValidation":
+                rule.kwargs["values"] = value_list
+
+            sub_mask = rule.validate(column)
+
+            invalid_mask = condition_mask & sub_mask
+            final_mask = final_mask | invalid_mask
+
+            mark_result(
+                self.df,
+                invalid_mask,   # better than final_mask here
+                column,
+                self.kwargs["validation_type"],
+                rule.kwargs["message"]
+            )
+
+    return final_mask
+"""
 
     # @logger_wrapper
     # def load_outer_reference_data(

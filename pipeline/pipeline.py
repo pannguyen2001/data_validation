@@ -4,7 +4,7 @@ from typing import Callable, Optional
 from utils.logger_wrapper import logger_wrapper
 from utils.process_result import process_result
 from utils.detect_file_type import detect_file_type
-from configs.constants import date_today, time_today, report_folder_path
+from configs.constants import datetime_today, date_today, report_folder_path
 from .processing import process_data
 from .validate import validate_data
 from .setup import read_file_strategy_factory, write_data_strategy_factory
@@ -55,17 +55,28 @@ class ValidationPipeline:
         return process_data(df, df_processing, processing_action)
 
     @logger_wrapper
-    def validate(self, df: pd.DataFrame, df_validation: pd.DataFrame):
-        return validate_data(df, df_validation)
+    def validate(self, df: pd.DataFrame, df_validation: pd.DataFrame, sheet_name):
+        return validate_data(df, df_validation, sheet_name)
 
     @logger_wrapper
-    def process_result(self, df, file_name, sheet_name):
-        validation_report_file_path: str = f"{report_folder_path}/{date_today}_{file_name}_validation_result.xlsx"
-        return process_result(df, file_path=validation_report_file_path, sheet_name=sheet_name)
+    def process_result(
+        self,
+        df,
+        file_name,
+        sheet_name,
+        origin_file_path
+    ):
+        validation_report_file_path: str = f"{report_folder_path}/{datetime_today}/{file_name}_validation_result.xlsx"
+        return process_result(
+            df,
+            file_path=validation_report_file_path,
+            sheet_name=sheet_name,
+            origin_file_path=origin_file_path
+        )
 
     @logger_wrapper
     def write_data(self, df, file_name, sheet_name, file_type):
-        processed_data_file_path: str = f"./data/processed_data/{date_today}/{date_today}_{file_name}.xlsx"
+        processed_data_file_path: str = f"./data/processed_data/{date_today}/{datetime_today}/{file_name}.xlsx"
         self.write_data_strategy_factory.get_strategy(file_type)().run(
             df=df,
             file_path=processed_data_file_path,
@@ -115,7 +126,7 @@ class ValidationPipeline:
         df_sheet_validation_config = pd.DataFrame()
         if df_validation_config is not None:
             df_sheet_validation_config = df_validation_config.loc[df_validation_config["sheet_name"] == sheet_name]
-        df = self.validate(df, df_sheet_validation_config)
+        df = self.validate(df, df_sheet_validation_config, sheet_name)
         if df is None:
             logger.error(f"[{self.__class__.__name__}] Validation failed.")
             return None
@@ -128,22 +139,27 @@ class ValidationPipeline:
                 return None
 
         # Result processing (optional)
-        df = self.process_result(df, file_name, sheet_name)
+        df = self.process_result(
+            df=df,
+            file_name=file_name,
+            sheet_name=sheet_name,
+            origin_file_path=file_path
+        )
         if df is None:
             logger.warning(f"[{self.__class__.__name__}] Result processing failed.")
             return None
 
-        # Postprocessing
-        df_postprocessing_config = pd.DataFrame()
-        if df_processing_config is not None:
-            df_postprocessing_config = df_processing_config.loc[(df_processing_config["sheet_name"] == sheet_name) & (df_processing_config["processing_action"] == "postprocessing")]
-        df = self.processing(df, df_postprocessing_config, "postprocessing")
-        if df is None:
-            logger.warning(f"[{self.__class__.__name__}] Postprocessing failed.")
-            return None
+        # # Postprocessing
+        # df_postprocessing_config = pd.DataFrame()
+        # if df_processing_config is not None:
+        #     df_postprocessing_config = df_processing_config.loc[(df_processing_config["sheet_name"] == sheet_name) & (df_processing_config["processing_action"] == "postprocessing")]
+        # df = self.processing(df, df_postprocessing_config, "postprocessing")
+        # if df is None:
+        #     logger.warning(f"[{self.__class__.__name__}] Postprocessing failed.")
+        #     return None
 
-        # Write output
-        self.write_data(df, file_name, sheet_name, file_type)
+        # # Write output
+        # self.write_data(df, file_name, sheet_name, file_type)
 
         logger.info(f"[{self.__class__.__name__}] Complete validation for sheet: {sheet_name}, file: {file_path}")
         logger.info(f"{'-'*50}\n")

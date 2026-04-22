@@ -2,13 +2,20 @@ import datetime
 import pandas as pd
 from loguru import logger
 from .logger_wrapper import logger_wrapper
-
+from helpers.factory import (
+    WriteDataStrategyFactory
+    )
+from utils.detect_file_type import detect_file_type
+from helpers.strategy.write_data import (
+    WriteToExcelStrategy
+)
 
 @logger_wrapper
 def process_result(
     df: pd.DataFrame = None,
     file_path: str = "",
     sheet_name: str = "Sheet1",
+    origin_file_path: str = "", 
     index: bool = False,
     *args,
     **kwargs
@@ -39,15 +46,23 @@ def process_result(
         df_error["validation_result"] = df_error["validation_result"].map(
             lambda x: "\n".join(x)
         )
-
-        with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
-            df_error.to_excel(
-                writer, sheet_name=sheet_name, index=index, *args, **kwargs
-            )
-
-        logger.success(
-            f"[{sheet_name}] Error report has been written to {file_path}"
+        file_type: str = detect_file_type(file_path)
+        write_data_strategy_factory = WriteDataStrategyFactory()
+        write_data_strategy_factory.register("excel", WriteToExcelStrategy)
+        write_data_strategy_factory.get_strategy(file_type)().run(
+            df=df_error,
+            file_path=file_path,
+            sheet_name=sheet_name,
+            origin_file_path=origin_file_path
         )
+        # with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
+        #     df_error.to_excel(
+        #         writer, sheet_name=sheet_name, index=index, *args, **kwargs
+        #     )
+
+        # logger.success(
+        #     f"[{sheet_name}] Error report has been written to {file_path}"
+        # )
 
     mask = df["validation_result"].map(lambda x: len(x) == 0)
     df = df[mask].reset_index(drop=True)

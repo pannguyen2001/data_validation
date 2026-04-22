@@ -12,6 +12,7 @@ class InnerReferenceValidation(ValidationStrategy):
         **kwargs,
     ) -> None:
         super().__init__(df, *args, **kwargs)
+        self.sheet_name = self.kwargs.get("sheet_name")
         self.ref_info = self.kwargs.get("ref_info")
         self.factory = self.kwargs.get("factory")
         self.kwargs["validation_type"] = "Check inner reference"
@@ -43,6 +44,12 @@ class InnerReferenceValidation(ValidationStrategy):
                 # Apply only where condition is true
                 invalid_mask = condition_mask & sub_mask
                 mask = mask | invalid_mask
-                mark_result(self.df, mask, column, self.kwargs["validation_type"], rule.kwargs["message"])
+                mark_result(
+                    df=self.df,
+                    mask=mask,
+                    column=column,
+                    validation_type=self.kwargs["validation_type"], message=rule.kwargs["message"],
+                    sheet_name=self.sheet_name
+                    )
 
         return mask

@@ -7,16 +7,19 @@ from utils.mark_result import mark_result
 class ValidationStrategy(ABC):
     def __init__(self, df: pd.DataFrame = None, *args, **kwargs) -> None:
         self.df = df
+        self.sheet_name = kwargs.get("sheet_name")
         self.args = args
         self.kwargs = kwargs
         self.marks_own_results: bool = False
 
         if self.df is None:
             raise ValueError(
-                f"[{self.__class__.__name__}] df and config must be provided."
+                f"[{self.__class__.__name__}] [{self.sheet_name}] df and config must be provided."
             )
         if self.df.empty:
-            raise ValueError(f"[{self.__class__.__name__}] df must not be empty.")
+            raise ValueError(
+                f"[{self.__class__.__name__}] [{self.sheet_name}] df must not be empty."
+            )
 
         if "validation_result" not in df.columns:
             self.df["validation_result"] = [set() for i in range(self.df.shape[0])]
@@ -25,7 +28,9 @@ class ValidationStrategy(ABC):
     def is_empty(self, data) -> bool:
         """Check if data is empty"""
         if data is None or data.empty:
-            raise ValueError(f"[{self.__class__.__name__}] Data is empty.")
+            raise ValueError(
+                f"[{self.__class__.__name__}] [{self.sheet_name}] Data is empty."
+            )
         return False
 
     @abstractmethod
@@ -38,12 +43,14 @@ class ValidationStrategy(ABC):
     def run(self) -> None:
         column = self.kwargs.get("name")
         if not column:
-            raise ValueError(f"[{self.__class__.__name__}] column is required.")
+            raise ValueError(
+                f"[{self.__class__.__name__}] [{self.sheet_name}] column is required."
+            )
         set_columns = {column} if isinstance(column, str) else set(column)
         invalid_columns = set_columns - set(self.df.columns.values.tolist())
         if invalid_columns:
             raise ValueError(
-                f"[{self.__class__.__name__}] Column '{invalid_columns}' not in df: {self.df.columns.values.tolist()}"
+                f"[{self.__class__.__name__}] [{self.sheet_name}] Column '{invalid_columns}' not in df: {self.df.columns.values.tolist()}"
             )
 
         self.is_empty(self.df[column])
@@ -52,7 +59,14 @@ class ValidationStrategy(ABC):
         if not self.marks_own_results:
             validation_type = self.kwargs.get("validation_type")
             message = self.kwargs.get("message")
-            mark_result(self.df, self.mask, column, validation_type, message)
+            mark_result(
+                df=self.df,
+                mask=self.mask,
+                column=column,
+                validation_type=validation_type,
+                message=message,
+                sheet_name=self.sheet_name,
+            )
 
         return self.mask
 

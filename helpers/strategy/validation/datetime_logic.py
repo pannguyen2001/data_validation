@@ -17,7 +17,7 @@ class DatetimeLogicValidation(ValidationStrategy):
             raise ValueError(f"[{self.__class__.__name__}] left_column, right_column and datetime format are required. {left_column = }, {right_column = }, {datetime_format = }")
         if left_column not in self.df.columns or right_column not in self.df.columns:
             raise ValueError(f"[{self.__class__.__name__}] left_column or right_column notr in data column. {left_column = }, {right_column = }, {self.df.columns = }")
-        
+
         mask = pd.to_datetime(
             self.df[left_column], errors="coerce", format=datetime_format
         ) > pd.to_datetime(

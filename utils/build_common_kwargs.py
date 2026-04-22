@@ -6,6 +6,7 @@ from .normalize_template_name import normalize_template_name
 from .logger_wrapper import logger_wrapper
 
 
+
 @logger_wrapper
 def build_common_kwargs(file_paths: list[str]) -> dict:
     common_kwargs = {
@@ -17,5 +18,7 @@ def build_common_kwargs(file_paths: list[str]) -> dict:
     for file_path in file_paths:
         key = normalize_template_name(file_path)
         common_kwargs[f"${{{key}_FILE_PATH}}"] = file_path
+        # from loguru import logger
+        # logger.error(f"${{{key}_FILE_PATH}}, {common_kwargs[f'${{{key}_FILE_PATH}}'] = }")
 
     return common_kwargs

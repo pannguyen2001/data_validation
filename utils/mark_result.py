@@ -44,7 +44,8 @@ def mark_result(
     column: str = "",
     validation_type: str = "",
     message: str = "",
-    extra_message: str = ""
+    extra_message: str = "",
+    sheet_name: str = ""
     ) -> None:
     if df is None or df.empty:
         logger.warning("Data is empty.")
@@ -54,11 +55,11 @@ def mark_result(
         return
     # if column not in df.columns:
     #     raise ValueError(f"{column} is not in data columns: {df.columns.values.tolist()}")
-    if not validation_type or not message:
-            logger.warning("validation_type, message are empty.")
+    if not validation_type or not message or not sheet_name:
+            logger.error(f"validation_type, message or sheet_name is empty. validation_type: {validation_type}, message: {message}, sheet_name: {sheet_name}")
             return
 
-    error_message: str = f"[{column}] [{validation_type}] {message}"
+    error_message: str = f"[{sheet_name} - {column}] [{validation_type}] {message}"
     # df.loc[mask, "validation_result"] = df.loc[mask, "validation_result"].map(lambda x: x.union({error_message}))
     failed_idx = df.index[mask]
     for idx in failed_idx:
@@ -66,12 +67,12 @@ def mark_result(
 
     error_amount: int = mask.sum()
     if error_amount == 0:
-        logger.success(f"[{column}] [{validation_type}] All records are valid. {extra_message}")
+        logger.success(f"[{sheet_name} - {column}] [{validation_type}] All records are valid. {extra_message}")
         return
 
     shape: int = mask.shape[0]
     sample_index_errors: List = (mask.where(mask).dropna().index + 2).values.tolist()[:5]
-    logger.error(f"{error_message}. {error_amount}/{shape} records are invalid. Excel index example: {sample_index_errors}.")
-    
+    logger.error(f"-\t{error_message}.\n-\t{error_amount}/{shape} records are invalid.\n-\tExcel index: {sample_index_errors}.")
+
     return
 

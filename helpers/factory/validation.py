@@ -21,7 +21,7 @@ class ValidationStrategyFactory:
 
     @logger_wrapper
     def build_strategy(
-        self, name: str, config: Optional[Dict] = None, *args, **kwargs
+        self, name: str, config: Optional[Dict] = {}, *args, **kwargs
     ) -> ValidationStrategy:
         rule_type = kwargs.get("type")
         rule_class = self.strategies.get(rule_type)
@@ -38,5 +38,4 @@ class ValidationStrategyFactory:
 
         if self.context is None:
             self.context = {}
-
-        return rule_class(*args, **kwargs, **self.context)
+        return rule_class(*args, **kwargs, **self.context, **config)

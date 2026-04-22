@@ -6,7 +6,7 @@ from .setup import validation_strategy_factory, outer_reference_registry
 
 
 @logger_wrapper
-def validate_data(df: pd.DataFrame = None, df_validation_config: pd.DataFrame = None) -> Optional[pd.DataFrame]:
+def validate_data(df: pd.DataFrame = None, df_validation_config: pd.DataFrame = None, sheet_name: str = "") -> Optional[pd.DataFrame]:
     """
     Validate data and record result.
     """
@@ -15,6 +15,9 @@ def validate_data(df: pd.DataFrame = None, df_validation_config: pd.DataFrame = 
         return df
     if df_validation_config is None:
         logger.error(f"[{validate_data.__name__}] df_validation_config is required.")
+        return df
+    if not sheet_name:
+        logger.error(f"[{validate_data.__name__}] sheet_name is required.")
         return df
     if df.empty:
         logger.warning(f"[{validate_data.__name__}] df is empty.")
@@ -33,6 +36,7 @@ def validate_data(df: pd.DataFrame = None, df_validation_config: pd.DataFrame = 
 
     for index, row in df_validation_config.iterrows():
         config = row.to_dict()
+        config["sheet_name"] = sheet_name
         if config["type"] == "inner_reference":
             config["factory"] = validation_strategy_factory
         if config["type"] == "outer_reference":

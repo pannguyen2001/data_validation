@@ -17,9 +17,21 @@ from utils.build_common_kwargs import build_common_kwargs
 from utils.get_input_files import get_input_files
 from utils.build_validation_sheet_set import build_validation_sheet_set
 from additional_functions.course_setup import course_setup_additional_function
+from additional_functions.course_intake import course_intake_setup_additional_function
+from additional_functions.finance_process import finance_process_additional_function
+import warnings
+import polars as pl
 
+# Ignore all warnings globally
+warnings.filterwarnings("ignore")
+# Ignore all PolarsWarnings
+warnings.filterwarnings("ignore", category=pl.exceptions.PolarsWarning)
 
-addtional_function: Dict = {**course_setup_additional_function}
+addtional_function: Dict = {
+    **course_setup_additional_function,
+    **course_intake_setup_additional_function,
+    **finance_process_additional_function
+    }
 
 
 @logger_wrapper
@@ -130,8 +142,8 @@ def main(data_folder_path: str) -> None:
     #         except Exception as e:
     #             logger.exception(f"Worker future failed: {e}")
     for file_path in file_paths:
-        if "Course" not in file_path:
-            continue
+        # if "Course" not in file_path:
+        #     continue
         try:
             result = validate_files(
                 file_path,
@@ -186,6 +198,22 @@ if __name__ == "__main__":
 
 # how to avoid memery leak
 
+# from pipeline.setup import read_file_strategy_factory
+# from .detect_file_type import detect_file_type
+# from .get_input_files import get_input_files
+# from typing import List, Dict, Optional
+# from configs.constants import CONSTANT_CONFIG_FOLDER_PATH
+# @logger_wrapper
+# def load_constant(file_path: str = CONSTANT_CONFIG_FOLDER_PATH) -> Optional[Dict]:
+#     constant_files: List = get_input_files(CONSTANT_CONFIG_FOLDER_PATH)
+#     constant_data: Dict = {}
+#     for file in constant_files:
+#         file_type: str = detect_file_type(file)
+#         temp_constant_data: Dict = read_file_strategy_factory.get_strategy(file_type)(file).load()
+#         constant_data = {**constant_data, **temp_constant_data}
+#     constant_data = {key: [item_key for item_key in value.keys()] for key, value in constant_data.items()}
+#     logger.info(constant_data)
+#     return constant_data
 
 
 

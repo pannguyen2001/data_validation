@@ -5,16 +5,16 @@ from .base_strategy import ValidationStrategy
 
 
 def check_row(val: Any, allowed_values: Set) -> bool:
-    # 1. Check if it's a list first. 
+    # 1. Check if it's a list first.
     # A list is NEVER 'isna', so we can safely process it.
     if isinstance(val, list):
         # Return True (Error) if any element in the list is NOT allowed
         return not set(val).issubset(allowed_values)
-    
+
     # 2. If it's NOT a list, then check if it's NaN/Null
     if pd.isna(val):
         return False # Assuming NaNs are handled by a 'Required' rule
-    
+
     # 3. Finally, check single values (strings, ints, etc.)
     return val not in allowed_values
 
@@ -31,15 +31,15 @@ class ValueListValidation(ValidationStrategy):
 
         if value_list is None:
             raise ValueError(f"[{self.__class__.__name__}] [{column}] value_list is required.")
-        
+
         if separator is not None and pd.notna(separator):
             data = (
             self.df[column]
             .astype(str)
             .str.split(separator)
-            .map(lambda x: [i.strip() for i in x])
+            .map(lambda x: [i.strip() for i in x] if isinstance(x, list) else x)
         )
-        
+
         # Ensure value_list is a set for O(1) lookup performance
         allowed_values = set(value_list)
 
