@@ -22,7 +22,7 @@ class DataTypeValidation(ValidationStrategy):
             raise ValueError(f"[{self.__class__.__name__}] [{column}] data_type is required.")
         if data_type not in DATA_TYPE_CHECKING_LIST:
             raise ValueError(f"[{self.__class__.__name__}] [{column}] data_type '{data_type}' is incorrect. Value must be one of these: {DATA_TYPE_CHECKING_LIST}.")
-        not_in_empty_list: pd.Series = self.df[column].isin(["", "nan", "pd.NA", "null", "None", "none"])
+        not_in_empty_list: pd.Series = ~self.df[column].isin(["", "nan", "pd.NA", "null", "None", "none"])
 
         match data_type:
             case "integer":

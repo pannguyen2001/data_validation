@@ -40,7 +40,7 @@ def process_data(
         raise ValueError(
             f"[{processing_action}] df_processing_config is required."
         )
-        return
+
     if df.empty:
         logger.warning(f"[{processing_action}] df is empty.")
         return df

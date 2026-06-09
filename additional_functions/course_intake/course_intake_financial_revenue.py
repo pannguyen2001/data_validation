@@ -74,6 +74,51 @@ def check_modules(df_check: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
 
 
 @logger_wrapper
+def check_reference_type(
+    df_check: pd.DataFrame,
+    blended_courses: pd.Series,
+    elearning_courses_list: pd.Series,
+    module_list: pd.Series
+) -> pd.DataFrame:
+    # Check reference type == Elearning course
+    is_blended_course: pd.Series = df_check["CourseIntakeId"].isin(blended_courses)
+    is_elearning_course: pd.Series = df_check["Course/Product code/Module"].isin(elearning_courses_list)
+    incorrect_elearning_reference_type_mask: pd.Series = (
+        is_blended_course
+        & is_elearning_course
+        & (df_check["Reference type"] != "Elearning course")
+    )
+
+    # Check reference type == Module
+    is_module: pd.Series = df_check["Course/Product code/Module"].isin(module_list)
+    incorrect_module_reference_type_mask: pd.Series = (
+        is_module
+        & (df_check["Reference type"] != "Module")
+    )
+
+    mark_result(
+        df=df_check,
+        mask=incorrect_elearning_reference_type_mask,
+        column="Reference type",
+        sheet_name="CourseIntakeFinancialRevenue",
+        validation_type="Special logic",
+        message='If course has e learning course with condition: "Course Setup > Course > Blended course" = "Yes" and "Course Setup > ELearningCourseConfiguration > Content provider" is "In house/Go1/LinkedIn Learning", "Reference type" must be "Elearning course"',
+        extra_message='All courses that "Course Setup > Course > Blended course" = "Yes" and "Course Setup > ELearningCourseConfiguration > Content provider" is "In house/Go1/LinkedIn Learning" have "Reference type" = "Elearning course"'
+    )
+
+    mark_result(
+        df=df_check,
+        mask=incorrect_module_reference_type_mask,
+        column="Reference type",
+        sheet_name="CourseIntakeFinancialRevenue",
+        validation_type="Special logic",
+        message='If course has module code in "Course Setup > PathwayStructure", "Reference type" must be "Module"',
+        extra_message='All courses have module code in "Course Setup > PathwayStructure" have "Reference type" = "Elearning course"'
+    )
+
+    return df_check
+
+@logger_wrapper
 def check_sum_of_amount(df_check: pd.DataFrame):
     # Flat rate
     rate_cols: List = [
@@ -191,15 +236,19 @@ def course_intake_financial_revenue(
     df_course: pd.DataFrame = read_reference_data(
         course_setup_file_path,
         "Course",
-        usecols=["CourseUniqueId"],
+        usecols=["CourseUniqueId", "Blended course"],
     )
 
     # ElearningCourseConfig
     df_elearning_course_config: pd.DataFrame = read_reference_data(
         course_setup_file_path,
         "ELearningCourseConfiguration",
-        usecols=["CourseUniqueId", "Selected courses"]
+        usecols=["CourseUniqueId", "Selected courses", "Content provider"]
     )
+    df_elearning_course_config = df_elearning_course_config.loc[df_elearning_course_config["Content provider"].isin(["In house", "Go1", "LinkedIn Learning"])].reset_index(drop=True)
+    df_elearning_course_config["Selected courses"] = df_elearning_course_config["Selected courses"].map(lambda x: x.split("#;") if pd.notna(x) else x)
+    df_elearning_course_config = df_elearning_course_config.explode("Selected courses", ignore_index=True)
+    elearning_courses_list: pd.Series = df_elearning_course_config["Selected courses"].unique()
 
     # Pathway
     df_pathway: pd.DataFrame = read_reference_data(
@@ -214,6 +263,7 @@ def course_intake_financial_revenue(
         "PathwayStructure",
         usecols=["Pathway ID", "Module code"]
     )
+    module_list: pd.Series = df_pathway_structure["Module code"].unique()
 
     # ----------------------------------------
     # Process data
@@ -262,7 +312,7 @@ def course_intake_financial_revenue(
     df_course["Selected courses"] = df_course["Selected courses"].map(lambda x: [] if not isinstance(x, list) else x)
     df_course["All modules"] = df_course["Module code"] + df_course["Selected courses"]
     df_course = df_course.explode("All modules", ignore_index=True)
-    df_course = df_course.groupby("CourseUniqueId").agg({"All modules": list}).reset_index()
+    df_course = df_course.groupby("CourseUniqueId").agg({"All modules": list, "Blended course": "first"}).reset_index()
     df_course["All modules"] = df_course["All modules"].map(lambda x: set(x) if all(pd.notna(i) for i in x) else set())
 
     # Course vs Intake
@@ -348,6 +398,26 @@ def course_intake_financial_revenue(
 
     # Missing modules or Extra modules
     check_modules(df_check)
+
+    # Check invalid course: Blended course = Yes, but content provider is not in ["In house", "Go1", "LinkedIn Learning"]
+    blended_courses: pd.Series = df_check.loc[df_check["Blended course"] == "Yes", "CourseIntakeId"].unique()
+    valid_content_provider_elearning_courses: List = elearning_courses_list.tolist() + module_list.tolist()
+    invalid_elearning_course_mask: pd.Series = (
+        (df["CourseIntakeId"].isin(blended_courses))
+        & ~(df["Course/Product code/Module"].isin(valid_content_provider_elearning_courses))
+    )
+    mark_result(
+        df=df,
+        mask=invalid_elearning_course_mask,
+        column="[CourseUniqueId - Course/Product code/Module]",
+        validation_type="Special logic",
+        sheet_name="CourseIntakeFinancialSetupRevenue",
+        message='If course of intake is blended course, content provider of elearning course must be one of these values: "In house", "Go1", "LinkedIn Learning"',
+        extra_message='Course of intake is blended course, elearning course has correct content provider, value is one of these: "In house", "Go1", "LinkedIn Learning"'
+    )
+
+    # Check reference type
+    df = check_reference_type(df, blended_courses, elearning_courses_list, module_list)
 
     # Sum of Amount
     (

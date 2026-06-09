@@ -11,7 +11,7 @@ class FillDefaultValueProcessing(PreprocessingStrategy):
     def process(self, column: str, *args, **kwargs) -> pd.DataFrame:
         default_value = self.kwargs.get("default_value")
 
-        if not default_value:
+        if default_value is None:
             raise ValueError(f"[{self.__class__.__name__}] default_value is required.")
 
         self.df[column] = self.df[column].fillna(default_value)
