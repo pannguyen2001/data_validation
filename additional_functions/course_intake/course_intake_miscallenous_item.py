@@ -30,7 +30,7 @@ def check_misc_item_currency(df: pd.DataFrame) -> pd.DataFrame:
 @logger_wrapper
 def check_misc_eff_time(df: pd.DataFrame) -> Optional[pd.DataFrame]:
     df["Intake start date"] = df["Intake start and end date"].map(
-        lambda x: x.split(":")[0]
+        lambda x: x.split(":")[0] if pd.notna(x) else x
     )
     df["Intake start date"] = pd.to_datetime(
         df["Intake start date"], errors="coerce", format="%d%m%Y"

@@ -1,0 +1,8 @@
+env file: folder path -> get all files in filders and sub folders (if have and need) (staging folder) -> group those files having the same name(Ex: Application 1.xlsx, Application 2.xlsx,...) -> read and group all sheets having the same name in all same file names -> write to parquet (raw folder)
+
+raw (brozen): raw data
+processed (silver): cleaned data
+aggregated (golden): grouped, aggegated data, ready to use
+
+
+generate positive and negative data

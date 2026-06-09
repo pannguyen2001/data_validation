@@ -278,8 +278,8 @@ def course_fee_setup(df: pd.DataFrame, *args, **kwargs) -> Optional[pd.DataFrame
     # Validation
     # ----------------------------------------
     # Check course in course file but not in course fee setup file:
-    course_ids: pd.Series = set(df_course["CourseUniqueId"].unique())
-    course_fee_setup_ids: pd.Series = set(df["CourseUniqueId"].unique())
+    course_ids: set = set(df_course["CourseUniqueId"].unique())
+    course_fee_setup_ids: set = set(df["CourseUniqueId"].unique())
     course_ids_not_in_course_fee_setup: set = course_ids - course_fee_setup_ids
     # logger.info(f"{course_ids_not_in_course_fee_setup = }")
     if len(course_ids_not_in_course_fee_setup) > 0:

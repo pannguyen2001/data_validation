@@ -170,12 +170,28 @@ def course_intake_financial_discount(
 ) -> Optional[pd.DataFrame]:
     df_check = df.copy()
     intake_file_path: str = kwargs.get("${COURSE_INTAKE_SETUP_AND_OTHERS_FILE_PATH}")
+    course_setup_file_path: str = kwargs.get("${COURSE_SETUP_FILE_PATH}")
     finance_setup_file_path: str = kwargs.get("${FINANCE_SETUP_FILE_PATH}")
 
 
     # ----------------------------------------
     # Read reference data
     # ----------------------------------------
+    # CourseFinancialSetupRevenue
+    df_course_financial_setup_revenue: pd.DataFrame = read_reference_data(
+        course_setup_file_path,
+        "CourseFinancialSetupRevenue",
+        usecols=["CourseUniqueId"]
+    )
+
+    # CourseIntake
+    df_intake: pd.DataFrame = read_reference_data(
+        intake_file_path,
+        "CourseIntake",
+        usecols=["CourseIntakeId", "CourseUniqueId"]
+    )
+    intake_has_course_financial_setup_revenue: pd.Series = df_intake.loc[df_intake["CourseUniqueId"].isin(df_course_financial_setup_revenue["CourseUniqueId"]), "CourseIntakeId"].unique()
+
     # Course intake fee setup
     df_intake_financial_revenue: pd.DataFrame = read_reference_data(
         intake_file_path,
@@ -216,6 +232,13 @@ def course_intake_financial_discount(
     # ----------------------------------------
     # Validation
     # ----------------------------------------
+    # CourseIntake that has course unique id not in CourseFinancialSetupRevenue
+    missing_financial_setup_revenue_ids: pd.Series = df["CourseIntakeId"].loc[~df["CourseIntakeId"].isin(intake_has_course_financial_setup_revenue)].unique()
+    if len(missing_financial_setup_revenue_ids) > 0:
+        logger.error(f"[CourseIntakeFinancialDiscount - CourseIntakeId] [Special logic] CourseIntakeId in CourseIntakeFinancialDiscount but CourseUniqueId not found in CourseFinancialSetupRevenue. Amount: {len(missing_financial_setup_revenue_ids)}. Details: {missing_financial_setup_revenue_ids.tolist()}")
+    else:
+        logger.success("[CourseIntakeFinancialDiscount - CourseIntakeId] [Special logic] CourseIntakeId in CourseIntakeFinancialDiscount and CourseUniqueId found in CourseFinancialSetupRevenue.")
+
     # Intake, discount name in CourseIntakeFeeSetupDiscount and CourseIntakeFinancialDiscount is not match
     check_discount_name(df_check, df_intake_fee_setup_discount)
 

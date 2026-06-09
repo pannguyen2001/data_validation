@@ -1,6 +1,5 @@
 import pandas as pd
-from loguru import logger
-from typing import Any, Callable
+from typing import Any
 from pipeline.pipeline import validation_pipeline
 from utils.logger_wrapper import logger_wrapper
 from utils.logger import logger
@@ -44,8 +43,8 @@ def validate_files(
             if sheet_name not in validation_sheet_set:
                 result["skipped_sheets"].append(sheet_name)
                 continue
-            additional_function = kwargs.get("additional_function").get(sheet_name)
-            common_kwargs = kwargs.get("common_kwargs")
+            additional_function = kwargs.get("additional_function", {}).get(sheet_name)
+            common_kwargs = kwargs.get("common_kwargs", {})
             try:
                 # IMPORTANT:
                 # your pipeline should support preloaded df to avoid re-reading

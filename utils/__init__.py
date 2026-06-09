@@ -1,5 +1,6 @@
 from .build_common_kwargs import build_common_kwargs
 from .build_validation_sheet_set import build_validation_sheet_set
+from .cleanup_file_or_folder import cleanup_file_or_folder
 from .condition_parser import ConditionParser
 from .detect_file_type import detect_file_type
 from .get_env_info import get_env_info
@@ -16,6 +17,7 @@ from .read_reference_data import read_reference_data
 __all__ = [
     "build_common_kwargs",
     "build_validation_sheet_set",
+    "cleanup_file_or_folder"
     "ConditionParser",
     "detect_file_type",
     "get_env_info",

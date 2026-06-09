@@ -7,7 +7,8 @@ from helpers.factory import (
     )
 from utils.detect_file_type import detect_file_type
 from helpers.strategy.write_data import (
-    WriteToExcelStrategy
+    WriteToExcelStrategy,
+    WriteToCSVStrategy
 )
 
 @logger_wrapper
@@ -46,15 +47,24 @@ def process_result(
         df_error["validation_result"] = df_error["validation_result"].map(
             lambda x: "\n".join(x)
         )
-        file_type: str = detect_file_type(file_path)
+        # file_type: str = detect_file_type(file_path)
         write_data_strategy_factory = WriteDataStrategyFactory()
-        write_data_strategy_factory.register("excel", WriteToExcelStrategy)
-        write_data_strategy_factory.get_strategy(file_type)().run(
+
+        write_data_strategy_factory.register("csv", WriteToCSVStrategy)
+        write_data_strategy_factory.get_strategy("csv")().run(
             df=df_error,
             file_path=file_path,
-            sheet_name=sheet_name,
-            origin_file_path=origin_file_path
+            sheet_name=sheet_name
         )
+
+        # write_data_strategy_factory.register("excel", WriteToExcelStrategy)
+        # write_data_strategy_factory.get_strategy(file_type)().run(
+        #     df=df_error,
+        #     file_path=file_path,
+        #     sheet_name=sheet_name,
+        #     origin_file_path=origin_file_path
+        # )
+
         # with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
         #     df_error.to_excel(
         #         writer, sheet_name=sheet_name, index=index, *args, **kwargs

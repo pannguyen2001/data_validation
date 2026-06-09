@@ -97,7 +97,7 @@ class ValidationPipeline:
 
         if not file_path:
             raise ValueError(f"[{self.__class__.__name__}] file_path is required.")
-        
+
         file_name: str = file_path.replace("\\", "/").split("/")[-1].split(".")[0] or f"{date_today}"
         file_type: str = detect_file_type(file_path)
 
